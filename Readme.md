@@ -1,5 +1,5 @@
 # Proyecto: De Todito - Mini Marketplace
-![Texto alternativo](../P.HTML+CSS/de-todito.png)
+![Texto alternativo](./assets/images/de-todito.png)
 
 Este repositorio contiene el proyecto **De Todito**, una tienda en línea implementada con **HTML5** y **CSS3** siguiendo un enfoque **mobile-first** y **responsive**. En este proyecto se han implementado 2 secciones clave para la página principal (Home) y la página de tienda (Shop).
 
