@@ -6,7 +6,6 @@ Este repositorio contiene el proyecto **De Todito**, una tienda en línea implem
 ## Arquitectura de Carpetas
 La estructura de carpetas se organizó para mantener el orden y la escalabilidad del proyecto. A continuación se detalla cada sección:
 ```
-b24-frontend-maricielo-react/
 ├── assets/              # Contiene recursos estáticos para el proyecto
 │   ├── css/             # Archivos CSS para el diseño y estilo de la página
 │   ├── fonts/           # Fuentes personalizadas utilizadas en el proyecto
@@ -20,7 +19,7 @@ b24-frontend-maricielo-react/
 ## 🚀 Prueba Local
 Para visualizar el proyecto localmente, sigue estos pasos:
 
-Clona el repositorio (si es que está en GitHub) o descarga los archivos directamente a tu computadora.
+Clona el repositorio o descarga los archivos directamente a tu computadora.
 
 ```
 git clone https://github.com/Maricieloaf02/BOOTCAMP-FRONTEND-REACT-NTT-MARICIELO-AF.git
