@@ -1,9 +1,0 @@
-/* Archivo principal, va a importar mis css*/
-@import url('./global.css');
-@import url('./variables.css');
-@import url('./header.css');
-@import url('./hero.css');
-@import url('./benefits.css');
-@import url('./categories.css');
-@import url('./shop.css');
-@import url('./footer.css');
