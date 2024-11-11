@@ -1,0 +1,191 @@
+.shop-container {
+    display: flex;
+    gap: var(--gap-medium);
+    padding: var(--padding-medium);
+}
+
+/* ----------------------- Sidebar de Categorías ----------------------- */
+.sidebar {
+    width: 250px;
+    padding: var(--padding-medium);
+    background-color: var(--background-color);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: var(--font-size-medium);
+    margin-bottom: var(--padding-small);
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list li {
+    margin-bottom: var(--padding-small);
+    font-size: var(--font-size-small);
+}
+
+.category-list label {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    cursor: pointer;
+}
+
+.category-list input[type="radio"] {
+    margin-right: var(--padding-small);
+}
+
+/* --------------------------- Grid de Productos -------------------------------- */
+.product-grid {
+    flex: 1;
+    text-align: left;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-medium);
+}
+
+.product-card {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    padding: var(--padding-small);
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card h3 {
+    font-size: var(--font-size-medium);
+    margin: var(--padding-small) 0;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.product-card .price {
+    font-size: var(--font-size-small);
+    color: #555;
+    margin: 4px 0 var(--padding-small);
+    text-align: left;
+}
+
+.cart-button-shop {
+    position: absolute;
+    bottom: 36px;
+    right: 36px;
+    background-color: #ebebeb;
+    border: none;
+    cursor: pointer;
+    padding: var(--padding-small);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease;
+}
+
+.cart-button-shop img {
+    width: 20px;
+    height: 20px;
+}
+
+.cart-button-shop:hover {
+    background-color: var(--primary-color);
+}
+
+/* --------------------------------- Paginación ---------------------------------*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-small);
+    padding: var(--padding-medium) 0;
+}
+
+.page-num {
+    display: inline-block;
+    padding: var(--padding-small) var(--padding-medium);
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+}
+
+.page-num.active,
+.page-num:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.page-next {
+    font-size: var(--font-size-medium);
+    color: var(--text-color);
+}
+
+/* --------------------------------- Media query ---------------------------------*/
+
+@media (max-width: 768px) {
+    /* Contenedor principal */
+    .shop-container {
+        flex-direction: column;
+        gap: var(--gap-small);
+    }
+
+    /* Sidebar de Categorías */
+    .sidebar {
+        width: 100%;
+        padding: var(--padding-small);
+        text-align: center; /* Centra el texto para una mejor visualización en móvil */
+    }
+
+    .sidebar h2 {
+        font-size: var(--font-size-medium);
+    }
+
+    .category-list li {
+        font-size: var(--font-size-small);
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 productos por fila en pantallas del cel */
+        gap: var(--gap-small);
+    }
+
+    .product-card {
+        padding: var(--padding-small);
+    }
+
+    .product-card h3 {
+        font-size: var(--font-size-small);
+    }
+
+    .product-card .price {
+        font-size: var(--font-size-small);
+    }
+
+    .pagination {
+        padding: var(--padding-small) 0;
+        gap: var(--gap-small);
+    }
+
+    .page-num,
+    .page-next {
+        font-size: var(--font-size-small);
+        padding: var(--padding-small) var(--padding-medium);
+    }
+}

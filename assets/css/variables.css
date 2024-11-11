@@ -1,0 +1,63 @@
+/* Mis variables globales*/
+:root {
+    --primary-color: #27ae60;
+    --secondary-color: #333;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --text-light: #fff;
+    --font-family: 'Poppins', sans-serif;
+
+    /* Tipografía */
+    --font-size-small: 12px;
+    --font-size-medium: 14px;
+    --font-size-large: 24px;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    /* Espaciado */
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-large: 16px;
+    --padding-small: 8px;
+    --padding-medium: 16px;
+    --padding-large: 24px;
+
+    --border-color: #ccc;
+    --accent-color: #2e7d32;
+    --primary-color-hover: #1e7e34;
+    --gap-small: 16px;
+    --gap-medium: 18px;
+
+}
+
+/* Uso como fuente => Poppins */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: var(--font-weight-regular);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Italic.ttf') format('truetype');
+    font-weight: var(--font-weight-regular);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: var(--font-weight-light);
+    font-style: normal;
+}
+
+

@@ -1,0 +1,97 @@
+.main-footer {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    padding: var(--padding-large) var(--padding-medium);
+    font-size: var(--font-size-small);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--gap-large);
+    margin-bottom: var(--padding-medium);
+}
+
+/* Sección de mi marca De Todito :) */
+.footer-brand {
+    flex: 1;
+    max-width: 250px;
+}
+
+.footer-logo {
+    width: 24px;
+    margin-bottom: var(--padding-small);
+}
+
+.footer-brand p {
+    margin: var(--padding-small) 0;
+}
+
+.contact-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: var(--font-weight-bold);
+    margin: 0 5px;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Enlaces útiles */
+.footer-links {
+    display: flex;
+    gap: var(--gap-medium);
+    flex: 3;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 150px;
+}
+
+.footer-column h3 {
+    color: var(--text-light);
+    font-size: var(--font-size-medium);
+    margin-bottom: var(--padding-small);
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin: 5px 0;
+}
+
+.footer-column ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary-color);
+}
+
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--gap-small); 
+    }
+
+    .footer-brand,
+    .footer-links,
+    .footer-column {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .footer-column ul {
+        padding: 0;
+    }
+}

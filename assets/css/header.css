@@ -1,0 +1,251 @@
+.main-header {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================================= */
+/* --------------------- Parte superior del header --------------------- */
+/* ================================================================= */
+
+.header-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--padding-medium) var(--padding-large);
+    gap: var(--padding-medium);
+}
+
+/* Logo de De Todito */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-small);
+    text-decoration: none;
+    margin-right: auto;
+}
+
+.logo img {
+    width: 40px;
+    height: auto;
+}
+
+.logo span {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-bold); 
+    color: var(--primary-color);
+}
+/* ================================================================= */
+/* ---------------------- Barra de búsqueda ---------------------- */
+/* ================================================================= */
+
+.search-bar {
+    display: flex;
+    max-width: 400px;
+    border: 1px solid var(--border-color); 
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: var(--padding-small) var(--padding-medium) var(--padding-small) 44px;
+    border: none;
+    font-size: var(--font-size-small); 
+    outline: none;
+    font-family: var(--font-family);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--padding-small);
+    top: 5px;
+    font-size: var(--font-size-medium);
+    color: var(--secondary-color); 
+}
+
+.search-bar button {
+    padding: var(--padding-small) var(--padding-large); 
+    background-color: var(--primary-color); 
+    color: var(--text-light); 
+    border: none;
+    font-weight: var(--font-weight-bold); 
+    font-family: var(--font-family);
+    cursor: pointer;
+    border-radius: 0 var(--border-radius-large) var(--border-radius-large) 0;
+}
+
+/* ================================================================= */
+/* ---------------------- Iconos en el header ---------------------- */
+/* ================================================================= */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-medium);
+    margin-left: auto;
+}
+
+/* Línea entre mi user y mi carrito */
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--border-color);
+}
+
+.cart-container {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.header-icons button {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Indicador de la cantidad de productos de mi carrito */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--accent-color);
+    color: var(--text-light); 
+    font-size: var(--font-size-small); 
+    font-weight: var(--font-weight-bold); 
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-info {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-medium); 
+}
+.cart-info span {
+    font-weight: var(--font-weight-regular, normal); 
+    color: var(--text-color);
+}
+
+.cart-info strong {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color);
+}
+
+
+
+/* ------------------------------------------------------------------------------------- */
+/* -------------------------------- Barra de navegación -------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+
+/* Barra de navegación principal */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: var(--padding-medium) var(--padding-large);
+    color: var(--text-light);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--gap-medium);
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #a79f9f;
+    font-size: var(--font-size-small);
+    font-family: var(--font-family);
+}
+
+.nav-links li a:hover {
+    color: var(--primary-color);
+}
+
+/* Información de contacto en la barra de navegación */
+.nav-contact {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-small);
+    font-size: var(--font-size-medium);
+    margin-left: auto;
+}
+
+.phone-icon {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .main-header {
+        padding: var(--padding-small);
+    }
+
+    /* Alinear la parte superior del header en columna */
+    .header-top {
+        flex-direction: column;
+        gap: var(--padding-small);
+    }
+
+    /* Logo: Centrar en el header */
+    .logo {
+        margin-right: 0;
+        justify-content: center;
+    }
+
+    /* Barra de búsqueda: Expandir al 100% y centrar */
+    .search-bar {
+        max-width: 100%;
+        width: 90%;
+        margin-bottom: var(--padding-small);
+    }
+
+    /* Iconos del header: Alinear en el centro y ajustar el espacio */
+    .header-icons {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--gap-small);
+        margin-left: 0;
+    }
+
+    /* Botón del carrito */
+    .cart-container {
+        justify-content: center;
+        gap: var(--gap-small);
+    }
+
+    /* Barra de navegación: Cambiar a columna y centrar enlaces */
+    .main-nav {
+        display: none;
+    }
+
+
+    .cart-info {
+        text-align: center;
+    }
+}
+
