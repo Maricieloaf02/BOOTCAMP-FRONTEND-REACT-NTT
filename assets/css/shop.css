@@ -54,6 +54,7 @@
 
 .product-card {
     position: relative;
+    /* los colores también podrían estar como variables */
     background-color: #fff;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-medium);

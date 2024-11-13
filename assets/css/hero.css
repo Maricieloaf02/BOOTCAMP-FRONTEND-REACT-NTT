@@ -35,6 +35,7 @@
 }
 
 .hero-promotion .highlight {
+    /* los colores también podrían estar como variables */
     color: #f39c12;
     font-weight: var(--font-weight-bold);
 }
