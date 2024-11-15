@@ -4,8 +4,11 @@ import './assets/css/header.css';
 import './assets/css/hero.css';
 import './assets/css/benefits.css';
 import './assets/css/categories.css';
-import './assets/css/shop.css';
+import './assets/css/shop.css'; 
 import './assets/css/footer.css';
+import './components/SearchBar.js';
+import './components/Header.js';
+import './components/UserCart.js';
 
 // Código de interactividad básica
 document.addEventListener('DOMContentLoaded', () => {
