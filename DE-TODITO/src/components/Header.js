@@ -44,9 +44,8 @@ class Header extends HTMLElement {
     navLinks.classList.add('nav-links');
 
     const links = [
-      { href: '../index.html', text: 'Inicio' },
+      { href: '../index.html', text: 'Sesión' },
       { href: 'shop.html', text: 'Tienda' },
-      { href: '#', text: 'Sobre nosotros' },
       { href: '#', text: 'Contáctanos' },
     ];
 
@@ -71,51 +70,49 @@ class Header extends HTMLElement {
       .main-header {
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid #ddd;
-        background-color: #fff;
+        border-bottom: 1px solid var(--light-gray);
+        background-color: var(--header-bg);
       }
       .header-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 24px;
+        padding: var(--padding-medium) var(--padding-large);
       }
       .logo {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: var(--gap-small);
         text-decoration: none;
       }
       .logo img {
-        width: 40px;
-        height: 40px;
+        width: var(--logo-size);
       }
       .logo span {
-        font-size: 20px;
-        font-weight: bold;
-        color: #28a745;
+        font-size: var(--font-size-xlarge);
+        font-weight: var(--font-weight-bold);
+        color: var(--primary-color);
       }
       .main-nav {
-        background-color: #333;
-        margin-top: 10px; /* Separación entre header-top y nav */
-        padding: 12px 24px;
+        background-color: var(--secondary-color);
+        margin-top: var(--gap-small); /* Separación entre header-top y nav */
+        padding: var(--padding-small) var(--padding-large);
       }
       .nav-links {
         display: flex;
         justify-content: left;
-        gap: 20px;
+        gap: var(--gap-medium);
         list-style: none;
-        padding: 0;
+        padding: 5px;
         margin: 0;
       }
       .nav-links li a {
         text-decoration: none;
-        color: white;
-        font-size: 14px;
+        color: var(--footer-text);
+        font-size: var(--font-size-small);
       }
       .nav-links li a:hover {
-        text-decoration: none;
-        color: #28a745;
+        color: var(--primary-color);
       }
     `;
 
@@ -124,5 +121,5 @@ class Header extends HTMLElement {
   }
 }
 
-// Registrar el Web Component
+// Registro el Web Component
 customElements.define('main-header', Header);

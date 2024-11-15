@@ -65,7 +65,7 @@ class UserCart extends HTMLElement {
       .user-cart-container {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: var(--gap-medium);
       }
       .user-button, .cart-button {
         display: flex;
@@ -77,13 +77,13 @@ class UserCart extends HTMLElement {
         padding: 0;
       }
       .user-button img, .cart-button img {
-        width: 24px;
-        height: 24px;
+        width: var(--icon-size);
+        height: var(--icon-size);
       }
       .cart-container {
         display: flex;
         align-items: center;
-        gap: 24px;
+        gap: var(--gap-medium);
       }
       .cart-button {
         position: relative;
@@ -92,27 +92,26 @@ class UserCart extends HTMLElement {
         position: absolute;
         top: -8px;
         right: -8px;
-        background: green;
-        color: white;
+        background: var(--cart-badge-bg);
+        color: var(--cart-badge-text);
         border-radius: 50%;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 2px 2px;
+        font-size: var(--font-size-small);
+        font-weight: var(--font-weight-bold);
+        padding: 2px;
         min-width: 16px;
         text-align: center;
       }
       .cart-info {
         display: flex;
-        align-items: center;
         flex-direction: column;
-        gap: 5px;
-        font-size: 14px;
-        color: #333;
+        gap: var(--gap-small);
+        font-size: var(--font-size-small);
+        color: var(--secondary-color);
       }
       .cart-info strong {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
+        font-size: var(--font-size-medium);
+        font-weight: var(--font-weight-bold);
+        color: var(--secondary-color);
       }
     `;
 

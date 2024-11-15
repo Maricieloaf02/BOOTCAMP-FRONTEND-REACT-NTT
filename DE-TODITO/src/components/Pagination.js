@@ -14,27 +14,39 @@ class Pagination extends HTMLElement {
       .pagination {
         display: flex;
         justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
+        gap: var(--gap-small);
+        margin: var(--gap-medium);
       }
       .page-number {
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
+        padding: var(--padding-small) var(--padding-medium);
+        border: 1px solid var(--light-gray);
+        border-radius: 50%;
+        background-color: var(--background-color);
+        color: var(--text-color);
         cursor: pointer;
+        font-family: var(--font-family);
+        font-size: var(--font-size-small);
       }
       .page-number.active {
-        background-color: #28a745;
-        color: #fff;
-        font-weight: bold;
+        background-color: var(--primary-color);
+        color: var(--text-light);
+        font-weight: var(--font-weight-bold);
       }
       button {
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
+        padding: var(--padding-small) 12px;
+        border: 1px solid var(--light-gray);
+        border-radius: 50%;
+        margin-top: var(--gap-small);
+        background-color: var(--background-color);
+        color: var(--text-color);
         cursor: pointer;
+        font-family: var(--font-family);
+        font-size: var(--font-size-small);
+        transition: background-color 0.3s, color 0.3s;
+      }
+      button:hover:not(:disabled) {
+        background-color: var(--primary-color-hover);
+        color: var(--text-light);
       }
       button:disabled {
         opacity: 0.5;

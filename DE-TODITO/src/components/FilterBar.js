@@ -12,30 +12,23 @@ class FilterBar extends HTMLElement {
     filters.classList.add('filters');
 
     // Crear los dropdowns
-    const categoriesDropdown = this.createDropdown('Select Category');
-    const priceDropdown = this.createDropdown('Select Price');
-    const ratingDropdown = this.createDropdown('Select Rating');
+    const categoriesDropdown = this.createDropdown('Categoría');
 
     filters.appendChild(categoriesDropdown);
-    filters.appendChild(priceDropdown);
-    filters.appendChild(ratingDropdown);
 
-    // Contenedor de filtros activos
+    // Filtros activos
     const activeFilters = document.createElement('div');
     activeFilters.classList.add('active-filters');
 
-    // Texto de Active Filters
     const activeFiltersText = document.createElement('span');
-    activeFiltersText.textContent = 'Active Filters:';
+    activeFiltersText.textContent = 'Filtros activos:';
+
     activeFilters.appendChild(activeFiltersText);
 
-    // Crear filtro activo: Wing Chair
-    const filter1 = this.createActiveFilter('Wing Chair');
-    activeFilters.appendChild(filter1);
-
-    // Crear filtro activo: Min $300 - Max $500
-    const filter2 = this.createActiveFilter('Min $300 - Max $500');
-    activeFilters.appendChild(filter2);
+    // Filtros dinámicos
+    const filterItemsContainer = document.createElement('div');
+    filterItemsContainer.classList.add('filter-items');
+    activeFilters.appendChild(filterItemsContainer);
 
     // Ensamblar todo
     container.appendChild(filters);
@@ -47,92 +40,98 @@ class FilterBar extends HTMLElement {
       .filter-bar {
         display: flex;
         flex-direction: column;
-        padding: 10px 20px;
-        border-bottom: 1px solid #ddd;
-        background-color: #fff;
+        padding: var(--padding-medium);
+        border-bottom: 1px solid var(--light-gray);
+        background-color: var(--background-color);
       }
       .filters {
         display: flex;
-        gap: 15px;
-        margin: 4px 12px 12px 0px
+        gap: var(--gap-medium);
+        margin-bottom: var(--gap-small);
       }
       .dropdown {
-        padding: 8px 20px 8px 13px;
-        border: 1px solid #cccccc96;
-        border-radius: 5px;
-        background-color: #fff;
-        font-size: 14px;
-        color: #555;
+        padding: var(--padding-small);
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius-medium);
+        background-color: var(--background-color);
+        font-size: var(--font-size-medium);
+        color: var(--secondary-color);
         cursor: pointer;
       }
       .active-filters {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
-        color: #555;
+        gap: var(--gap-small);
+        font-size: var(--font-size-small);
+        color: var(--secondary-color);
       }
-      .active-filters > span:first-child {
-        font-weight: bold;
-        margin-right: 10px;
+      .active-filters span {
+        padding: var(--padding-small);
+      } 
+
+      .filter-items {
+        display: flex;
+        gap: var(--gap-small);
+        flex-wrap: wrap;
       }
       .filter-item {
         display: flex;
         align-items: center;
-        padding: 5px 10px;
+        background-color: var(--background-color);
+        padding: var(--padding-small);
+        border-radius: var(--border-radius-small);
+        font-size: var(--font-size-small);
+        color: var(--secondary-color);
       }
       .filter-item button {
-        margin-left: 5px;
+        margin-left: var(--gap-small);
         border: none;
         background: none;
-        color: #555;
+        color: var(--secondary-color);
         cursor: pointer;
-        font-size: 14px;
       }
       .filter-item button:hover {
-        color: red;
+        color: var(--primary-color-hover);
       }
     `;
 
     shadow.appendChild(style);
     shadow.appendChild(container);
+
+    // Guardar referencias
+    this.filterItemsContainer = filterItemsContainer;
   }
 
   // Método para crear un dropdown
   createDropdown(placeholder) {
     const dropdown = document.createElement('select');
     dropdown.classList.add('dropdown');
-
     const option = document.createElement('option');
     option.textContent = placeholder;
     option.disabled = true;
     option.selected = true;
-
     dropdown.appendChild(option);
     return dropdown;
   }
 
-  // Método para crear un filtro activo
-  createActiveFilter(label) {
-    const filterItem = document.createElement('span');
+  // Método para agregar filtros activos dinámicamente
+  addFilterItem(label) {
+    const filterItem = document.createElement('div');
     filterItem.classList.add('filter-item');
-
-    const filterText = document.createElement('span');
-    filterText.textContent = label;
+    filterItem.textContent = label;
 
     const removeButton = document.createElement('button');
     removeButton.textContent = '✖';
-    removeButton.classList.add('remove-filter');
     removeButton.addEventListener('click', () => {
-      filterItem.remove(); // Elimina el filtro al hacer clic
+      filterItem.remove();
     });
 
-    filterItem.appendChild(filterText);
     filterItem.appendChild(removeButton);
-
-    return filterItem;
+    this.filterItemsContainer.appendChild(filterItem);
   }
 }
 
 // Registrar el componente
 customElements.define('filter-bar', FilterBar);
+
+//  Agregar dinámicamente filtros activos
+document.querySelector('filter-bar')?.addFilterItem('Categoría: Frutas');

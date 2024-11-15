@@ -64,8 +64,8 @@ class ProductGrid extends HTMLElement {
       const cartIcon = document.createElement("img");
       cartIcon.src = "./assets/icons/carrito.svg"; // Ruta del archivo SVG
       cartIcon.alt = "Add to cart icon";
-      cartIcon.style.width = "24px"; // Ajusta el tamaño del ícono si es necesario
-      cartIcon.style.height = "24px";
+      cartIcon.style.width = "var(--icon-size)"; // Tamaño controlado por variable
+      cartIcon.style.height = "var(--icon-size)";
 
       cartButton.appendChild(cartIcon); // Agrega la imagen al botón
 
@@ -89,48 +89,47 @@ class ProductGrid extends HTMLElement {
       .product-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        margin: 20px 20px;
+        gap: var(--gap-medium);
+        margin: var(--gap-medium);
       }
       .product-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 14px;
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius-medium);
+        padding: var(--padding-medium);
         text-align: center;
-        background-color: #fff;
+        background-color: var(--background-color);
       }
       .product-card img {
         width: 100%;
         height: auto;
-        border-radius: 8px;
+        border-radius: var(--border-radius-medium);
       }
       .product-info {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 10px;
+        padding-top: var(--gap-small);
       }
       .product-info h3 {
         margin: 0;
-        font-size: 12px;
-        color: #333;
+        font-size: var(--font-size-small);
+        color: var(--secondary-color);
       }
       .product-info .price {
-        font-size: 12px;
+        font-size: var(--font-size-small);
         text-align: left;
-        color: #555;
-        margin: 2px 6px
+        color: var(--text-color);
+        margin: var(--gap-small);
       }
       .cart-button {
-        padding: 4px 6px;
+        padding: 6px var(--padding-small);
         border: none;
-        background-color: #8bffa5;
-        color: #fff;
+        color: var(--text-light);
         border-radius: 50%;
         cursor: pointer;
       }
       .cart-button:hover {
-        background-color: #218838;
+        background-color: var(--primary-color-hover);
       }
     `;
 

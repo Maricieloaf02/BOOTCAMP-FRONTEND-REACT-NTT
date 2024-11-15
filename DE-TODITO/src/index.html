@@ -1,123 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De Todito</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+  </head>
+  <body>
     <main-header></main-header>
-    <main>
-        <section class="hero-section">
-            <div class="hero-content">
-                <span class="hero-subtitle">Bienvenido a De Todito</span>
-                <h1>Alimentos ecológicos, frescos y sanos</h1>
-                <p class="hero-promotion">Venta de hasta <span class="highlight">30% DE DESCUENTO</span></p>
-                <p class="hero-description">Envío gratuito en todos sus pedidos. Nosotros entregamos, usted disfruta.</p>
-                <a href="shop.html" class="hero-button">Comprar ahora<span class="button-arrow">→</span></a>
-            </div>
-            <figure class="hero-image">
-                <img src="assets/images/hero.png" alt="Fresh vegetables" />
-            </figure>
-        </section>
-        
-        <section class="benefits-section">
-            <article class="benefit-item">
-                <img src="assets/icons/free-shipping.svg" alt="Free Shipping Icon" class="benefit-icon">
-                <div class="benefit-content">
-                    <h3 class="benefit-title">Envío gratuito</h3>
-                    <p class="benefit-description">Envío gratuito en todos sus pedidos</p>
-                </div>
-            </article>
-            <article class="benefit-item">
-                <img src="assets/icons/customer-support.svg" alt="Customer Support Icon" class="benefit-icon">
-                <div class="benefit-content">
-                    <h3 class="benefit-title">Atención al cliente 24/7</h3>
-                    <p class="benefit-description">Acceso instantáneo a Asistencia</p>
-                </div>
-            </article>
-            <article class="benefit-item">
-                <img src="assets/icons/secure-payment.svg" alt="Secure Payment Icon" class="benefit-icon">
-                <div class="benefit-content">
-                    <h3 class="benefit-title">Pago 100% seguro</h3>
-                    <p class="benefit-description">Garantizamos la seguridad de su dinero</p>
-                </div>
-            </article>
-            <article class="benefit-item">
-                <img src="assets/icons/money-back.svg" alt="Money-Back Guarantee Icon" class="benefit-icon">
-                <div class="benefit-content">
-                    <h3 class="benefit-title">Garantía de devolución del dinero</h3>
-                    <p class="benefit-description">30 días de garantía de devolución del dinero</p>
-                </div>
-            </article>
-        </section>
-        
-
-        <section class="popular-categories">
-            <div class="section-header">
-                <h2>Categorias populares</h2>
-                <a href="shop.html" class="view-all">Ver todas</a>
-            </div>
-            <div class="categories-grid">
-                <article class="category-item">
-                    <img src="assets/images/fruit.jpg" alt="Fresh Fruit">
-                    <p>Fruta fresca</p>
-                </article>
-                <article class="category-item">
-                    <img src="assets/images/vegetables.jpg" alt="Fresh Vegetables">
-                    <p>Vegetales frescos</p>
-                </article>
-                <article class="category-item">
-                    <img src="assets/images/meat.jpg" alt="Meat & Fish">
-                    <p>Carnes y Pescado</p>
-                </article>
-                <article class="category-item">
-                    <img src="assets/images/snack.jpg" alt="Snacks">
-                    <p>Snacks</p>
-                </article>
-                <article class="category-item">
-                    <img src="assets/images/beauty.jpg" alt="Beauty & Health">
-                    <p>Belleza y Salud</p>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <div class="footer-container">
-
-            <div class="footer-brand">
-                <img src="assets/images/logo.png" alt="De Todito Logo" class="footer-logo">
-                <p>Ofrecemos calidad y salud</p>
-                <p class="contact-info">
-                    <a href="tel:(51) 983-464-777">(51) 983-464-777</a> 
-                    <span>or</span> 
-                    <a href="mailto:maricielo.datascience@gmail.com">maricielo.datascience@gmail.com</a>
-                </p>
-            </div>
-    
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h3>Mi cuenta</h3>
-                    <ul>
-                        <li><a href="#">Mi cuenta</a></li>
-                        <li><a href="#">Historia de ordenes</a></li>
-                        <li><a href="#">Carrito de compras</a></li>
-                        <li><a href="#">Lista de deseos</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Ayuda</h3>
-                    <ul>
-                        <li><a href="#">Contactanos</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Términos y Condiciones</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    
-    </footer>
+    <filter-bar></filter-bar>
+    <product-grid></product-grid>
+    <pagination-bar></pagination-bar>
+    <main-footer></main-footer>
     <script type="module" src="./main.js"></script>
-</body>
+  </body>
 </html>

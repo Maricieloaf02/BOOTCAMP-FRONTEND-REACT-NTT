@@ -50,38 +50,38 @@ class SearchBar extends HTMLElement {
       }
       .search-input-wrapper {
         display: flex;
-        align-items: center;
-        border: 1px solid #ddd;
-        border-radius: 25px;
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius-medium);
         overflow: hidden;
-        background-color: #fff;
+        background-color: var(--background-color);
         flex: 1;
       }
       .search-icon img {
-        width: 20px;
-        height: 20px;
-        margin: 5px 10px 0px 10px;
+        width: var(--icon-size);
+        height: var(--icon-size);
+        margin: 4px 0px 0 4px;
       }
       .search-input-wrapper input {
         border: none;
         outline: none;
-        font-size: 14px;
+        font-size: var(--font-size-medium);
         flex: 1;
-        padding: 10px 10px;
+        padding: var(--padding-small);
+        font-family: var(--font-family);
       }
       .search-button {
-        background-color: #28a745;
-        color: white;
+        background-color: var(--primary-color);
+        color: var(--text-light);
         border: none;
         border-radius: 0; /* Eliminamos bordes del botón para que se alinee */
         flex-shrink: 0; /* Evitamos que el botón cambie de tamaño */
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: var(--padding-small) var(--padding-medium);
+        font-size: var(--font-size-medium);
         cursor: pointer;
         transition: background-color 0.3s;
       }
       .search-button:hover {
-        background-color: #218838;
+        background-color: var(--primary-color-hover);
       }
     `;
 
