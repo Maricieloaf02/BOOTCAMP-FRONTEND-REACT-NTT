@@ -1,192 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
     <main-header></main-header>
-    <div class="shop-container">
-        <aside class="sidebar">
-            <h2>Todas las categorías</h2>
-            <ul class="category-list">
-                <li>
-                    <label>
-                        <input type="radio" name="category" checked>
-                        <span>Frutas</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Verduras</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Canrnes, aves y pescados</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Lácteos y huevos</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Panadería y pastelería</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Bebidas</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Vinos, licores y cervezas</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Limpieza</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Cuidado personal y salud</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="category">
-                        <span>Mascotas</span>
-                    </label>
-                </li>
-            </ul>
-        </aside>
-    
-        <main class="product-grid">
-            <h2>Products</h2>
-            <div class="grid">
-                <article class="product-card">
-                    <img src="assets/images/coliflor.jpg" alt="coliflor">
-                    <h3>Coliflor</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/lechuga.jpg" alt="lechuga">
-                    <h3>Lechuga</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/pimenton-verde.jpg" alt="pimenton-verde">
-                    <h3>Pimenton verde</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/papa.jpg" alt="papa">
-                    <h3>Papa</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/tomate.jpg" alt="tomate">
-                    <h3>Tomate</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/aji.jpg" alt="aji">
-                    <h3>Ají</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/col-china.jpg" alt="col-china">
-                    <h3>Col chino</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-                <article class="product-card">
-                    <img src="assets/images/choclo.jpg" alt="choclo">
-                    <h3>Choclo</h3>
-                    <p class="price">$14.99</p>
-                    <button class="cart-button-shop" aria-label="Add to cart">
-                        <img src="assets/icons/compra.svg" alt="Add to cart">
-                    </button>
-                </article>
-            </div>
-            <nav class="pagination">
-                <a href="#" class="page-num active">1</a>
-                <a href="#" class="page-num">2</a>
-                <a href="#" class="page-num">3</a>
-                <span>...</span>
-                <a href="#" class="page-num">21</a>
-                <a href="#" class="page-next">→</a>
-            </nav>
-        </main>
-    </div>
-        
-    <footer class="main-footer">
-        <div class="footer-container">
+    <filter-bar></filter-bar>
+    <product-grid></product-grid>
 
-            <div class="footer-brand">
-                <img src="assets/images/logo.png" alt="De Todito Logo" class="footer-logo">
-                <p>Ofrecemos calidad y salud</p>
-                <p class="contact-info">
-                    <a href="tel:(51) 983-464-777">(51) 983-464-777</a> 
-                    <span>or</span> 
-                    <a href="mailto:maricielo.datascience@gmail.com">maricielo.datascience@gmail.com</a>
-                </p>
-            </div>
-    
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h3>Mi cuenta</h3>
-                    <ul>
-                        <li><a href="#">Mi cuenta</a></li>
-                        <li><a href="#">Historia de órdenes</a></li>
-                        <li><a href="#">Carrito de compras</a></li>
-                        <li><a href="#">Lista de deseos</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Ayuda</h3>
-                    <ul>
-                        <li><a href="#">Contactanos</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Términos y Condiciones</a></li>
-                    </ul>
-                </div>
-            </div>
+    <pagination-bar></pagination-bar>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img
+            src="assets/images/logo.png"
+            alt="De Todito Logo"
+            class="footer-logo"
+          />
+          <p>Ofrecemos calidad y salud</p>
+          <p class="contact-info">
+            <a href="tel:(51) 983-464-777">(51) 983-464-777</a>
+            <span>or</span>
+            <a href="mailto:maricielo.datascience@gmail.com"
+              >maricielo.datascience@gmail.com</a
+            >
+          </p>
         </div>
-    <script type="module" src="./main.js"></script>
+
+        <div class="footer-links">
+          <div class="footer-column">
+            <h3>Mi cuenta</h3>
+            <ul>
+              <li><a href="#">Mi cuenta</a></li>
+              <li><a href="#">Historia de órdenes</a></li>
+              <li><a href="#">Carrito de compras</a></li>
+              <li><a href="#">Lista de deseos</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Ayuda</h3>
+            <ul>
+              <li><a href="#">Contactanos</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Términos y Condiciones</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <script type="module" src="./main.js"></script>
     </footer>
-</body>
+  </body>
 </html>

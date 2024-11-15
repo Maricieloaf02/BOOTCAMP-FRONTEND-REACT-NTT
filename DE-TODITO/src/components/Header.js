@@ -1,4 +1,3 @@
-// Asegúrate de importar tus subcomponentes
 import './SearchBar.js';
 import './UserCart.js';
 
@@ -17,7 +16,7 @@ class Header extends HTMLElement {
     logoLink.classList.add('logo');
 
     const logoImg = document.createElement('img');
-    logoImg.src = '../assets/images/logo.png'; // Ruta a tu logo
+    logoImg.src = '../assets/images/logo.png';
     logoImg.alt = 'De Todito Logo';
 
     const logoText = document.createElement('span');
