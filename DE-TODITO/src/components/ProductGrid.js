@@ -61,9 +61,7 @@ class ProductGrid extends HTMLElement {
         });
         document.dispatchEvent(event); // Emitir el evento a nivel global
       });
-      
-      
-
+    
       const textContainer = document.createElement("div");
       textContainer.appendChild(productName);
       textContainer.appendChild(productPrice);
@@ -160,7 +158,6 @@ class ProductGrid extends HTMLElement {
     }
   `;
   
-
     shadow.appendChild(style);
     shadow.appendChild(container);
   }
