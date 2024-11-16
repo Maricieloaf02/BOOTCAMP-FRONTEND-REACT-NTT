@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+:root {
+    /* Colores principales */
+    --primary-color: #28a745; /* Verde bonito */
+    --primary-color-hover: #05e435; /* Verde más oscuro para hover */
+    --secondary-color: #333; /* Gris oscuro para texto */
+    --background-color: #fff; /* Fondo claro */
+    --text-light: #fff; /* Blanco */
+    --text-color: #212020; /* black */
+    --text--gray: #333; /* Gris oscuro */
+    --light-gray: #ddd; /* Bordes y separadores */
+    --medium-gray: #ccc; /* Otros elementos */
+    --text-color-light: #fff; /* Texto claro */
+    --accent-color: #8bffa5; /* Acento (e.g., botones) */
+
+    /* Tipografía */
+    --font-family: 'Poppins';
+    --font-size-small: 12px;
+    --font-size-medium: 14px;
+    --font-size-large: 16px;
+    --font-size-xlarge: 24px;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    --logo-size: 56px;
+
+    /* Espaciado */
+    --padding-small: 8px;
+    --padding-medium: 16px;
+    --padding-large: 24px;
+    --gap-small: 6px;
+    --gap-medium: 20px;
+    --gap-large: 30px;
+
+    /* Bordes */
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-large: 16px;
+
+    /* Altura de elementos */
+    --button-height: 40px;
+    --input-height: 36px;
+    --icon-size: 24px;
+
+    /* Colores específicos para componentes */
+    --header-bg: #fff; /* Fondo del header */
+    --footer-bg: #333; /* Fondo del footer */
+    --footer-text: #ccc; /* Texto del footer */
+    --footer-link-hover: #3df267; /* Hover en los enlaces del footer */
+    --cart-badge-bg: green; /* Fondo del contador del carrito */
+    --cart-badge-text: #fff; /* Texto del contador */
+}
+
+
+/* Uso como fuente => Poppins */
+@font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: var(--font-weight-regular);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Italic.ttf') format('truetype');
+    font-weight: var(--font-weight-regular);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: var(--font-weight-bold);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: var(--font-weight-light);
+    font-style: normal;
+}

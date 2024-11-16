@@ -6,16 +6,71 @@ class Header extends HTMLElement {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
 
-    // Contenedor principal del header
+    // Crear el header
+    const header = this.createHeader();
+
+    // Agregar estilos encapsulados
+    const style = this.createStyles();
+
+    // Ensamblar el Shadow DOM
+    shadow.appendChild(style);
+    shadow.appendChild(header);
+  }
+
+  /**
+   * Crea el contenedor principal del header.
+   * @returns {HTMLElement} - Elemento del header completo.
+   */
+  createHeader() {
     const header = document.createElement('header');
     header.classList.add('main-header');
 
-    // Logo de la marca con enlace a la página principal
+    // Contenedor superior: incluye logo, barra de búsqueda y carrito
+    const headerTop = this.createHeaderTop();
+
+    // Navegación principal
+    const nav = this.createNavigation();
+
+    // Ensamblar el header
+    header.appendChild(headerTop);
+    header.appendChild(nav);
+
+    return header;
+  }
+
+  /**
+   * Crea el contenedor superior del header.
+   * Incluye logo, barra de búsqueda y carrito.
+   * @returns {HTMLElement} - Contenedor superior del header.
+   */
+  createHeaderTop() {
+    const headerTop = document.createElement('div');
+    headerTop.classList.add('header-top');
+
+    // Logo
+    const logoLink = this.createLogo();
+
+    // Componentes reutilizables (SearchBar y UserCart)
+    const searchBar = document.createElement('search-bar');
+    const userCart = document.createElement('user-cart');
+
+    // Ensamblar el contenedor superior
+    headerTop.appendChild(logoLink);
+    headerTop.appendChild(searchBar);
+    headerTop.appendChild(userCart);
+
+    return headerTop;
+  }
+
+  /**
+   * Crea el logo con enlace a la página principal.
+   * @returns {HTMLElement} - Elemento del logo.
+   */
+  createLogo() {
     const logoLink = document.createElement('a');
     logoLink.href = '/';
     logoLink.classList.add('logo');
 
-    // Imagen y texto del logo
     const logoImg = document.createElement('img');
     logoImg.src = '../assets/images/logo.png';
     logoImg.alt = 'De Todito Logo';
@@ -23,39 +78,32 @@ class Header extends HTMLElement {
     const logoText = document.createElement('span');
     logoText.textContent = 'De Todito';
 
-    // Ensambla el enlace del logo
+    // Ensamblar el logo
     logoLink.appendChild(logoImg);
     logoLink.appendChild(logoText);
 
-    // Contenedor superior: incluye logo, barra de búsqueda y carrito
-    const headerTop = document.createElement('div');
-    headerTop.classList.add('header-top');
+    return logoLink;
+  }
 
-    // Barra de búsqueda (Web Component) y carrito/usuario (Web Component)
-    const searchBar = document.createElement('search-bar');
-    const userCart = document.createElement('user-cart');
-
-    // Ensambla el contenedor superior
-    headerTop.appendChild(logoLink);
-    headerTop.appendChild(searchBar);
-    headerTop.appendChild(userCart);
-
-    // Navegación principal con enlaces
+  /**
+   * Crea la navegación principal con enlaces.
+   * @returns {HTMLElement} - Navegación principal.
+   */
+  createNavigation() {
     const nav = document.createElement('nav');
     nav.classList.add('main-nav');
 
-    // Lista de enlaces de navegación
     const navLinks = document.createElement('ul');
     navLinks.classList.add('nav-links');
 
-    // Definición de los enlaces de navegación
+    // Lista de enlaces
     const links = [
-      { href: '../index.html', text: 'Sesión' },
-      { href: 'shop.html', text: 'Tienda' },
+      { href: '#', text: 'Sesión' },
+      { href: '../index.html', text: 'Tienda' },
       { href: '#', text: 'Contáctanos' },
     ];
 
-    // Genera y agrega cada enlace a la lista de navegación
+    // Generar enlaces dinámicamente
     links.forEach(link => {
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -65,14 +113,16 @@ class Header extends HTMLElement {
       navLinks.appendChild(li);
     });
 
-    // Ensambla la navegación principal
+    // Ensamblar la navegación
     nav.appendChild(navLinks);
+    return nav;
+  }
 
-    // Ensambla el header completo con sus componentes
-    header.appendChild(headerTop);
-    header.appendChild(nav);
-
-    // Estilos encapsulados para el Shadow DOM
+  /**
+   * Crea y retorna los estilos encapsulados del componente.
+   * @returns {HTMLStyleElement} - Elemento de estilos encapsulados.
+   */
+  createStyles() {
     const style = document.createElement('style');
     style.textContent = `
       .main-header {
@@ -139,13 +189,9 @@ class Header extends HTMLElement {
         }
       }
     `;
-
-
-    // Agrega estilos y el contenedor principal al Shadow DOM
-    shadow.appendChild(style);
-    shadow.appendChild(header);
+    return style;
   }
 }
 
-// Registra el componente como un Custom Element
+// Registrar el componente como un Custom Element
 customElements.define('main-header', Header);
