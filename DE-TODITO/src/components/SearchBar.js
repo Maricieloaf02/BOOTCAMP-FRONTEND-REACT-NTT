@@ -75,7 +75,6 @@ class SearchBar extends HTMLElement {
   }
 
   // Método para filtrar productos
-  // Método para filtrar productos
   filterProducts(query) {
     const productGrid = document.querySelector("product-grid");
 
