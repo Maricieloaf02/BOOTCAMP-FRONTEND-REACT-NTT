@@ -1,48 +1,47 @@
 class SearchBar extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: "open" });
 
     // Crear el formulario
-    const form = document.createElement('form');
-    form.classList.add('search-bar');
-    form.setAttribute('role', 'search');
+    const form = document.createElement("form");
+    form.classList.add("search-bar");
+    form.setAttribute("role", "search");
 
     // Contenedor del input y el ícono
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('search-input-wrapper');
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("search-input-wrapper");
 
     // Ícono de búsqueda
-    const icon = document.createElement('span');
-    icon.classList.add('search-icon');
+    const icon = document.createElement("span");
+    icon.classList.add("search-icon");
 
-    const img = document.createElement('img');
-    img.src = './assets/icons/search.svg'; // Ruta al ícono de búsqueda
-    img.alt = 'Search Icon';
+    const img = document.createElement("img");
+    img.src = "./assets/icons/search.svg"; // Ruta al ícono de búsqueda
+    img.alt = "Search Icon";
 
     icon.appendChild(img);
 
     // Input de búsqueda
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'mi producto';
-    input.setAttribute('aria-label', 'Buscar productos');
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "mi producto";
+    input.setAttribute("aria-label", "Buscar productos");
 
-    // Botón de búsqueda
-    const button = document.createElement('button');
-    button.type = 'submit';
-    button.textContent = 'Buscar';
-    button.classList.add('search-button');
+    // Evento para búsqueda en tiempo real
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLowerCase(); // Obtener el texto en minúsculas
+      console.log("Texto ingresado:", query); // Debug
+      this.filterProducts(query); // Llama a la función de filtrado
+    });
 
     // Ensamblar los elementos
     wrapper.appendChild(icon);
     wrapper.appendChild(input);
-    wrapper.appendChild(button);
-
     form.appendChild(wrapper);
 
     // Estilos del componente
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       .search-bar {
         display: flex;
@@ -69,27 +68,39 @@ class SearchBar extends HTMLElement {
         padding: var(--padding-small);
         font-family: var(--font-family);
       }
-      .search-button {
-        background-color: var(--primary-color);
-        color: var(--text-light);
-        border: none;
-        border-radius: 0; /* Eliminamos bordes del botón para que se alinee */
-        flex-shrink: 0; /* Evitamos que el botón cambie de tamaño */
-        padding: var(--padding-small) var(--padding-medium);
-        font-size: var(--font-size-medium);
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      .search-button:hover {
-        background-color: var(--primary-color-hover);
-      }
     `;
 
     // Adjuntar todo al Shadow DOM
     shadow.appendChild(style);
     shadow.appendChild(form);
   }
+
+  // Método para filtrar productos
+  // Método para filtrar productos
+  filterProducts(query) {
+    const productGrid = document.querySelector("product-grid");
+
+    // Verificar si el productGrid y los productos originales existen
+    if (!productGrid || !productGrid.originalProducts) {
+      console.error(
+        "No se encontró el product-grid o los productos originales están vacíos."
+      );
+      return;
+    }
+
+    // Filtrar sobre los productos originales
+    const allProducts = productGrid.originalProducts;
+
+    const filteredProducts = query
+      ? allProducts.filter((product) =>
+          product.name.toLowerCase().includes(query.toLowerCase().trim())
+        )
+      : allProducts; // Si no hay texto, muestra todos los productos
+
+    // Actualizar los productos en el grid
+    productGrid.setProducts(filteredProducts);
+  }
 }
 
 // Registrar el componente
-customElements.define('search-bar', SearchBar);
+customElements.define("search-bar", SearchBar);

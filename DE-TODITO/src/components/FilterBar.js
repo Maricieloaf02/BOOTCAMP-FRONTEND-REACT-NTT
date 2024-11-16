@@ -11,28 +11,12 @@ class FilterBar extends HTMLElement {
     const filters = document.createElement('div');
     filters.classList.add('filters');
 
-    // Crear los dropdowns
-    const categoriesDropdown = this.createDropdown('Categoría');
-
+    // Crear dropdown para categorías
+    const categoriesDropdown = this.createDropdown('Selecciona una categoría');
     filters.appendChild(categoriesDropdown);
-
-    // Filtros activos
-    const activeFilters = document.createElement('div');
-    activeFilters.classList.add('active-filters');
-
-    const activeFiltersText = document.createElement('span');
-    activeFiltersText.textContent = 'Filtros activos:';
-
-    activeFilters.appendChild(activeFiltersText);
-
-    // Filtros dinámicos
-    const filterItemsContainer = document.createElement('div');
-    filterItemsContainer.classList.add('filter-items');
-    activeFilters.appendChild(filterItemsContainer);
 
     // Ensamblar todo
     container.appendChild(filters);
-    container.appendChild(activeFilters);
 
     // Estilos
     const style = document.createElement('style');
@@ -58,47 +42,16 @@ class FilterBar extends HTMLElement {
         color: var(--secondary-color);
         cursor: pointer;
       }
-      .active-filters {
-        display: flex;
-        gap: var(--gap-small);
-        font-size: var(--font-size-small);
-        color: var(--secondary-color);
-      }
-      .active-filters span {
-        padding: var(--padding-small);
-      } 
-
-      .filter-items {
-        display: flex;
-        gap: var(--gap-small);
-        flex-wrap: wrap;
-      }
-      .filter-item {
-        display: flex;
-        align-items: center;
-        background-color: var(--background-color);
-        padding: var(--padding-small);
-        border-radius: var(--border-radius-small);
-        font-size: var(--font-size-small);
-        color: var(--secondary-color);
-      }
-      .filter-item button {
-        margin-left: var(--gap-small);
-        border: none;
-        background: none;
-        color: var(--secondary-color);
-        cursor: pointer;
-      }
-      .filter-item button:hover {
-        color: var(--primary-color-hover);
-      }
     `;
 
     shadow.appendChild(style);
     shadow.appendChild(container);
 
     // Guardar referencias
-    this.filterItemsContainer = filterItemsContainer;
+    this.categoriesDropdown = categoriesDropdown;
+
+    // Llamar a la función para cargar categorías dinámicamente
+    this.fetchCategories();
   }
 
   // Método para crear un dropdown
@@ -113,25 +66,65 @@ class FilterBar extends HTMLElement {
     return dropdown;
   }
 
-  // Método para agregar filtros activos dinámicamente
-  addFilterItem(label) {
-    const filterItem = document.createElement('div');
-    filterItem.classList.add('filter-item');
-    filterItem.textContent = label;
+  // Método para cargar categorías dinámicamente
+  async fetchCategories() {
+  try {
+    const response = await fetch('https://dummyjson.com/products/categories');
+    const categories = await response.json();
 
-    const removeButton = document.createElement('button');
-    removeButton.textContent = '✖';
-    removeButton.addEventListener('click', () => {
-      filterItem.remove();
+    console.log('Categorías obtenidas:', categories);
+
+    // Limpia las opciones existentes en el dropdown antes de agregar nuevas
+    this.categoriesDropdown.innerHTML = '';
+    const defaultOption = document.createElement('option');
+    defaultOption.textContent = 'Selecciona una categoría';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    this.categoriesDropdown.appendChild(defaultOption);
+
+    // Mapear el arreglo de objetos en opciones del dropdown
+    categories.forEach((category) => {
+      const option = document.createElement('option');
+      option.value = category.slug; // Usa el slug como valor
+      option.textContent = category.name; // Usa el nombre como texto visible
+      this.categoriesDropdown.appendChild(option);
     });
 
-    filterItem.appendChild(removeButton);
-    this.filterItemsContainer.appendChild(filterItem);
+    // Agregar listener al cambio de selección
+    this.categoriesDropdown.addEventListener('change', (event) => {
+      const selectedCategory = event.target.value;
+      this.fetchProductsByCategory(selectedCategory);
+    });
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+}
+
+
+  // Método para cargar productos por categoría
+  async fetchProductsByCategory(category) {
+    try {
+      const response = await fetch(`https://dummyjson.com/products/category/${category}`);
+      const data = await response.json();
+
+      console.log('Productos obtenidos:', data.products);
+
+      // Transformar productos a un formato que el ProductGrid pueda manejar
+      const transformedProducts = data.products.map((product) => ({
+        name: product.title,
+        price: product.price,
+        image: product.thumbnail,
+        category: category,
+      }));
+
+      // Actualizar el ProductGrid con los productos filtrados
+      const productGrid = document.querySelector('product-grid');
+      productGrid.setProducts(transformedProducts);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   }
 }
 
 // Registrar el componente
 customElements.define('filter-bar', FilterBar);
-
-//  Agregar dinámicamente filtros activos
-document.querySelector('filter-bar')?.addFilterItem('Categoría: Frutas');

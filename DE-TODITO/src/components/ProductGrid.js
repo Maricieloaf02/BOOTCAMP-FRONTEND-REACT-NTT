@@ -2,21 +2,18 @@ class ProductGrid extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-
     this.products = [];
-    this.currentPage = 1;
-    this.productsPerPage = 4;
-
     this.render();
   }
 
   setProducts(products) {
+    // Si no hay productos originales, inicialízalos
+    if (!this.originalProducts) {
+      this.originalProducts = products;
+    }
+  
+    // Actualizar los productos actuales que se muestran
     this.products = products;
-    this.render();
-  }
-
-  changePage(page) {
-    this.currentPage = page;
     this.render();
   }
 
@@ -28,12 +25,8 @@ class ProductGrid extends HTMLElement {
     const container = document.createElement("div");
     container.classList.add("product-grid");
 
-    const startIndex = (this.currentPage - 1) * this.productsPerPage;
-    const endIndex = startIndex + this.productsPerPage;
-    const currentProducts = this.products.slice(startIndex, endIndex);
-
-    // Renderiza los productos
-    currentProducts.forEach((product) => {
+    // Renderiza todos los productos
+    this.products.forEach((product) => {
       const productCard = document.createElement("div");
       productCard.classList.add("product-card");
 
@@ -62,12 +55,12 @@ class ProductGrid extends HTMLElement {
 
       // Imagen SVG del carrito
       const cartIcon = document.createElement("img");
-      cartIcon.src = "./assets/icons/carrito.svg"; // Ruta del archivo SVG
+      cartIcon.src = "./assets/icons/carrito.svg";
       cartIcon.alt = "Add to cart icon";
-      cartIcon.style.width = "var(--icon-size)"; // Tamaño controlado por variable
+      cartIcon.style.width = "var(--icon-size)";
       cartIcon.style.height = "var(--icon-size)";
 
-      cartButton.appendChild(cartIcon); // Agrega la imagen al botón
+      cartButton.appendChild(cartIcon);
 
       // Ensamblar información
       const textContainer = document.createElement("div");
@@ -88,7 +81,7 @@ class ProductGrid extends HTMLElement {
     style.textContent = `
       .product-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: var(--gap-medium);
         margin: var(--gap-medium);
       }

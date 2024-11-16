@@ -1,33 +1,33 @@
-import './assets/css/global.css';
-import './assets/css/variables.css';
-import './components/Header.js';
-import './components/UserCart.js';
-import './components/FilterBar.js';
-import './components/ProductGrid.js';
-import './components/Pagination.js';
-import './components/Footer.js';
+import "./assets/css/global.css";
+import "./assets/css/variables.css";
+import "./components/Header.js";
+import "./components/UserCart.js";
+import "./components/FilterBar.js";
+import "./components/ProductGrid.js";
+import "./components/Footer.js";
 
-const productGrid = document.querySelector('product-grid');
-const pagination = document.querySelector('pagination-bar');
+const productGrid = document.querySelector("product-grid");
 
-const products = [
-  { name: 'Red Chili', price: 14.99, image: './assets/images/aji.jpg' },
-  { name: 'Big Potatoes', price: 14.99, image: './assets/images/papa.jpg' },
-  { name: 'Chanise Cabbage', price: 14.99, image: './assets/images/col-china.jpg' },
-  { name: 'Ladies Finger', price: 14.99, image: './assets/images/choclo.jpg' },
-  // agregararé más productos
-];
+(async function fetchProducts() {
+  try {
+    // Obtener los productos de la API
+    const response = await fetch("https://dummyjson.com/products");
+    const data = await response.json();
 
-// Aquí configuro los productos y paginación inicial
-productGrid.setProducts(products);
-pagination.setPagination(Math.ceil(products.length / 4), 1);
+    // Mapear los productos a un formato más simple
+    const products = data.products.map((product) => ({
+      name: product.title,
+      price: product.price,
+      image: product.thumbnail,
+      category: product.category,
+    }));
 
-// Con esto se escu eventos de cambio de página
-pagination.addEventListener('page-change', (event) => {
-  productGrid.changePage(event.detail);
-  pagination.setPagination(
-    Math.ceil(products.length / 4),
-    event.detail
-  );
-});
+    // Configurar productos y paginación inicial
+    productGrid.setProducts(products);
 
+    // Manejar cambio de página
+    
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+})();
