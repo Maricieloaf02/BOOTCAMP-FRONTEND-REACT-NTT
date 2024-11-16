@@ -52,7 +52,6 @@ class SearchBar extends HTMLElement {
         border: 1px solid var(--light-gray);
         border-radius: var(--border-radius-medium);
         overflow: hidden;
-        background-color: var(--background-color);
         flex: 1;
       }
       .search-icon img {

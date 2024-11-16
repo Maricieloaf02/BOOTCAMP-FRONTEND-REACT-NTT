@@ -10,11 +10,12 @@ class Header extends HTMLElement {
     const header = document.createElement('header');
     header.classList.add('main-header');
 
-    // Logo
+    // Logo de la marca con enlace a la página principal
     const logoLink = document.createElement('a');
     logoLink.href = '/';
     logoLink.classList.add('logo');
 
+    // Imagen y texto del logo
     const logoImg = document.createElement('img');
     logoImg.src = '../assets/images/logo.png';
     logoImg.alt = 'De Todito Logo';
@@ -22,33 +23,39 @@ class Header extends HTMLElement {
     const logoText = document.createElement('span');
     logoText.textContent = 'De Todito';
 
+    // Ensambla el enlace del logo
     logoLink.appendChild(logoImg);
     logoLink.appendChild(logoText);
 
-    // Barra de búsqueda y carrito/usuario
+    // Contenedor superior: incluye logo, barra de búsqueda y carrito
     const headerTop = document.createElement('div');
     headerTop.classList.add('header-top');
 
+    // Barra de búsqueda (Web Component) y carrito/usuario (Web Component)
     const searchBar = document.createElement('search-bar');
     const userCart = document.createElement('user-cart');
 
+    // Ensambla el contenedor superior
     headerTop.appendChild(logoLink);
     headerTop.appendChild(searchBar);
     headerTop.appendChild(userCart);
 
-    // Navegación principal
+    // Navegación principal con enlaces
     const nav = document.createElement('nav');
     nav.classList.add('main-nav');
 
+    // Lista de enlaces de navegación
     const navLinks = document.createElement('ul');
     navLinks.classList.add('nav-links');
 
+    // Definición de los enlaces de navegación
     const links = [
       { href: '../index.html', text: 'Sesión' },
       { href: 'shop.html', text: 'Tienda' },
       { href: '#', text: 'Contáctanos' },
     ];
 
+    // Genera y agrega cada enlace a la lista de navegación
     links.forEach(link => {
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -58,20 +65,19 @@ class Header extends HTMLElement {
       navLinks.appendChild(li);
     });
 
+    // Ensambla la navegación principal
     nav.appendChild(navLinks);
 
-    // Ensamblar el header
+    // Ensambla el header completo con sus componentes
     header.appendChild(headerTop);
     header.appendChild(nav);
 
-    // Estilos encapsulados
+    // Estilos encapsulados para el Shadow DOM
     const style = document.createElement('style');
     style.textContent = `
       .main-header {
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid var(--light-gray);
-        background-color: var(--header-bg);
       }
       .header-top {
         display: flex;
@@ -95,7 +101,6 @@ class Header extends HTMLElement {
       }
       .main-nav {
         background-color: var(--secondary-color);
-        margin-top: var(--gap-small); /* Separación entre header-top y nav */
         padding: var(--padding-small) var(--padding-large);
       }
       .nav-links {
@@ -114,12 +119,33 @@ class Header extends HTMLElement {
       .nav-links li a:hover {
         color: var(--primary-color);
       }
+
+      /* Media Query para pantallas pequeñas */
+      @media (max-width: 768px) {
+        .header-top {
+          flex-direction: column;
+          align-items: center;
+          gap: var(--gap-medium);
+        }
+        .main-nav {
+          padding: var(--padding-small);
+        }
+        .nav-links {
+          flex-direction: row;
+          align-items: center;
+        }
+        .nav-links li a {
+          font-size: var(--font-size-medium);
+        }
+      }
     `;
 
+
+    // Agrega estilos y el contenedor principal al Shadow DOM
     shadow.appendChild(style);
     shadow.appendChild(header);
   }
 }
 
-// Registro el Web Component
+// Registra el componente como un Custom Element
 customElements.define('main-header', Header);

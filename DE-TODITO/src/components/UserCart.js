@@ -1,52 +1,53 @@
 class UserCart extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: "open" });
 
     // Contenedor principal
-    const container = document.createElement('div');
-    container.classList.add('user-cart-container');
+    const container = document.createElement("div");
+    container.classList.add("user-cart-container");
 
     // Botón del usuario
-    const userButton = document.createElement('button');
-    userButton.classList.add('user-button');
-    userButton.setAttribute('aria-label', 'Usuario');
+    const userButton = document.createElement("button");
+    userButton.classList.add("user-button");
+    userButton.setAttribute("aria-label", "Usuario");
 
-    const userImg = document.createElement('img');
-    userImg.src = './assets/icons/user.svg'; // Ruta al ícono del usuario
-    userImg.alt = 'User Icon';
+    const userImg = document.createElement("img");
+    userImg.src = "./assets/icons/user.svg"; // Ruta al ícono del usuario
+    userImg.alt = "User Icon";
 
     userButton.appendChild(userImg);
 
     // Contenedor del carrito
-    const cartContainer = document.createElement('div');
-    cartContainer.classList.add('cart-container');
+    const cartContainer = document.createElement("div");
+    cartContainer.classList.add("cart-container");
 
     // Botón del carrito
-    const cartButton = document.createElement('button');
-    cartButton.classList.add('cart-button');
-    cartButton.setAttribute('aria-label', 'Carrito');
+    const cartButton = document.createElement("button");
+    cartButton.classList.add("cart-button");
+    cartButton.setAttribute("aria-label", "Carrito");
 
-    const cartImg = document.createElement('img');
-    cartImg.src = './assets/icons/carrito.svg'; // Ruta al ícono del carrito
-    cartImg.alt = 'Shopping Cart';
+    const cartImg = document.createElement("img");
+    cartImg.src = "./assets/icons/carrito.svg"; // Ruta al ícono del carrito
+    cartImg.alt = "Shopping Cart";
 
-    const cartCount = document.createElement('span');
-    cartCount.classList.add('cart-count');
-    cartCount.textContent = '2'; // Contador inicial
+    // Contador del carrito (inicia en 0)
+    const cartCount = document.createElement("span");
+    cartCount.classList.add("cart-count");
+    cartCount.textContent = "0"; // Comienza en 0
 
     cartButton.appendChild(cartImg);
     cartButton.appendChild(cartCount);
 
     // Información del carrito (texto y monto)
-    const cartInfo = document.createElement('div');
-    cartInfo.classList.add('cart-info');
+    const cartInfo = document.createElement("div");
+    cartInfo.classList.add("cart-info");
 
-    const cartText = document.createElement('span');
-    cartText.textContent = 'Carrito de compra:';
+    const cartText = document.createElement("span");
+    cartText.textContent = "Carrito de compra:";
 
-    const cartAmount = document.createElement('strong');
-    cartAmount.textContent = '$57.00'; // Monto inicial
+    const cartAmount = document.createElement("strong");
+    cartAmount.textContent = "$0.00"; // Monto inicial en 0
 
     cartInfo.appendChild(cartText);
     cartInfo.appendChild(cartAmount);
@@ -60,65 +61,99 @@ class UserCart extends HTMLElement {
     container.appendChild(cartContainer);
 
     // Estilos
-    const style = document.createElement('style');
-    style.textContent = `
-      .user-cart-container {
-        display: flex;
-        align-items: center;
-        gap: var(--gap-medium);
-      }
-      .user-button, .cart-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-      }
-      .user-button img, .cart-button img {
-        width: var(--icon-size);
-        height: var(--icon-size);
-      }
-      .cart-container {
-        display: flex;
-        align-items: center;
-        gap: var(--gap-medium);
-      }
-      .cart-button {
-        position: relative;
-      }
-      .cart-count {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: var(--cart-badge-bg);
-        color: var(--cart-badge-text);
-        border-radius: 50%;
-        font-size: var(--font-size-small);
-        font-weight: var(--font-weight-bold);
-        padding: 2px;
-        min-width: 16px;
-        text-align: center;
-      }
-      .cart-info {
-        display: flex;
-        flex-direction: column;
-        gap: var(--gap-small);
-        font-size: var(--font-size-small);
-        color: var(--secondary-color);
-      }
-      .cart-info strong {
-        font-size: var(--font-size-medium);
-        font-weight: var(--font-weight-bold);
-        color: var(--secondary-color);
-      }
-    `;
+    const style = document.createElement("style");
+      style.textContent = `
+        .user-cart-container {
+          display: flex;
+          align-items: center;
+          gap: var(--gap-medium);
+        }
+        .user-button, .cart-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+        }
+        .user-button img, .cart-button img {
+          width: var(--icon-size);
+          height: var(--icon-size);
+        }
+        .cart-container {
+          display: flex;
+          align-items: center;
+          gap: var(--gap-medium);
+        }
+        .cart-button {
+          position: relative;
+        }
+        .cart-count {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: var(--cart-badge-bg);
+          color: var(--cart-badge-text);
+          border-radius: 50%;
+          font-size: var(--font-size-small);
+          font-weight: var(--font-weight-bold);
+          padding: 2px;
+          min-width: 16px;
+          text-align: center;
+          transition: transform 0.3s ease-in-out;
+        }
+        .cart-count.update {
+          animation: scaleUp 0.3s ease-in-out;
+        }
+        
+        @keyframes scaleUp {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.5);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        .cart-info {
+          display: flex;
+          flex-direction: column;
+          gap: var(--gap-small);
+          font-size: var(--font-size-small);
+          color: var(--secondary-color);
+        }
+        .cart-info strong {
+          font-size: var(--font-size-medium);
+          font-weight: var(--font-weight-bold);
+          color: var(--secondary-color);
+        }
+      `;
 
     shadow.appendChild(style);
     shadow.appendChild(container);
+
+    // Guardar referencias
+    this.cartCountElement = cartCount; // Esto será útil para actualizar el contador más adelante
+    this.cartAmountElement = cartAmount; // Referencia para actualizar el monto total
+  }
+
+  // Método para actualizar el contador del carrito
+  updateCartCount(newCount) {
+    this.cartCountElement.textContent = newCount;
+
+    // Agrega animación al contador
+    this.cartCountElement.classList.add("update");
+    setTimeout(() => this.cartCountElement.classList.remove("update"), 300);
+  }
+
+  // Método para actualizar el monto total
+  updateCartAmount(newAmount) {
+    this.cartAmountElement.textContent = `$${newAmount.toFixed(2)}`;
   }
 }
 
 // Registrar el componente
-customElements.define('user-cart', UserCart);
+customElements.define("user-cart", UserCart);

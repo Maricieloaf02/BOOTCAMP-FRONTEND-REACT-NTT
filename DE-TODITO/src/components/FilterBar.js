@@ -1,32 +1,30 @@
 class FilterBar extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: "open" });
 
-    // Contenedor principal
-    const container = document.createElement('div');
-    container.classList.add('filter-bar');
+    // Contenedor principal de la barra de filtros
+    const container = document.createElement("div");
+    container.classList.add("filter-bar");
 
-    // Filtros
-    const filters = document.createElement('div');
-    filters.classList.add('filters');
+    // Contenedor para los elementos de filtro
+    const filters = document.createElement("div");
+    filters.classList.add("filters");
 
-    // Crear dropdown para categorías
-    const categoriesDropdown = this.createDropdown('Selecciona una categoría');
+    // Creación del dropdown para seleccionar categorías
+    const categoriesDropdown = this.createDropdown("Category");
     filters.appendChild(categoriesDropdown);
 
-    // Ensamblar todo
+    // Ensambla los elementos de la barra de filtros
     container.appendChild(filters);
 
-    // Estilos
-    const style = document.createElement('style');
+    // Define los estilos utilizando variables CSS globales
+    const style = document.createElement("style");
     style.textContent = `
       .filter-bar {
         display: flex;
-        flex-direction: column;
         padding: var(--padding-medium);
         border-bottom: 1px solid var(--light-gray);
-        background-color: var(--background-color);
       }
       .filters {
         display: flex;
@@ -37,79 +35,83 @@ class FilterBar extends HTMLElement {
         padding: var(--padding-small);
         border: 1px solid var(--light-gray);
         border-radius: var(--border-radius-medium);
-        background-color: var(--background-color);
         font-size: var(--font-size-medium);
         color: var(--secondary-color);
         cursor: pointer;
       }
     `;
 
+    // Agrega los estilos y el contenedor al Shadow DOM
     shadow.appendChild(style);
     shadow.appendChild(container);
 
-    // Guardar referencias
+    // Referencia al dropdown de categorías para su uso posterior
     this.categoriesDropdown = categoriesDropdown;
 
-    // Llamar a la función para cargar categorías dinámicamente
+    // Llama al método para cargar las categorías dinámicamente
     this.fetchCategories();
   }
 
-  // Método para crear un dropdown
+  // Método para crear un dropdown con un placeholder inicial
   createDropdown(placeholder) {
-    const dropdown = document.createElement('select');
-    dropdown.classList.add('dropdown');
-    const option = document.createElement('option');
+    const dropdown = document.createElement("select");
+    dropdown.classList.add("dropdown");
+
+    // Opción por defecto como placeholder
+    const option = document.createElement("option");
     option.textContent = placeholder;
     option.disabled = true;
     option.selected = true;
+
     dropdown.appendChild(option);
     return dropdown;
   }
 
-  // Método para cargar categorías dinámicamente
+  // Método para cargar dinámicamente las categorías desde una API
   async fetchCategories() {
-  try {
-    const response = await fetch('https://dummyjson.com/products/categories');
-    const categories = await response.json();
+    try {
+      const response = await fetch("https://dummyjson.com/products/categories");
+      const categories = await response.json();
 
-    console.log('Categorías obtenidas:', categories);
+      console.log("Categorías obtenidas:", categories);
 
-    // Limpia las opciones existentes en el dropdown antes de agregar nuevas
-    this.categoriesDropdown.innerHTML = '';
-    const defaultOption = document.createElement('option');
-    defaultOption.textContent = 'Selecciona una categoría';
-    defaultOption.disabled = true;
-    defaultOption.selected = true;
-    this.categoriesDropdown.appendChild(defaultOption);
+      // Limpia las opciones existentes antes de cargar las nuevas
+      this.categoriesDropdown.innerHTML = "";
+      const defaultOption = document.createElement("option");
+      defaultOption.textContent = "Category";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      this.categoriesDropdown.appendChild(defaultOption);
 
-    // Mapear el arreglo de objetos en opciones del dropdown
-    categories.forEach((category) => {
-      const option = document.createElement('option');
-      option.value = category.slug; // Usa el slug como valor
-      option.textContent = category.name; // Usa el nombre como texto visible
-      this.categoriesDropdown.appendChild(option);
-    });
+      // Agrega las categorías al dropdown
+      categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.slug; // Usa el slug como valor de opción
+        option.textContent = category.name; // Usa el nombre como texto visible
+        this.categoriesDropdown.appendChild(option);
+      });
 
-    // Agregar listener al cambio de selección
-    this.categoriesDropdown.addEventListener('change', (event) => {
-      const selectedCategory = event.target.value;
-      this.fetchProductsByCategory(selectedCategory);
-    });
-  } catch (error) {
-    console.error('Error fetching categories:', error);
+      // Agrega un listener para manejar los cambios de selección en el dropdown
+      this.categoriesDropdown.addEventListener("change", (event) => {
+        const selectedCategory = event.target.value;
+        this.fetchProductsByCategory(selectedCategory); // Carga productos de la categoría seleccionada
+      });
+    } catch (error) {
+      console.error("Error al obtener categorías:", error);
+    }
   }
-}
 
-
-  // Método para cargar productos por categoría
+  // Método para cargar productos según la categoría seleccionada
   async fetchProductsByCategory(category) {
     try {
-      const response = await fetch(`https://dummyjson.com/products/category/${category}`);
+      const response = await fetch(
+        `https://dummyjson.com/products/category/${category}`
+      );
       const data = await response.json();
 
-      console.log('Productos obtenidos:', data.products);
+      console.log("Productos obtenidos:", data.products);
 
-      // Transformar productos a un formato que el ProductGrid pueda manejar
+      // Transforma los productos al formato esperado por el componente ProductGrid
       const transformedProducts = data.products.map((product) => ({
         name: product.title,
         price: product.price,
@@ -117,14 +119,14 @@ class FilterBar extends HTMLElement {
         category: category,
       }));
 
-      // Actualizar el ProductGrid con los productos filtrados
-      const productGrid = document.querySelector('product-grid');
+      // Actualiza el componente ProductGrid con los productos filtrados
+      const productGrid = document.querySelector("product-grid");
       productGrid.setProducts(transformedProducts);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error al obtener productos:", error);
     }
   }
 }
 
-// Registrar el componente
-customElements.define('filter-bar', FilterBar);
+// Registra el componente como un Custom Element
+customElements.define("filter-bar", FilterBar);
