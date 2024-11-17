@@ -32,7 +32,7 @@ Este proyecto demuestra el uso práctico de JavaScript para la integración con 
 <p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
 
 ### Instalación 🧰
-
+Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápido y moderno.
 1. Clona el repositorio:
   ```bash
    https://github.com/Maricieloaf02/BOOTCAMP-FRONTEND-REACT-NTT-MARICIELO-AF.git
@@ -44,6 +44,10 @@ Este proyecto demuestra el uso práctico de JavaScript para la integración con 
 3. Instala las dependencias
   ```sh
   npm install
+  ```
+3. Inicia el servidor de desarrollo con Vite
+  ```sh
+  npm run dev
   ```
 
 <!-- USAGE EXAMPLES -->
