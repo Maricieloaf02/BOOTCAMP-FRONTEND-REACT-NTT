@@ -1,3 +1,10 @@
+import { Product } from "../types/Product";
+import searchIcon from "../assets/icons/search.svg";
+
+/**
+ * Clase SearchBar
+ * Representa un componente de barra de búsqueda para filtrar productos.
+ */
 class SearchBar extends HTMLElement {
   constructor() {
     super();
@@ -42,25 +49,19 @@ class SearchBar extends HTMLElement {
 
   /**
    * Crea el formulario de búsqueda con el input y el ícono.
-   * @returns {HTMLFormElement} - Formulario completo.
+   * @returns Formulario completo.
    */
-  createSearchForm() {
-    // Formulario principal
+  private createSearchForm(): HTMLFormElement {
     const form = document.createElement("form");
     form.classList.add("search-bar");
     form.setAttribute("role", "search");
 
-    // Contenedor del input y el ícono
     const wrapper = document.createElement("div");
     wrapper.classList.add("search-input-wrapper");
 
-    // Ícono de búsqueda
     const icon = this.createSearchIcon();
-
-    // Input de búsqueda
     const input = this.createSearchInput();
 
-    // Ensamblar el contenedor
     wrapper.appendChild(icon);
     wrapper.appendChild(input);
     form.appendChild(wrapper);
@@ -70,14 +71,14 @@ class SearchBar extends HTMLElement {
 
   /**
    * Crea el ícono de búsqueda.
-   * @returns {HTMLSpanElement} - Contenedor del ícono de búsqueda.
+   * @returns Contenedor del ícono de búsqueda.
    */
-  createSearchIcon() {
+  private createSearchIcon(): HTMLElement {
     const icon = document.createElement("span");
     icon.classList.add("search-icon");
 
     const img = document.createElement("img");
-    img.src = "./assets/icons/search.svg"; // Ruta al ícono
+    img.src = searchIcon;
     img.alt = "Search Icon";
 
     icon.appendChild(img);
@@ -86,15 +87,15 @@ class SearchBar extends HTMLElement {
 
   /**
    * Crea el input de búsqueda.
-   * @returns {HTMLInputElement} - Input configurado.
+   * @returns Input configurado.
    */
-  createSearchInput() {
+  private createSearchInput(): HTMLInputElement {
     const input = document.createElement("input");
     input.type = "text";
-    input.placeholder = "mi producto";
+    input.placeholder = "Search products...";
     input.setAttribute("aria-label", "Buscar productos");
 
-    // Evento para manejar la búsqueda en tiempo real
+    // Evento de entrada para filtrar productos
     input.addEventListener("input", () => {
       const query = input.value.trim().toLowerCase(); // Normaliza el texto ingresado
       this.filterProducts(query); // Llama al método para filtrar productos
@@ -105,16 +106,24 @@ class SearchBar extends HTMLElement {
 
   /**
    * Filtra los productos en el grid según la consulta del usuario.
-   * @param {string} query - Texto ingresado por el usuario.
+   * @param query - Texto ingresado por el usuario.
    */
-  filterProducts(query) {
-    const productGrid = document.querySelector("product-grid");
+  private filterProducts(query: string): void {
+    // Referencia al componente product-grid
+    const productGrid = document.querySelector("product-grid") as
+      | (HTMLElement & { originalProducts: Product[]; setProducts: (products: Product[]) => void })
+      | null;
+
+    if (!productGrid) {
+      console.warn("No se encontró el componente ProductGrid.");
+      return;
+    }
 
     // Filtrar productos según el texto ingresado
     const allProducts = productGrid.originalProducts;
 
     const filteredProducts = query
-      ? allProducts.filter((product) =>
+      ? allProducts.filter((product: Product) =>
           product.name.toLowerCase().includes(query)
         )
       : allProducts; // Si no hay texto, muestra todos los productos

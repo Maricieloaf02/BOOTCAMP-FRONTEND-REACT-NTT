@@ -1,12 +1,13 @@
-/**
- * Clase FilterBar
- * Representa una barra de filtros que permite seleccionar categorías y filtrar productos.
- */
+import { ProductService } from "../services/ProductService";
+import { CategoryService } from "../services/CategoryService";
+import { Product } from "../types/Product";
+import { Category } from "../types/Category";
+
 class FilterBar extends HTMLElement {
-  /**
-   * Constructor de FilterBar.
-   * Inicializa el componente y configura el Shadow DOM.
-   */
+  private productService = new ProductService();
+  private categoryService = new CategoryService();
+  private categoriesDropdown: HTMLSelectElement;
+
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
@@ -20,8 +21,8 @@ class FilterBar extends HTMLElement {
     filters.classList.add("filters");
 
     // Dropdown para seleccionar categorías
-    const categoriesDropdown = this.createDropdown("Category");
-    filters.appendChild(categoriesDropdown);
+    this.categoriesDropdown = this.createDropdown("Category");
+    filters.appendChild(this.categoriesDropdown);
 
     // Ensambla los elementos de la barra de filtros
     container.appendChild(filters);
@@ -54,19 +55,16 @@ class FilterBar extends HTMLElement {
     shadow.appendChild(style);
     shadow.appendChild(container);
 
-    // Guarda una referencia al dropdown para actualizaciones dinámicas
-    this.categoriesDropdown = categoriesDropdown;
-
-    // Carga las categorías dinámicamente desde la API
-    this.fetchCategories();
+    // Carga las categorías dinámicamente desde el servicio
+    this.loadCategories();
   }
 
   /**
    * Crea un elemento dropdown con una opción inicial como placeholder.
-   * @param {string} placeholder - Texto de la opción inicial del dropdown.
-   * @returns {HTMLSelectElement} - Dropdown creado.
+   * @param placeholder - Texto de la opción inicial del dropdown.
+   * @returns Dropdown creado.
    */
-  createDropdown(placeholder) {
+  private createDropdown(placeholder: string): HTMLSelectElement {
     const dropdown = document.createElement("select");
     dropdown.classList.add("dropdown");
 
@@ -81,14 +79,11 @@ class FilterBar extends HTMLElement {
   }
 
   /**
-   * Carga dinámicamente las categorías desde la API dummyjson y las agrega al dropdown.
-   * Si ocurre un error, se registra en la consola.
+   * Carga las categorías utilizando el servicio y las agrega al dropdown.
    */
-  async fetchCategories() {
+  private async loadCategories(): Promise<void> {
     try {
-      const response = await fetch("https://dummyjson.com/products/categories");
-      const categories = await response.json();
-
+      const categories: Category[] = await this.categoryService.fetchCategories();
       console.log("Categorías obtenidas:", categories);
 
       // Limpia las opciones existentes antes de cargar las nuevas
@@ -103,54 +98,43 @@ class FilterBar extends HTMLElement {
       categories.forEach((category) => {
         const option = document.createElement("option");
         option.value = category.slug; // Slug usado como valor
-        option.textContent = category.name; // Nombre mostrado
+        option.textContent = category.name; // Nombre mostrado en el dropdown
         this.categoriesDropdown.appendChild(option);
       });
 
       // Listener para manejar cambios de selección
       this.categoriesDropdown.addEventListener("change", (event) => {
-        const selectedCategory = event.target.value;
-        this.fetchProductsByCategory(selectedCategory);
+        const selectedCategory = (event.target as HTMLSelectElement).value;
+        this.loadProductsByCategory(selectedCategory);
       });
     } catch (error) {
-      console.error("Error al obtener categorías:", error);
+      console.error("Error al cargar categorías:", error);
     }
   }
 
   /**
-   * Carga productos desde una categoría seleccionada.
-   * Los transforma y actualiza la grid de productos.
-   * @param {string} category - Categoría seleccionada.
+   * Carga productos desde una categoría seleccionada utilizando el servicio.
+   * @param category - Categoría seleccionada.
    */
-  async fetchProductsByCategory(category) {
+  private async loadProductsByCategory(category: string): Promise<void> {
     try {
-      const response = await fetch(
-        `https://dummyjson.com/products/category/${category}`
-      );
-      const data = await response.json();
-
-      console.log("Productos obtenidos:", data.products);
-
-      // Transforma los productos al formato esperado por ProductGrid
-      const transformedProducts = data.products.map((product) => ({
-        name: product.title,
-        price: product.price,
-        image: product.thumbnail,
-        category: category,
-      }));
+      const products: Product[] = await this.productService.fetchProductsByCategory(category);
+      console.log("Productos obtenidos:", products);
 
       // Actualiza el componente ProductGrid con los productos filtrados
-      const productGrid = document.querySelector("product-grid");
+      const productGrid = document.querySelector("product-grid") as
+        | (HTMLElement & { setProducts: (products: Product[]) => void })
+        | null;
       if (productGrid) {
-        productGrid.setProducts(transformedProducts);
+        productGrid.setProducts(products);
       } else {
         console.warn("No se encontró el componente ProductGrid.");
       }
     } catch (error) {
-      console.error("Error al obtener productos:", error);
+      console.error("Error al cargar productos:", error);
     }
   }
 }
 
-// Registra FilterBar como un Custom Element
+// Registrar el componente como un Custom Element
 customElements.define("filter-bar", FilterBar);

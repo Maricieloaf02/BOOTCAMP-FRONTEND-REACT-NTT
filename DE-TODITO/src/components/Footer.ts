@@ -1,3 +1,9 @@
+/**
+ * Clase FooterComponent
+ * Representa un componente de footer reutilizable.
+ */
+import logoDeTodito from "../assets/images/logo.png";
+
 class FooterComponent extends HTMLElement {
   constructor() {
     super();
@@ -10,15 +16,15 @@ class FooterComponent extends HTMLElement {
     const style = this.createStyles();
 
     // Ensamblar el Shadow DOM
-    this.shadowRoot.appendChild(style);
-    this.shadowRoot.appendChild(container);
+    this.shadowRoot!.appendChild(style);
+    this.shadowRoot!.appendChild(container);
   }
 
   /**
    * Crea el contenedor principal del footer.
-   * @returns {HTMLElement} - Contenedor principal del footer.
+   * @returns Contenedor principal del footer.
    */
-  createFooter() {
+  private createFooter(): HTMLElement {
     const container = document.createElement("footer");
     container.classList.add("main-footer");
 
@@ -42,15 +48,15 @@ class FooterComponent extends HTMLElement {
 
   /**
    * Crea la sección de la marca en el footer.
-   * @returns {HTMLElement} - Sección de la marca.
+   * @returns Sección de la marca.
    */
-  createFooterBrand() {
+  private createFooterBrand(): HTMLElement {
     const footerBrand = document.createElement("div");
     footerBrand.classList.add("footer-brand");
 
     // Logo
     const logo = document.createElement("img");
-    logo.src = "../assets/images/logo.png";
+    logo.src = logoDeTodito;
     logo.alt = "De Todito Logo";
     logo.classList.add("footer-logo");
 
@@ -72,9 +78,9 @@ class FooterComponent extends HTMLElement {
 
   /**
    * Crea la información de contacto del footer.
-   * @returns {HTMLElement} - Contenedor de la información de contacto.
+   * @returns Contenedor de la información de contacto.
    */
-  createContactInfo() {
+  private createContactInfo(): HTMLElement {
     const contactInfo = document.createElement("p");
     contactInfo.classList.add("contact-info");
 
@@ -102,9 +108,9 @@ class FooterComponent extends HTMLElement {
 
   /**
    * Crea la sección de enlaces del footer.
-   * @returns {HTMLElement} - Contenedor de enlaces del footer.
+   * @returns Contenedor de enlaces del footer.
    */
-  createFooterLinks() {
+  private createFooterLinks(): HTMLElement {
     const footerLinks = document.createElement("div");
     footerLinks.classList.add("footer-links");
 
@@ -127,11 +133,14 @@ class FooterComponent extends HTMLElement {
 
   /**
    * Crea una columna del footer con un título y enlaces.
-   * @param {string} title - Título de la columna.
-   * @param {Array} links - Lista de enlaces de la columna.
-   * @returns {HTMLElement} - Columna del footer.
+   * @param title - Título de la columna.
+   * @param links - Lista de enlaces de la columna.
+   * @returns Columna del footer.
    */
-  createFooterColumn(title, links) {
+  private createFooterColumn(
+    title: string,
+    links: { href: string; text: string }[]
+  ): HTMLElement {
     const column = document.createElement("div");
     column.classList.add("footer-column");
 
@@ -159,9 +168,9 @@ class FooterComponent extends HTMLElement {
 
   /**
    * Crea y retorna los estilos encapsulados del componente.
-   * @returns {HTMLStyleElement} - Estilos encapsulados.
+   * @returns Estilos encapsulados.
    */
-  createStyles() {
+  private createStyles(): HTMLStyleElement {
     const style = document.createElement("style");
     style.textContent = `
       .main-footer {
@@ -224,43 +233,6 @@ class FooterComponent extends HTMLElement {
 
       .contact-info a:hover {
         text-decoration: underline;
-      }
-
-      @media (max-width: 576px) {
-        .footer-container {
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-        }
-
-        .footer-links {
-          flex-direction: row;
-          align-items: center;
-          gap: var(--gap-large);
-        }
-
-        .footer-column {
-          align-items: center;
-        }
-
-        .footer-column h3 {
-          font-size: var(--font-size-small);
-        }
-
-        .footer-column ul li a {
-          font-size: var(--font-size-small);
-        }
-      }
-
-      @media (min-width: 577px) and (max-width: 768px) {
-        .footer-container {
-          flex-wrap: wrap;
-          gap: var(--gap-medium);
-        }
-
-        .footer-links {
-          justify-content: center;
-        }
       }
     `;
     return style;

@@ -1,6 +1,9 @@
 import './SearchBar.js';
 import './UserCart.js';
-
+import logoDeTodito from "../assets/images/logo.png";
+/**
+ * Clase Header - Representa el encabezado principal de la aplicación.
+ */
 class Header extends HTMLElement {
   constructor() {
     super();
@@ -19,9 +22,9 @@ class Header extends HTMLElement {
 
   /**
    * Crea el contenedor principal del header.
-   * @returns {HTMLElement} - Elemento del header completo.
+   * @returns Elemento del header completo.
    */
-  createHeader() {
+  private createHeader(): HTMLElement {
     const header = document.createElement('header');
     header.classList.add('main-header');
 
@@ -41,9 +44,9 @@ class Header extends HTMLElement {
   /**
    * Crea el contenedor superior del header.
    * Incluye logo, barra de búsqueda y carrito.
-   * @returns {HTMLElement} - Contenedor superior del header.
+   * @returns Contenedor superior del header.
    */
-  createHeaderTop() {
+  private createHeaderTop(): HTMLElement {
     const headerTop = document.createElement('div');
     headerTop.classList.add('header-top');
 
@@ -64,15 +67,15 @@ class Header extends HTMLElement {
 
   /**
    * Crea el logo con enlace a la página principal.
-   * @returns {HTMLElement} - Elemento del logo.
+   * @returns Elemento del logo.
    */
-  createLogo() {
+  private createLogo(): HTMLAnchorElement {
     const logoLink = document.createElement('a');
     logoLink.href = '/';
     logoLink.classList.add('logo');
 
     const logoImg = document.createElement('img');
-    logoImg.src = '../assets/images/logo.png';
+    logoImg.src = logoDeTodito;
     logoImg.alt = 'De Todito Logo';
 
     const logoText = document.createElement('span');
@@ -87,9 +90,9 @@ class Header extends HTMLElement {
 
   /**
    * Crea la navegación principal con enlaces.
-   * @returns {HTMLElement} - Navegación principal.
+   * @returns Navegación principal.
    */
-  createNavigation() {
+  private createNavigation(): HTMLElement {
     const nav = document.createElement('nav');
     nav.classList.add('main-nav');
 
@@ -97,7 +100,7 @@ class Header extends HTMLElement {
     navLinks.classList.add('nav-links');
 
     // Lista de enlaces
-    const links = [
+    const links: { href: string; text: string }[] = [
       { href: '#', text: 'Sesión' },
       { href: '../index.html', text: 'Tienda' },
       { href: '#', text: 'Contáctanos' },
@@ -120,9 +123,9 @@ class Header extends HTMLElement {
 
   /**
    * Crea y retorna los estilos encapsulados del componente.
-   * @returns {HTMLStyleElement} - Elemento de estilos encapsulados.
+   * @returns Elemento de estilos encapsulados.
    */
-  createStyles() {
+  private createStyles(): HTMLStyleElement {
     const style = document.createElement('style');
     style.textContent = `
       .main-header {

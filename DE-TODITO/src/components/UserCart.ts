@@ -1,4 +1,14 @@
+/**
+ * Clase UserCart
+ * Representa un componente de carrito de usuario con un contador y un monto total.
+ */
+import cartIcon from "../assets/icons/carrito.svg";
+import userIcon from "../assets/icons/user.svg";
+
 class UserCart extends HTMLElement {
+  private cartCountElement: HTMLElement;
+  private cartAmountElement: HTMLElement;
+
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
@@ -10,7 +20,7 @@ class UserCart extends HTMLElement {
     // Botón del usuario
     const userButton = this.createButton(
       "user-button",
-      "./assets/icons/user.svg",
+      userIcon,
       "User Icon",
       "Usuario"
     );
@@ -22,7 +32,7 @@ class UserCart extends HTMLElement {
     // Botón del carrito con contador
     const cartButton = this.createButton(
       "cart-button",
-      "./assets/icons/carrito.svg",
+      cartIcon,
       "Shopping Cart",
       "Carrito"
     );
@@ -119,19 +129,24 @@ class UserCart extends HTMLElement {
     shadow.appendChild(container);
 
     // Guardar referencias para actualizaciones dinámicas
-    this.cartCountElement = cartCount; // Contador del carrito
-    this.cartAmountElement = cartInfo.querySelector("strong"); // Monto total
+    this.cartCountElement = cartCount;
+    this.cartAmountElement = cartInfo.querySelector("strong")!;
   }
 
   /**
    * Crea un botón con una imagen y atributos de accesibilidad.
-   * @param {string} className - Clase CSS del botón.
-   * @param {string} imgSrc - Ruta de la imagen.
-   * @param {string} imgAlt - Texto alternativo para la imagen.
-   * @param {string} ariaLabel - Etiqueta ARIA del botón.
-   * @returns {HTMLElement} - Botón creado.
+   * @param className - Clase CSS del botón.
+   * @param imgSrc - Ruta de la imagen.
+   * @param imgAlt - Texto alternativo para la imagen.
+   * @param ariaLabel - Etiqueta ARIA del botón.
+   * @returns Botón creado.
    */
-  createButton(className, imgSrc, imgAlt, ariaLabel) {
+  private createButton(
+    className: string,
+    imgSrc: string,
+    imgAlt: string,
+    ariaLabel: string
+  ): HTMLButtonElement {
     const button = document.createElement("button");
     button.classList.add(className);
     button.setAttribute("aria-label", ariaLabel);
@@ -146,9 +161,9 @@ class UserCart extends HTMLElement {
 
   /**
    * Crea el contador del carrito.
-   * @returns {HTMLElement} - Elemento del contador del carrito.
+   * @returns Elemento del contador del carrito.
    */
-  createCartCount() {
+  private createCartCount(): HTMLElement {
     const cartCount = document.createElement("span");
     cartCount.classList.add("cart-count");
     cartCount.textContent = "0"; // Valor inicial del contador
@@ -157,9 +172,9 @@ class UserCart extends HTMLElement {
 
   /**
    * Crea el contenedor con la información del carrito.
-   * @returns {HTMLElement} - Contenedor con texto y monto total.
+   * @returns Contenedor con texto y monto total.
    */
-  createCartInfo() {
+  private createCartInfo(): HTMLElement {
     const cartInfo = document.createElement("div");
     cartInfo.classList.add("cart-info");
 
@@ -176,10 +191,10 @@ class UserCart extends HTMLElement {
 
   /**
    * Actualiza el contador del carrito.
-   * @param {number} newCount - Nuevo valor del contador.
+   * @param newCount - Nuevo valor del contador.
    */
-  updateCartCount(newCount) {
-    this.cartCountElement.textContent = newCount;
+  public updateCartCount(newCount: number): void {
+    this.cartCountElement.textContent = newCount.toString();
 
     // Agrega una animación al contador
     this.cartCountElement.classList.add("update");
@@ -188,12 +203,12 @@ class UserCart extends HTMLElement {
 
   /**
    * Actualiza el monto total del carrito.
-   * @param {number} newAmount - Nuevo monto total. 
+   * @param newAmount - Nuevo monto total.
    */
-  updateCartAmount(newAmount) {
+  public updateCartAmount(newAmount: number): void {
     this.cartAmountElement.textContent = `$${newAmount.toFixed(2)}`;
   }
 }
 
-// Registrar el componente
+// Registrar el componente como un Custom Element
 customElements.define("user-cart", UserCart);

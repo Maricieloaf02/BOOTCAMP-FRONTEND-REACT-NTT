@@ -1,16 +1,25 @@
+import { Product } from "../types/Product";
+import shopIcon from "../assets/icons/compra.svg";
+
+/**
+ * Clase ProductGrid
+ * Representa una cuadrícula de productos dinámicamente actualizable.
+ */
 class ProductGrid extends HTMLElement {
+  private products: Product[] = [];
+  private originalProducts: Product[] = [];
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.products = []; // Almacena los productos
   }
 
   /**
    * Establece los productos y renderiza la grid.
-   * @param {Array} products - Lista de productos a mostrar.
+   * @param products - Lista de productos a mostrar.
    */
-  setProducts(products) {
-    if (!this.originalProducts) {
+  public setProducts(products: Product[]): void {
+    if (!this.originalProducts.length) {
       this.originalProducts = products; // Guarda la lista original de productos para filtros
     }
     this.products = products;
@@ -20,8 +29,8 @@ class ProductGrid extends HTMLElement {
   /**
    * Renderiza el contenido de la grid de productos.
    */
-  render() {
-    const shadow = this.shadowRoot;
+  private render(): void {
+    const shadow = this.shadowRoot!;
     shadow.innerHTML = ""; // Limpia el contenido previo
 
     const container = this.createGridContainer();
@@ -42,9 +51,9 @@ class ProductGrid extends HTMLElement {
 
   /**
    * Crea el contenedor principal de la grid.
-   * @returns {HTMLDivElement} - Contenedor de la grid.
+   * @returns Contenedor de la grid.
    */
-  createGridContainer() {
+  private createGridContainer(): HTMLDivElement {
     const container = document.createElement("div");
     container.classList.add("product-grid");
     return container;
@@ -52,10 +61,10 @@ class ProductGrid extends HTMLElement {
 
   /**
    * Crea una tarjeta de producto.
-   * @param {Object} product - Información del producto.
-   * @returns {HTMLDivElement} - Tarjeta del producto.
+   * @param product - Información del producto.
+   * @returns Tarjeta del producto.
    */
-  createProductCard(product) {
+  private createProductCard(product: Product): HTMLDivElement {
     const productCard = document.createElement("div");
     productCard.classList.add("product-card");
 
@@ -76,10 +85,10 @@ class ProductGrid extends HTMLElement {
 
   /**
    * Crea el contenedor con la información del producto.
-   * @param {Object} product - Información del producto.
-   * @returns {HTMLDivElement} - Contenedor con el nombre, precio y botón.
+   * @param product - Información del producto.
+   * @returns Contenedor con el nombre, precio y botón.
    */
-  createProductInfo(product) {
+  private createProductInfo(product: Product): HTMLDivElement {
     const productInfo = document.createElement("div");
     productInfo.classList.add("product-info");
 
@@ -108,16 +117,16 @@ class ProductGrid extends HTMLElement {
 
   /**
    * Crea el botón para agregar al carrito.
-   * @param {Object} product - Información del producto.
-   * @returns {HTMLButtonElement} - Botón de agregar al carrito.
+   * @param product - Información del producto.
+   * @returns Botón de agregar al carrito.
    */
-  createCartButton(product) {
+  private createCartButton(product: Product): HTMLButtonElement {
     const cartButton = document.createElement("button");
     cartButton.classList.add("cart-button");
     cartButton.setAttribute("aria-label", "Add to cart");
 
     const cartIcon = document.createElement("img");
-    cartIcon.src = "./assets/icons/carrito.svg";
+    cartIcon.src = shopIcon;
     cartIcon.alt = "Add to cart icon";
     cartIcon.style.width = "var(--icon-size)";
     cartIcon.style.height = "var(--icon-size)";
@@ -139,9 +148,9 @@ class ProductGrid extends HTMLElement {
 
   /**
    * Crea y devuelve los estilos encapsulados del componente.
-   * @returns {HTMLStyleElement} - Elemento de estilos.
+   * @returns Elemento de estilos.
    */
-  createStyles() {
+  private createStyles(): HTMLStyleElement {
     const style = document.createElement("style");
     style.textContent = `
       .product-grid {
@@ -196,38 +205,10 @@ class ProductGrid extends HTMLElement {
       .cart-button:hover {
         background-color: var(--primary-color-hover);
       }
-
-      /* Responsive: 1 columna para móviles */
-      @media (max-width: 576px) {
-        .product-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Responsive: 2 columnas para tablets */
-      @media (min-width: 577px) and (max-width: 768px) {
-        .product-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      /* Responsive: 3 columnas para pantallas medianas */
-      @media (min-width: 769px) and (max-width: 1200px) {
-        .product-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      /* Responsive: Más columnas para pantallas grandes */
-      @media (min-width: 1201px) {
-        .product-grid {
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        }
-      }
     `;
     return style;
   }
 }
 
-// Registrar el componente
+// Registrar el componente como un Custom Element
 customElements.define("product-grid", ProductGrid);
