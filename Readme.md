@@ -98,7 +98,7 @@ Maricielo Anchahua - [@Maricielo_AF](https://www.linkedin.com/in/maricielo-ancha
 
 Quiero agradecer especialmente a mis profesores del Bootcamp de NTT Data por su apoyo, enseñanza y dedicación:
 
-- **M. Collazo**
+- **Max Collazos**
 - **Clever Ordoñez Rojas**
 - **Kevin Alexander Luján Bernaola**
 - **Jean Williams Oscopupe**
