@@ -102,7 +102,7 @@ Quiero agradecer especialmente a mis profesores del Bootcamp de NTT Data por su 
 - **Clever Ordoñez Rojas**
 - **Kevin Alexander Luján Bernaola**
 - **Jean Williams Oscopupe**
-- **Oscar José Gregorio Ochoa Moreno** *(como cc)*
+- **Oscar José Gregorio Ochoa Moreno**
 
 Además, para profundizar en el tema de **Web Components**, estas son algunas de las mejores referencias que recomiendo:
 
