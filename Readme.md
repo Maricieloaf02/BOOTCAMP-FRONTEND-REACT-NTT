@@ -3,12 +3,10 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
-<table align="center">
-  <tr>
-    <td><img src="./DE-TODITO/src/assets/images/logo.png" alt="Logo" width="80" height="80"></td>
-    <td><h2>De Todito 🤠</h2></td>
-  </tr>
-</table>
+<div align="center">
+  <img align="center" src="./DE-TODITO/src/assets/images/logo.png" alt="Logo" width="80" height="80">
+   <h3>De Todito 🤠</h3>
+</div>
 <p align="center">  
   Una solución integral para tus compras online, con búsqueda dinámica, filtrado por categorías y carrito de compras.
 </p>
@@ -38,19 +36,23 @@ Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápid
   ```bash
     cd de-todito
   ```
-3. Instala las dependencias
+3. Cambia a la rama feature/typescript:
+  ```bash
+    git checkout feature/typescript
+  ```
+4. Instala las dependencias
   ```sh
   npm install
   ```
-4. Ejecutar el proyecto en modo desarrollo
+5. Ejecutar el proyecto en modo desarrollo
   ```sh
   npm run dev
   ```
-5. O Compilar para producción
+6. O Compílalo para producción
   ```sh
   npm run build
   ```
-6. Previsualizar el build de producción
+7. Previsualizar el build de producción
   ```sh
   npm run preview
   ```
