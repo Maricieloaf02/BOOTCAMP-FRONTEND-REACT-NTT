@@ -55,10 +55,7 @@ Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápid
   npm run preview
   ```
 <p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
-## Uso🛒
-### Integración con la API 🔗
-- **API de Productos:** Obtiene una lista de productos dinámicamente.
-- **API de Categorías:** Muestra categorías disponibles para filtrado.
+
 
 ## Estructura del Proyecto🏗️
 ```
