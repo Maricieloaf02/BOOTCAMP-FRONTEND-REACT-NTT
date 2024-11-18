@@ -3,14 +3,15 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-    <img src="./DE-TODITO/src/assets/images/logo.png" alt="Logo" width="80" height="80">
-  <h3 align="center">De Todito 🤠🍊</h3>
-  <p align="center">
-    Una solución integral para tus compras online, con búsqueda dinámica, filtrado por categorías y carrito de compras.
-  </p>
-</div>
+<table align="center">
+  <tr>
+    <td><img src="./DE-TODITO/src/assets/images/logo.png" alt="Logo" width="80" height="80"></td>
+    <td><h2>De Todito 🤠</h2></td>
+  </tr>
+</table>
+<p align="center">  
+  Una solución integral para tus compras online, con búsqueda dinámica, filtrado por categorías y carrito de compras.
+</p>
 
 <!-- ABOUT THE PROJECT -->
 ### Características✨
@@ -26,8 +27,6 @@
 - ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 - ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 - ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-
-<p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
 
 ### Instalación🧰
 Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápido y moderno.
@@ -55,17 +54,11 @@ Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápid
   ```sh
   npm run preview
   ```
+<p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
 ## Uso🛒
 ### Integración con la API 🔗
 - **API de Productos:** Obtiene una lista de productos dinámicamente.
 - **API de Categorías:** Muestra categorías disponibles para filtrado.
-
-### Funcionalidades⚙️
-- **Renderizado Dinámico:** Muestra los productos con `fetch`.
-- **Búsqueda en Tiempo Real:** Filtra productos con validación estricta basada en las propiedades definidas en Product.
-- **Filtrado por Categoría:** Permite al usuario encontrar productos según su preferencia.
-- **Carrito de Compras:** Mantiene un contador de productos seleccionados.
-<p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
 
 ## Estructura del Proyecto🏗️
 ```
@@ -101,6 +94,7 @@ Este proyecto utiliza Vite como herramienta de desarrollo para un entorno rápid
 <!-- CONTACT -->
 
 ## Contacto📬
+
 Maricielo Anchahua - [@Maricielo_AF](https://www.linkedin.com/in/maricielo-anchahua/) - maricielo.af02@gmail.com
 <p align="right">(<a href="#readme-top">⬆️ back to top</a>)</p>
 
