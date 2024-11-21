@@ -17,6 +17,7 @@ let userCart = null; // Referencia al componente user-cart
  * @param {string} selector - Selector del elemento que se desea esperar.
  * @returns {Promise<Element>} - Promesa que se resuelve cuando el elemento está disponible.
  */
+// podr'ias llevarlo a un archivo independiente llamado utils
 const waitForElement = (selector) =>
   new Promise((resolve) => {
     const element = document.querySelector(selector);
@@ -40,6 +41,7 @@ const waitForElement = (selector) =>
  * @param {string} selector - Selector del elemento dentro del Shadow DOM.
  * @returns {Promise<Element>} - Promesa que se resuelve cuando el elemento está disponible.
  */
+// podr'ias llevarlo a un archivo independiente llamado utils
 const waitForShadowElement = (shadow, selector) =>
   new Promise((resolve) => {
     const element = shadow.querySelector(selector);
@@ -80,6 +82,7 @@ initializeUserCart();
 /**
  * Función para obtener y configurar los productos en product-grid.
  */
+// deber'ia estar en otro archivo para que tu main quede m'as limpio
 const fetchAndSetProducts = async () => {
   try {
     const response = await fetch("https://dummyjson.com/products?limit=1000");
