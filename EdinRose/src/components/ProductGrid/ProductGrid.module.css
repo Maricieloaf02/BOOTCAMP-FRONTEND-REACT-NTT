@@ -1,0 +1,14 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .product-grid__empty {
+    grid-column: 1 / -1; /* Asegura que ocupe toda la fila */
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+  }
+  

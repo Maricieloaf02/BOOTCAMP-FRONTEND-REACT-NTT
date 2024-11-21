@@ -1,0 +1,106 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 58px;
+  background-color: var(--color-bg-light);
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar__logo {
+  font-size: 2rem;
+  font-weight: bold;
+  background: var(--gradient-primary); /* Aplica un gradiente */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Hace que el texto tome el gradiente */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navbar__logo:hover {
+  transform: scale(1.1);
+}
+
+
+.navbar__search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+
+.navbar__search_bar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar__search_bar:focus {
+  border-color: var(--color-primary); /* Cambia el color del borde al color primario */
+  background-color: rgba(255, 182, 193, 0.1); /* Ligero fondo del color primario */
+}
+
+.navbar__search_icon {
+  position: absolute;
+  right: 10px;
+  font-size: 1.2rem;
+  color: var(--color-border);
+  pointer-events: none;
+}
+
+.navbar__icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar__icon {
+  font-size: 1.2rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar__icons {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Aumenta el espacio entre íconos */
+}
+
+.navbar__icon {
+  font-size: 1.5rem; /* Aumenta el tamaño del ícono */
+  color: var(--color-text-primary); /* Mantenemos consistencia en colores */
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease; /* Añade una pequeña animación */
+}
+
+.navbar__icon:hover {
+  color: var(--color-primary); /* Cambia de color al pasar el mouse */
+  transform: scale(1.2); /* Escala el tamaño al hacer hover */
+}
+
+.navbar__cart {
+  position: relative;
+}
+
+.navbar__cart_count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: var(--color-primary);
+  color: var(--color-bg-light);
+  border-radius: 50%;
+  font-size: 0.9rem;
+  padding: 1px 8px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra para que destaque */
+}
+

@@ -1,0 +1,26 @@
+.shopPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg-dark); /* Fondo gris claro */
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  width: 100%;
+  color: var(--color-text-primary); /* Gris oscuro */
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--color-secondary); /* Amarillo cálido */
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary); /* Gris medio */
+}
