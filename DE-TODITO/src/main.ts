@@ -14,6 +14,7 @@ const productGrid = document.querySelector("product-grid") as HTMLElement & {
 };
 let cartCount = 0; // Contador inicial del carrito
 let totalAmount = 0; // Monto inicial del carrito
+// este tipado podr'ia llevarse a la carpeta types o interface o domain dependiendo de como se maneje la nomenclatura
 let userCart: HTMLElement & {
   updateCartCount: (count: number) => void;
   updateCartAmount: (amount: number) => void;
@@ -118,6 +119,7 @@ fetchAndSetProducts();
 /**
  * Escucha y maneja el evento "add-to-cart" para actualizar el carrito.
  */
+// estos eventos podr'ian estar en enum para evitar escribrilo manualmente
 document.addEventListener(
   "add-to-cart",
   (event: CustomEvent<{ product: Product }>) => {

@@ -84,7 +84,6 @@ class FilterBar extends HTMLElement {
   private async loadCategories(): Promise<void> {
     try {
       const categories: Category[] = await this.categoryService.fetchCategories();
-      console.log("Categorías obtenidas:", categories);
 
       // Limpia las opciones existentes antes de cargar las nuevas
       this.categoriesDropdown.innerHTML = "";
