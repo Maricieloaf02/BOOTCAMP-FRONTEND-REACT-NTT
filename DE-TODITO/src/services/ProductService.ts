@@ -10,7 +10,9 @@ const productMapper = (raw: RawProduct): Product => ({
 
 export class ProductService {
   async fetchProducts(): Promise<Product[]> {
+    // la url se repite por lo que podr'ia estar centralizada en un archivo global que se pueda importar o si queremos ir a un siguiente nivel podemos considerar usar variables de entorno
     const response = await fetch("https://dummyjson.com/products?limit=1000");
+    // igual aqu'i por qu'e unknown?
     const data: unknown = await response.json();
 
     // Validación explícita usando unknown
