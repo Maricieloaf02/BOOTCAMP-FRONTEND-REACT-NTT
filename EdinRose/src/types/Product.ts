@@ -3,10 +3,7 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
   category: string;
-  thumbnail: string;
+  thumbnail?: string; // Si el campo no está en tu API, debería ser opcional
+  stock: number;
 }

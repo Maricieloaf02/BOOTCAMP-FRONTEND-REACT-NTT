@@ -1,33 +1,44 @@
-import React from 'react';
-import './Navbar.module.css'; // Cambia el uso de CSS modules a un archivo global
-import { FaUserAlt, FaShoppingBag, FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaUserAlt, FaShoppingCart, FaSearch } from 'react-icons/fa';
+import './Navbar.module.css';
 
-const Navbar: React.FC = () => {
-  const cartCount: number = 2; // Cantidad de elementos en el carrito
+interface NavbarProps {
+  onSearch: (query: string) => void; // Prop para manejar la búsqueda
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
+  const [searchText, setSearchText] = useState<string>(''); // Estado para el texto de búsqueda
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchText(value);
+    console.log('Search triggered with:', value); // Validar entrada del usuario
+    onSearch(value);
+  };
 
   return (
     <nav className="navbar">
       {/* Logo */}
       <div className="navbar__logo">EdinRose</div>
 
-      {/* Search Bar */}
+      {/* Barra de búsqueda */}
       <div className="navbar__search">
         <input
           type="text"
           className="navbar__search_bar"
           placeholder="Search for products..."
+          value={searchText}
+          onChange={handleInputChange} // Manejar cambios en el texto
         />
         <FaSearch className="navbar__search_icon" />
       </div>
 
-      {/* Icons */}
+      {/* Íconos */}
       <div className="navbar__icons">
-        <div className="navbar__icon-container">
-          <FaUserAlt className="navbar__icon" />
-        </div>
-        <div className="navbar__icon-container navbar__cart">
-          <FaShoppingBag className="navbar__icon" />
-          <span className="navbar__cart_count">{cartCount}</span>
+        <FaUserAlt className="navbar__icon" />
+        <div className="navbar__cart">
+          <FaShoppingCart className="navbar__icon" />
+          <span className="navbar__cart_count">3</span>
         </div>
       </div>
     </nav>

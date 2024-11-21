@@ -1,26 +1,26 @@
-.shopPage {
+.shop-page {
   display: flex;
   flex-direction: column;
+}
+
+.shop-page__header {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  background-color: var(--color-bg-dark); /* Fondo gris claro */
-  min-height: 100vh;
+  gap: 16px; /* Espaciado entre el selector y otros elementos */
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 16px;
-  width: 100%;
-  color: var(--color-text-primary); /* Gris oscuro */
+.shop-page__error {
+  color: var(--color-error);
+  font-size: 1rem;
+  margin: 16px 0;
 }
 
-h1 {
-  font-size: 2rem;
-  color: var(--color-secondary); /* Amarillo cálido */
+.shop-page__grid {
+  margin-top: 16px;
 }
 
-p {
-  font-size: 1.2rem;
-  color: var(--color-text-secondary); /* Gris medio */
+.shop-page__pagination {
+  margin-top: 24px;
+  text-align: center;
 }

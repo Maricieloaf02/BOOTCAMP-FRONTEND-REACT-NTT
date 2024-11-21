@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 58px;
+  padding: 16px 48px;
   background-color: var(--color-bg-light);
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -14,9 +14,9 @@
 .navbar__logo {
   font-size: 2rem;
   font-weight: bold;
-  background: var(--gradient-primary); /* Aplica un gradiente */
+  background: var(--gradient-primary);
   background-clip: text;
-  -webkit-text-fill-color: transparent; /* Hace que el texto tome el gradiente */
+  -webkit-text-fill-color: transparent;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -25,13 +25,13 @@
   transform: scale(1.1);
 }
 
-
 .navbar__search {
   display: flex;
   align-items: center;
   flex: 1;
-  max-width: 500px;
+  max-width: 400px;
   position: relative;
+  margin: 0 16px;
 }
 
 .navbar__search_bar {
@@ -41,11 +41,11 @@
   border-radius: 8px;
   outline: none;
   transition: border-color 0.3s ease, background-color 0.3s ease;
-}
+} 
 
 .navbar__search_bar:focus {
-  border-color: var(--color-primary); /* Cambia el color del borde al color primario */
-  background-color: rgba(255, 182, 193, 0.1); /* Ligero fondo del color primario */
+  border-color: var(--color-secondary);
+  background-color: rgba(255, 182, 193, 0.1);
 }
 
 .navbar__search_icon {
@@ -59,32 +59,19 @@
 .navbar__icons {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
 }
 
 .navbar__icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--color-text-primary);
   cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.navbar__icons {
-  display: flex;
-  align-items: center;
-  gap: 24px; /* Aumenta el espacio entre íconos */
-}
-
-.navbar__icon {
-  font-size: 1.5rem; /* Aumenta el tamaño del ícono */
-  color: var(--color-text-primary); /* Mantenemos consistencia en colores */
-  cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease; /* Añade una pequeña animación */
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .navbar__icon:hover {
-  color: var(--color-primary); /* Cambia de color al pasar el mouse */
-  transform: scale(1.2); /* Escala el tamaño al hacer hover */
+  color: var(--color-primary);
+  transform: scale(1.2);
 }
 
 .navbar__cart {
@@ -94,13 +81,29 @@
 .navbar__cart_count {
   position: absolute;
   top: -8px;
-  right: -12px;
+  right: -8px;
   background-color: var(--color-primary);
   color: var(--color-bg-light);
   border-radius: 50%;
-  font-size: 0.9rem;
-  padding: 1px 8px;
+  font-size: 0.8rem;
+  padding: 2px 6px;
   font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra para que destaque */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Responsividad */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .navbar__search {
+    margin: 16px 0;
+    max-width: 100%;
+  }
+
+  .navbar__icons {
+    justify-content: flex-end;
+  }
+}

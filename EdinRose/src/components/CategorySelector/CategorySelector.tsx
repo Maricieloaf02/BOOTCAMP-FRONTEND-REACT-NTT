@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './CategorySelector.module.css';
+import './CategorySelector.module.css';
 import { Category } from '@/types/Category';
 import { fetchCategories } from '@/services/categoryService';
 
@@ -11,19 +11,21 @@ const CategorySelector: React.FC<Props> = ({ onSelectCategory }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Estado para mostrar el mensaje de carga
 
   useEffect(() => {
     const loadCategories = async () => {
       try {
+        setLoading(true); // Mostrar "Cargando..."
         const fetchedCategories = await fetchCategories();
         setCategories(fetchedCategories);
-      } catch (error: unknown) {
-        // Validar el tipo del error y extraer un mensaje
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError('Error desconocido');
-        }
+        setError(null); // Limpiar error si se cargaron correctamente
+      } catch (err: unknown) {
+        setError(
+          err instanceof Error ? err.message : 'Error desconocido al cargar las categorías'
+        );
+      } finally {
+        setLoading(false); // Ocultar "Cargando..."
       }
     };
 
@@ -36,20 +38,20 @@ const CategorySelector: React.FC<Props> = ({ onSelectCategory }) => {
   };
 
   return (
-    <div className={styles['category-selector']}>
-      <label htmlFor="categories" className={styles['category-selector__label']}>
+    <div className="category-selector">
+      <label htmlFor="categories" className="category-selector__label">
         Categories:
       </label>
-      {error ? (
-        <p className={styles['category-selector__error']}>
-          Error al cargar las categorías: {error}
-        </p>
+      {loading ? (
+        <p className="category-selector__loading">Cargando categorías...</p>
+      ) : error ? (
+        <p className="category-selector__error">Error: {error}</p>
       ) : (
         <select
           id="categories"
           value={selectedCategory}
           onChange={(e) => handleSelect(e.target.value)}
-          className={styles['category-selector__select']}
+          className="category-selector__select"
         >
           <option value="">All Categories</option>
           {categories.map((category) => (

@@ -1,22 +1,43 @@
-import { Product } from '@/types/Product';
+import  { Product } from '@/types/Product';
+export const fetchProducts = async (
+  page: number,
+  limit: number,
+  category?: string,
+  query?: string
+): Promise<{ products: Product[]; total: number }> => {
+  const offset = (page - 1) * limit;
 
-const API_BASE_URL = 'https://dummyjson.com';
+  // URL base para todas las categorías
+  const baseUrl = category && category !== ''
+    ? `https://dummyjson.com/products/category/${category}`
+    : `https://dummyjson.com/products?limit=200&skip=0`; // Ajusta el límite si puedes
 
-export const fetchProducts = async (): Promise<Product[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/products`);
+    const response = await fetch(baseUrl);
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
     }
+
     const data = await response.json();
-    return data.products; // La API devuelve un objeto con una propiedad `products`
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error al obtener productos:', error.message);
-      throw new Error(error.message);
-    } else {
-      console.error('Error desconocido al obtener productos:', error);
-      throw new Error('Ocurrió un error inesperado al obtener los productos.');
+    let filteredProducts = data.products || [];
+
+    // Aplicar búsqueda localmente si hay query
+    if (query) {
+      filteredProducts = filteredProducts.filter((product: Product) =>
+        product.title.toLowerCase().includes(query.toLowerCase())
+      );
     }
+
+    // Realizar paginación local
+    const paginatedProducts = filteredProducts.slice(offset, offset + limit);
+
+    return {
+      products: paginatedProducts,
+      total: filteredProducts.length, // Total después del filtro
+    };
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    throw error;
   }
 };
+

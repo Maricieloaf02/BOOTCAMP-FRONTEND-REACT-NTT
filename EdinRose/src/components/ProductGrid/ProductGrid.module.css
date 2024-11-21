@@ -1,14 +1,15 @@
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .product-grid__empty {
-    grid-column: 1 / -1; /* Asegura que ocupe toda la fila */
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--color-text-secondary);
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajusta las columnas dinámicamente */
+  gap: 16px;
+  justify-items: center; /* Centra los productos horizontalmente */
+  align-items: start; /* Ajusta los productos verticalmente */
+}
+
+.product-grid__empty {
+  grid-column: 1 / -1; /* Hace que el mensaje ocupe todo el ancho */
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.2rem;
+  padding: 16px;
+}
