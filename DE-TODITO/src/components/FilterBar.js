@@ -84,11 +84,13 @@ class FilterBar extends HTMLElement {
    * Carga dinámicamente las categorías desde la API dummyjson y las agrega al dropdown.
    * Si ocurre un error, se registra en la consola.
    */
+  // lo ideal es separar las llamadas apis de la integraci'on visual de lo contrario al hacer unit test ser'a m'as complejo de realizar
   async fetchCategories() {
     try {
       const response = await fetch("https://dummyjson.com/products/categories");
       const categories = await response.json();
 
+      // no dejar console.log
       console.log("Categorías obtenidas:", categories);
 
       // Limpia las opciones existentes antes de cargar las nuevas
@@ -122,6 +124,7 @@ class FilterBar extends HTMLElement {
    * Los transforma y actualiza la grid de productos.
    * @param {string} category - Categoría seleccionada.
    */
+  // lo mismo aqu'i separar el consumo de servicio, el procesamiento y la inserci'on en la vista
   async fetchProductsByCategory(category) {
     try {
       const response = await fetch(
