@@ -1,28 +1,18 @@
-import React from 'react';
-import './ProductGrid.module.css'; // Cambiamos a un archivo CSS global con clases BEM
-import { Product } from '@/types/Product';
-import ProductCard from '@/components/ProductCard';
+import React, { forwardRef, ReactNode } from 'react';
+import styles from './ProductGrid.module.css';
 
 interface ProductGridProps {
-  products: Product[];
+  children: ReactNode; // Recibe lo que sea renderizado dentro del grid
 }
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products }) => {
-  console.log('Rendering ProductGrid with products:', products); // Validar productos
+const ProductGrid = forwardRef<HTMLDivElement, ProductGridProps>(({ children }, ref) => {
   return (
-    <div className="product-grid">
-      {products.length > 0 ? (
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))
-      ) : (
-        <p className="product-grid__empty">
-          No products found. Please try a different search or category.
-        </p>
-      )}
+    <div ref={ref} className={styles['product-grid']}>
+      {children}
     </div>
   );
-};
+});
 
+ProductGrid.displayName = 'ProductGrid'; // Importante para depuración con forwardRef
 
 export default ProductGrid;

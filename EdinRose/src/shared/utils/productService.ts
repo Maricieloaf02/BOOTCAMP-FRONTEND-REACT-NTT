@@ -1,4 +1,7 @@
-import  { Product } from '@/types/Product';
+import { Product } from '@/domain/Product';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;  
+
 export const fetchProducts = async (
   page: number,
   limit: number,
@@ -7,21 +10,23 @@ export const fetchProducts = async (
 ): Promise<{ products: Product[]; total: number }> => {
   const offset = (page - 1) * limit;
 
-  // URL base para todas las categorías
+  // Construir la URL base
   const baseUrl = category && category !== ''
-    ? `https://dummyjson.com/products/category/${category}`
-    : `https://dummyjson.com/products?limit=200&skip=0`; // Ajusta el límite si puedes
+    ? `${API_BASE_URL}/products/category/${category}`
+    : `${API_BASE_URL}/products?limit=200&skip=0`;
 
   try {
     const response = await fetch(baseUrl);
+
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json();
-    let filteredProducts = data.products || [];
+    // Tipar directamente la respuesta
+    const data: { products: Product[]; total: number } = await response.json();
 
     // Aplicar búsqueda localmente si hay query
+    let filteredProducts = data.products;
     if (query) {
       filteredProducts = filteredProducts.filter((product: Product) =>
         product.title.toLowerCase().includes(query.toLowerCase())
@@ -33,11 +38,10 @@ export const fetchProducts = async (
 
     return {
       products: paginatedProducts,
-      total: filteredProducts.length, // Total después del filtro
+      total: filteredProducts.length,
     };
   } catch (error) {
     console.error('Error al obtener productos:', error);
     throw error;
   }
 };
-

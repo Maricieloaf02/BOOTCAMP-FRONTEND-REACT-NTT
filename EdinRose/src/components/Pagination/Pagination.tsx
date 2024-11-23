@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import './Pagination.module.css';
+import styles from './Pagination.module.css';
 
 interface PaginationProps {
   totalItems: number;
@@ -20,7 +20,6 @@ const Pagination: React.FC<PaginationProps> = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const [rangeStart, setRangeStart] = useState<number>(1);
 
-  // Calcular el rango inicial cuando cambie la página actual
   useEffect(() => {
     const currentRange = Math.floor((currentPage - 1) / visibleRange) * visibleRange + 1;
     setRangeStart(currentRange);
@@ -29,40 +28,39 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleNextRange = () => {
     const newRangeStart = Math.min(rangeStart + visibleRange, totalPages - visibleRange + 1);
     setRangeStart(newRangeStart);
-    onPageChange(newRangeStart); // Cambiar a la primera página del siguiente rango
+    onPageChange(newRangeStart);
   };
 
   const handlePrevRange = () => {
     const newRangeStart = Math.max(rangeStart - visibleRange, 1);
     setRangeStart(newRangeStart);
-    onPageChange(newRangeStart); // Cambiar a la primera página del rango anterior
+    onPageChange(newRangeStart);
   };
 
   const handlePageClick = (page: number) => {
-    onPageChange(page); // Cambiar la página actual
+    onPageChange(page);
   };
 
-  // Páginas visibles dentro del rango
   const visiblePages = Array.from(
     { length: visibleRange },
     (_, index) => rangeStart + index
   ).filter((page) => page <= totalPages);
 
   return (
-    <div className="pagination">
+    <div className={styles['pagination']}>
       <button
-        className="pagination__button"
+        className={styles['pagination__button']}
         onClick={handlePrevRange}
         disabled={rangeStart === 1}
       >
-        <FaArrowLeft className="pagination__icon" />
+        <FaArrowLeft className={styles['pagination__icon']} />
       </button>
 
       {visiblePages.map((page) => (
         <button
           key={page}
-          className={`pagination__button ${
-            currentPage === page ? 'pagination__button--active' : ''
+          className={`${styles['pagination__button']} ${
+            currentPage === page ? styles['pagination__button--active'] : ''
           }`}
           onClick={() => handlePageClick(page)}
         >
@@ -71,11 +69,11 @@ const Pagination: React.FC<PaginationProps> = ({
       ))}
 
       <button
-        className="pagination__button"
+        className={styles['pagination__button']}
         onClick={handleNextRange}
         disabled={rangeStart + visibleRange > totalPages}
       >
-        <FaArrowRight className="pagination__icon" />
+        <FaArrowRight className={styles['pagination__icon']} />
       </button>
     </div>
   );

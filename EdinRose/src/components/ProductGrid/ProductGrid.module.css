@@ -4,6 +4,7 @@
   gap: 16px;
   justify-items: center; /* Centra los productos horizontalmente */
   align-items: start; /* Ajusta los productos verticalmente */
+  margin: 0px 28px;
 }
 
 .product-grid__empty {

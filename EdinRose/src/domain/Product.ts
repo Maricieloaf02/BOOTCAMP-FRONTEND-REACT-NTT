@@ -4,6 +4,6 @@ export interface Product {
   description: string;
   price: number;
   category: string;
-  thumbnail?: string; // Si el campo no está en tu API, debería ser opcional
+  thumbnail?: string; 
   stock: number;
 }
