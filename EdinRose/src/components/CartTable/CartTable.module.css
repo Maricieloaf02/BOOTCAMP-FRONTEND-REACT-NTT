@@ -1,0 +1,40 @@
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-item__image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+  
+  .cart-item__quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .cart-item__remove {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .cart-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+  }
+  

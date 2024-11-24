@@ -1,0 +1,67 @@
+.progressContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    text-align: center;
+  }
+  
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd; /* Línea entre pasos */
+    z-index: 1;
+  }
+  
+  .completed:not(:last-child)::after {
+    background-color: #4caf50; /* Línea completada */
+  }
+  
+  .circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    z-index: 2;
+    position: relative;
+  }
+  
+  .completed .circle {
+    background-color: #4caf50; /* Círculo completado */
+  }
+  
+  .active .circle {
+    background-color: #2196f3; /* Círculo activo */
+  }
+  
+  .label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .active .label {
+    color: #2196f3; /* Texto del paso activo */
+  }
+  
+  .completed .label {
+    color: #4caf50; /* Texto del paso completado */
+  }
+  
