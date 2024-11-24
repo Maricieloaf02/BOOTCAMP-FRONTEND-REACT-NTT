@@ -1,12 +1,12 @@
 .cartPage {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .cartContent {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cart-page__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinea la tabla y el resumen al tope */
+  gap: 2rem;
+}

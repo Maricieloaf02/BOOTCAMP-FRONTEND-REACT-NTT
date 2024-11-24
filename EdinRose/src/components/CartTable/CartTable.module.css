@@ -1,40 +1,55 @@
 .cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-  }
-  
-  .cart-table th,
-  .cart-table td {
-    padding: 0.5rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .cart-item__image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-  }
-  
-  .cart-item__quantity {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .cart-item__remove {
-    background-color: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-  }
-  
-  .cart-empty {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #777;
-  }
-  
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background-color: var(--color-bg-light); /* Fondo blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Para bordes redondeados en tablas */
+}
+
+.cart-table th {
+  background-color: var(--color-bg-dark); /* Encabezado gris claro */
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-text-secondary); /* Gris de subtítulo */
+}
+
+.cart-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border); /* Borde entre filas */
+  text-align: left;
+}
+
+.cart-item__image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+.cart-item__quantity button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-item__remove {
+  background-color: var(--color-error);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.cart-item__remove:hover {
+  background-color: #b02a37; /* Oscurece el botón en hover */
+}
