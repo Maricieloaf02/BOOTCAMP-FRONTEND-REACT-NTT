@@ -2,13 +2,21 @@ import React from 'react';
 import styles from './ProductCard.module.css';
 import { Product } from '@/domain/Product';
 import { useCart } from '@/context/useCart';
+import { CartActions } from '@/domain/actions';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToCart } = useCart();
+  const { dispatch } = useCart(); // Usamos `dispatch` para enviar acciones al reducer
+
+  const handleAddToCart = () => {
+    dispatch({
+      type: CartActions.AddToCart,
+      payload: { ...product, quantity: 1 }, // Enviamos el producto con cantidad inicial 1
+    });
+  };
 
   return (
     <div className={styles['product-card']}>
@@ -23,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <button
         className={styles['product-card__button']}
-        onClick={() => addToCart(product)}
+        onClick={handleAddToCart} // Usamos el nuevo manejador para agregar al carrito
       >
         Añadir al carrito
       </button>

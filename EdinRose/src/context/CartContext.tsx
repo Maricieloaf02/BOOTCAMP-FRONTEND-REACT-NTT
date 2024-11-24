@@ -1,63 +1,33 @@
-import React, { createContext, ReactNode } from 'react';
-import { Product } from '@/domain/Product';
-import { CartItem } from '@/domain/CartItem';
-import useLocalStorage from '@/shared/hooks/useLocalStorage';
+import React, { createContext, ReactNode, useReducer, useEffect } from 'react';
+import { cartReducer, CartState, DispatchObject } from './reducer';
 
+
+const initialCartState: CartState = {
+  items: [],
+};
+
+// Tipo del contexto
 interface CartContextProps {
-  cart: CartItem[]; // Usamos CartItem en lugar de Product
-  addToCart: (product: Product) => void;
-  clearCart: () => void;
-  updateQuantity: (productId: number, quantity: number) => void;
-  removeFromCart: (productId: number) => void;
+  state: CartState;
+  dispatch: React.Dispatch<DispatchObject>;
 }
 
+// Crear el contexto
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
+// Proveedor del contexto
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []); // Guardar en localStorage
+  const [state, dispatch] = useReducer(cartReducer, initialCartState, (initial) => {
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? { items: JSON.parse(savedCart) } : initial;
+  });
 
-  // Agregar un producto al carrito
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }]; // Agregar nuevo producto con cantidad inicial de 1
-    });
-  };
-
-  // Limpiar todo el carrito
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  // Actualizar la cantidad de un producto en el carrito
-  const updateQuantity = (productId: number, quantity: number) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity: Math.max(quantity, 1) } : item
-      )
-    );
-  };
-
-  // Eliminar un producto del carrito
-  const removeFromCart = (productId: number) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-  };
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state.items));
+  }, [state.items]);
 
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        clearCart,
-        updateQuantity,
-        removeFromCart,
-      }}
-    >
+    <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );

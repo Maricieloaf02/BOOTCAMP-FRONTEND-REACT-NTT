@@ -1,30 +1,37 @@
 import React from 'react';
-import { CartItem as CartItemType } from '@/domain/CartItem'; // Usa la interfaz CartItem
+import { CartItem as CartItemType } from '@/domain/CartItem'; 
 import { useCart } from '@/context/useCart';
+import { CartActions } from '@/domain/actions';
 import styles from './CartTable.module.css';
 
 interface CartItemProps {
-  product: CartItemType; // Cambiado de Product a CartItemType
+  product: CartItemType;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ product }) => {
-  const { updateQuantity, removeFromCart } = useCart();
+  const { dispatch } = useCart();
 
-  // Incrementar cantidad
   const handleIncrease = () => {
-    updateQuantity(product.id, product.quantity + 1);
+    dispatch({
+      type: CartActions.UpdateQuantity,
+      payload: { id: product.id, quantity: product.quantity + 1 },
+    });
   };
 
-  // Decrementar cantidad
   const handleDecrease = () => {
     if (product.quantity > 1) {
-      updateQuantity(product.id, product.quantity - 1);
+      dispatch({
+        type: CartActions.UpdateQuantity,
+        payload: { id: product.id, quantity: product.quantity - 1 },
+      });
     }
   };
 
-  // Eliminar producto
   const handleRemove = () => {
-    removeFromCart(product.id);
+    dispatch({
+      type: CartActions.RemoveFromCart,
+      payload: { id: product.id },
+    });
   };
 
   return (

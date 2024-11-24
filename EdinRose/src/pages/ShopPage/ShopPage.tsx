@@ -15,10 +15,10 @@ const itemsPerPage = 10;
 const ShopPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [categories, setCategories] = useState<Category[]>([]); // Categorías como tipo `Category`
+  const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedCategory, setSelectedCategory] = useState<string>(''); // Filtro de categoría
-  const [searchQuery, setSearchQuery] = useState<string>(''); // Búsqueda por texto
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
   // Cargar productos

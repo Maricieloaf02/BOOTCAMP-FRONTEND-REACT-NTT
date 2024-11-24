@@ -4,26 +4,27 @@ import CartItem from './CartItem';
 import styles from './CartTable.module.css';
 
 const CartTable: React.FC = () => {
-  const { cart } = useCart();
+  const { state } = useCart(); // Accedemos al estado global del carrito
+  const cartItems = state.items; // Los productos están en `state.items`
 
-  if (cart.length === 0) {
-    return <p className={styles['cart-empty']}>Tu carrito está vacío.</p>;
+  if (cartItems.length === 0) {
+    return <p className={styles['cart-empty']}>Your cart is empty.</p>;
   }
 
   return (
     <table className={styles['cart-table']}>
       <thead>
         <tr>
-          <th>Imagen</th>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Precio Unitario</th>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
           <th>Subtotal</th>
-          <th>Acción</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {cart.map((product) => (
+        {cartItems.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}
       </tbody>
