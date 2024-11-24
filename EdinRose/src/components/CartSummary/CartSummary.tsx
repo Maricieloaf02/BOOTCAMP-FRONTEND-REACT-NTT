@@ -1,20 +1,17 @@
 import React from 'react';
-import { useCart } from '@/context/useCart'; 
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '@/context/useCart';
+import Button from '@/shared/components/Button/Button'; // Usamos el botón genérico
 import styles from './CartSummary.module.css';
 
 const CartSummary: React.FC = () => {
   const { state } = useCart();
-  const navigate = useNavigate(); // Hook para redirigir
-  const cartItems = state.items;
+  const navigate = useNavigate();
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
-    navigate('/checkout');
+    navigate('/checkout'); // Redirige a la página de Checkout
   };
 
   return (
@@ -24,12 +21,9 @@ const CartSummary: React.FC = () => {
         <span>Total</span>
         <span>${total.toFixed(2)}</span>
       </div>
-      <button
-        className={styles['cart-summary__button']}
-        onClick={handleCheckout}
-      >
+      <Button onClick={handleCheckout} fullWidth>
         Checkout
-      </button>
+      </Button>
     </div>
   );
 };

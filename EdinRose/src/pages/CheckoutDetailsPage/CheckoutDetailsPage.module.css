@@ -1,0 +1,12 @@
+.checkout-page {
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .checkout-page__forms {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
