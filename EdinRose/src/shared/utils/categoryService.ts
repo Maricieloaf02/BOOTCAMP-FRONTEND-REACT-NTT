@@ -18,9 +18,8 @@ export const fetchCategories = async (): Promise<Category[]> => {
       throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
     }
 
-    // Tipar directamente el resultado como un array de categorías
     const data: Category[] = await response.json();
-    return mapCategory(data); // Aplicar mapeo si es necesario
+    return mapCategory(data); 
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error al obtener categorías:', error.message);

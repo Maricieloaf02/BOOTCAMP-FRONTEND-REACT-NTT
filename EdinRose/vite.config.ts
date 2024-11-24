@@ -9,6 +9,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: true, 
+  },
   css: {
     modules: {
       generateScopedName: '[local]', // Usa solo el nombre de la clase definida

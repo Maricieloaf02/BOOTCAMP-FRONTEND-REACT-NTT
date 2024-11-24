@@ -22,10 +22,8 @@ export const fetchProducts = async (
       throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
     }
 
-    // Tipar directamente la respuesta
     const data: { products: Product[]; total: number } = await response.json();
 
-    // Aplicar búsqueda localmente si hay query
     let filteredProducts = data.products;
     if (query) {
       filteredProducts = filteredProducts.filter((product: Product) =>
@@ -33,7 +31,6 @@ export const fetchProducts = async (
       );
     }
 
-    // Realizar paginación local
     const paginatedProducts = filteredProducts.slice(offset, offset + limit);
 
     return {
