@@ -1,10 +1,10 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ErrorContextProps {
-  hasError: boolean; // Indica si hay un error activo
-  errorMessage: string; // Mensaje del error
-  setError: (message: string) => void; // Activar error
-  clearError: () => void; // Limpiar error
+  hasError: boolean;
+  errorMessage: string;
+  setError: (message: string) => void;
+  clearError: () => void;
 }
 
 const ErrorContext = createContext<ErrorContextProps | undefined>(undefined);

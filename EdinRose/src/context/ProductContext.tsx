@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import { Product } from '../domain/Product';
-import { fetchProducts } from '../shared/utils/productService';
+import { Product } from '@/domain/Product';
+import { fetchProducts } from '@/shared/utils/productService';
 
 interface ProductContextProps {
   products: Product[];

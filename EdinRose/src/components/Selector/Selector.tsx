@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Selector.module.css'; // Importamos estilos como módulo
+import styles from './Selector.module.css';
 
 export interface SelectorOption {
   value: string;

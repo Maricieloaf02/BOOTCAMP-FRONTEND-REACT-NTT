@@ -2,7 +2,7 @@ import React, { forwardRef, ReactNode } from 'react';
 import styles from './ProductGrid.module.css';
 
 interface ProductGridProps {
-  children: ReactNode; // Recibe lo que sea renderizado dentro del grid
+  children: ReactNode;
 }
 
 const ProductGrid = forwardRef<HTMLDivElement, ProductGridProps>(({ children }, ref) => {
@@ -13,6 +13,6 @@ const ProductGrid = forwardRef<HTMLDivElement, ProductGridProps>(({ children }, 
   );
 });
 
-ProductGrid.displayName = 'ProductGrid'; // Importante para depuración con forwardRef
+ProductGrid.displayName = 'ProductGrid';
 
 export default ProductGrid;

@@ -7,7 +7,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px; /* Espaciado entre el selector y otros elementos */
+  gap: 16px;
 }
 
 .shop-page__error {
