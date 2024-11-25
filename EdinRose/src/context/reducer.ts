@@ -9,7 +9,8 @@ type CartActionPayload =
   | { type: CartActions.AddToCart; payload: CartItem }
   | { type: CartActions.RemoveFromCart; payload: { id: number } }
   | { type: CartActions.UpdateQuantity; payload: { id: number; quantity: number } }
-  | { type: CartActions.ClearCart };
+  | { type: CartActions.ClearCart; payload?: null };
+
 
 export type DispatchObject = CartActionPayload;
 

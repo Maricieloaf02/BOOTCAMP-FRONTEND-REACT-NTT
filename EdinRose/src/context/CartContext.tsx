@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useReducer, useEffect } from 'react';
 import { cartReducer, CartState, DispatchObject } from './reducer';
+import { CartActions } from '@/domain/actions';
 
 
 const initialCartState: CartState = {
@@ -10,6 +11,7 @@ const initialCartState: CartState = {
 interface CartContextProps {
   state: CartState;
   dispatch: React.Dispatch<DispatchObject>;
+  clearCart: () => void; // Función para limpiar el carrito
 }
 
 // Crear el contexto
@@ -26,8 +28,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('cart', JSON.stringify(state.items));
   }, [state.items]);
 
+  // Función para limpiar el carrito
+  const clearCart = () => {
+    dispatch({ type: CartActions.ClearCart }); // Despacha usando el enum
+  };
+  
+
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch, clearCart }}>
       {children}
     </CartContext.Provider>
   );

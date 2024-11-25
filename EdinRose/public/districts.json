@@ -1,10 +1,20 @@
 {
     "districts": [
-      "Downtown",
-      "Uptown",
-      "Suburb",
-      "Industrial Area",
-      "Residential Zone"
+      "La Molina",
+      "Surco",
+      "San Isidro",
+      "Miraflores",
+      "San Borja",
+      "San Miguel",
+      "Magdalena",
+      "Pueblo Libre",
+      "Barranco",
+      "Chorrillos",
+      "San Juan de Lurigancho",
+      "San Juan de Miraflores",
+      "San Luis",
+      "San Martin de Porres",
+      "Villa Maria del Triunfo"
     ]
   }
   

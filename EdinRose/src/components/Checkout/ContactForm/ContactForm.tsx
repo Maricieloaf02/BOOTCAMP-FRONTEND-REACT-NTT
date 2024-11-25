@@ -28,20 +28,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
     if (name === 'firstName' || name === 'lastName') {
       if (!allowedPattern.test(e.key)) {
         e.preventDefault(); // Bloquear entrada si no coincide con el patrón
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: 'Debe ingresar un valor válido (solo letras).',
-        }));
       }
     }
 
     if (name === 'phone') {
       if (!/^\d$/.test(e.key)) {
         e.preventDefault(); // Bloquear entrada si no es un número
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [name]: 'El número de teléfono debe contener solo dígitos.',
-        }));
       }
     }
   };
@@ -62,7 +54,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
       }
     }
 
-    // Limpiar mensaje de error si el valor es válido
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     onChange(formData);

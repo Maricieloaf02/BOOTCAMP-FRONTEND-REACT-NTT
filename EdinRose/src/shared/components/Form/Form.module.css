@@ -1,46 +1,67 @@
 .form {
   display: flex;
-  flex-direction: column; /* Acomoda los elementos en columna */
-  align-items: center; /* Centra horizontalmente */
-  justify-content: center; /* Centra verticalmente */
+  flex-direction: column;
+  align-items: stretch; /* Alinear elementos al 100% */
+  gap: 1.5rem; /* Espaciado más cómodo */
   border: 1px solid var(--color-border);
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px; /* Bordes más suaves */
   background-color: var(--color-bg-light);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más definida */
   margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px; /* Limitar el ancho máximo */
+  margin: 0 auto 20px auto; /* Centrar horizontalmente */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.form:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* Sombra más intensa al hover */
+  transform: translateY(-2px); /* Sutil elevación */
 }
 
 .form__title {
-  font-size: 1.25rem; /* Tamaño ajustado del título */
-  font-weight: 600;
+  font-size: 1.5rem; /* Tamaño más grande */
+  font-weight: 700; /* Peso del texto más destacado */
   margin-bottom: 1rem; /* Espaciado inferior */
   color: var(--color-text-primary);
-  text-align: center; /* Centra el título */
+  text-align: center; /* Centrado horizontal */
 }
 
 .form__content {
   display: flex;
-  flex-direction: column; /* Acomoda inputs en columna */
-  gap: 1rem; /* Espaciado uniforme entre los elementos */
-  align-items: center; /* Centra los inputs horizontalmente */
+  flex-direction: column;
+  gap: 1.25rem; /* Espaciado uniforme */
+  align-items: stretch; /* Ocupa todo el ancho */
 }
 
-.form__content input[type="text"],
-.form__content input[type="tel"],
+.form__content input,
 .form__content select {
-  width: 100%; /* Ancho flexible */
-  max-width: 400px; /* Máximo ancho */
-  padding: 0.75rem 1rem; /* Espaciado interno */
+  width: 100%;
+  max-width: 100%; /* Eliminar límite rígido */
+  padding: 0.875rem 1rem;
   font-size: 1rem;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background-color: var(--color-bg-light);
   color: var(--color-text-primary);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form__content input:last-of-type {
-  margin-bottom: 1.5rem; /* Espaciado extra para el último input */
+.form__content input:focus,
+.form__content select:focus {
+  border-color: var(--color-primary); /* Color principal al focus */
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.25); /* Sombra azul */
+  outline: none;
+}
+
+.form__content input::placeholder,
+.form__content select::placeholder {
+  color: var(--color-text-secondary); /* Placeholder con color tenue */
+}
+
+.form__content input:hover,
+.form__content select:hover {
+  border-color: var(--color-primary-light); /* Color más claro al hover */
 }

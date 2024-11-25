@@ -1,7 +1,31 @@
-.input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    font-size: 14px;
-  }
-  
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-field input,
+.form-field select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #007bff;
+}
+
+.error {
+  font-size: 12px;
+  color: #d32f2f;
+}
