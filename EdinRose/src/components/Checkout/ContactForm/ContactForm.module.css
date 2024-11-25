@@ -1,7 +1,18 @@
 .input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    font-size: 14px;
-  }
-  
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.form-field {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  position: relative;
+  left: 0;
+}

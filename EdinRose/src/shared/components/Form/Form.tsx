@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './Form.module.css';
 
 interface FormProps {
-  title: string; // Título del formulario
-  children: React.ReactNode; // Contenido del formulario
+  title: string; 
+  children: React.ReactNode;
 }
 
 const Form: React.FC<FormProps> = ({ title, children }) => {

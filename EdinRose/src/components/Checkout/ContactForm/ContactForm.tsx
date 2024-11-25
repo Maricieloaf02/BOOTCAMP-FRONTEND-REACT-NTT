@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from '@/shared/components/Form';
 import { ContactFormData } from '@/domain/ContactForm';
+import styles from './ContactForm.module.css';
 
 interface ContactFormProps {
   onChange: (data: ContactFormData) => void;
@@ -13,39 +14,97 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
     phone: '',
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({
+    firstName: '',
+    lastName: '',
+    phone: '',
+  });
+
+  // Validar tecla en tiempo real
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { name } = e.currentTarget;
+    const allowedPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/; // Solo letras y espacios
+
+    if (name === 'firstName' || name === 'lastName') {
+      if (!allowedPattern.test(e.key)) {
+        e.preventDefault(); // Bloquear entrada si no coincide con el patrón
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: 'Debe ingresar un valor válido (solo letras).',
+        }));
+      }
+    }
+
+    if (name === 'phone') {
+      if (!/^\d$/.test(e.key)) {
+        e.preventDefault(); // Bloquear entrada si no es un número
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: 'El número de teléfono debe contener solo dígitos.',
+        }));
+      }
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedData = { ...formData, [name]: value };
-    setFormData(updatedData);
-    onChange(updatedData); // Notificamos al padre sobre los cambios
+    let error = '';
+
+    if (name === 'firstName' || name === 'lastName') {
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(value)) {
+        error = 'Debe ingresar un valor válido (solo letras).';
+      }
+    }
+
+    if (name === 'phone') {
+      if (!/^\d+$/.test(value)) {
+        error = 'El número de teléfono debe contener solo dígitos.';
+      }
+    }
+
+    // Limpiar mensaje de error si el valor es válido
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    onChange(formData);
   };
 
   return (
     <Form title="Contact Information">
-      <input
-        type="text"
-        name="firstName"
-        placeholder="First name"
-        value={formData.firstName}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Last name"
-        value={formData.lastName}
-        onChange={handleChange}
-      />
-      <input
-        type="tel"
-        name="phone"
-        placeholder="Phone number"
-        value={formData.phone}
-        onChange={handleChange}
-      />
+      <div className={styles['form-field']}>
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First name"
+          value={formData.firstName}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres inválidos
+        />
+        {errors.firstName && <p className={styles['error']}>{errors.firstName}</p>}
+      </div>
+      <div className={styles['form-field']}>
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last name"
+          value={formData.lastName}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres inválidos
+        />
+        {errors.lastName && <p className={styles['error']}>{errors.lastName}</p>}
+      </div>
+      <div className={styles['form-field']}>
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone number"
+          value={formData.phone}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres no numéricos
+        />
+        {errors.phone && <p className={styles['error']}>{errors.phone}</p>}
+      </div>
     </Form>
   );
 };
-
 
 export default ContactForm;
