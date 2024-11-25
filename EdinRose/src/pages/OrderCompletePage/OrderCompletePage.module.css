@@ -1,0 +1,30 @@
+.order-complete {
+    text-align: center;
+    padding: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .order-complete__content {
+    margin-top: 32px;
+  }
+  
+  .order-complete__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 16px;
+  }
+  
+  .order-complete__subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745; /* Verde */
+    margin-bottom: 8px;
+  }
+  
+  .order-complete__message {
+    font-size: 18px;
+    color: #555;
+  }
+  
