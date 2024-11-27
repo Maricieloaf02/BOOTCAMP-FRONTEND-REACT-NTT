@@ -72,6 +72,7 @@ const ShopPage: React.FC = () => {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setSearchQuery('');
+    // no n'umeros m'agicos
     setCurrentPage(1);
   };
 

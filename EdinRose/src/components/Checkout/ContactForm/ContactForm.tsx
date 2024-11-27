@@ -14,6 +14,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
     phone: '',
   });
 
+  // por qu'e no reutilizar ContactFormData?
   const [errors, setErrors] = useState<{ [key: string]: string }>({
     firstName: '',
     lastName: '',
@@ -23,8 +24,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
   // Validar tecla en tiempo real
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { name } = e.currentTarget;
+    // los regex deben estar centralizados en enum para reutilizarlos en otros casos
     const allowedPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/; // Solo letras y espacios
 
+    // no valores fijos usemos types
     if (name === 'firstName' || name === 'lastName') {
       if (!allowedPattern.test(e.key)) {
         e.preventDefault(); // Bloquear entrada si no coincide con el patrón
@@ -32,6 +35,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
     }
 
     if (name === 'phone') {
+      // los regex deben estar centralizados en enum para reutilizarlos en otros casos
       if (!/^\d$/.test(e.key)) {
         e.preventDefault(); // Bloquear entrada si no es un número
       }
@@ -43,12 +47,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
     let error = '';
 
     if (name === 'firstName' || name === 'lastName') {
+      // los regex deben estar centralizados en enum para reutilizarlos en otros casos
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(value)) {
         error = 'Debe ingresar un valor válido (solo letras).';
       }
     }
 
     if (name === 'phone') {
+      // los regex deben estar centralizados en enum para reutilizarlos en otros casos
       if (!/^\d+$/.test(value)) {
         error = 'El número de teléfono debe contener solo dígitos.';
       }

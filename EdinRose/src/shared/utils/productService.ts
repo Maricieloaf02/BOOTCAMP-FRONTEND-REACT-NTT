@@ -1,5 +1,6 @@
 import { Product } from '@/domain/Product';
 
+// esto podr'ia estar en una variable global
 const API_BASE_URL = import.meta.env.VITE_API_URL;  
 
 export const fetchProducts = async (
@@ -8,6 +9,7 @@ export const fetchProducts = async (
   category?: string,
   query?: string
 ): Promise<{ products: Product[]; total: number }> => {
+  // por qu'e -1?
   const offset = (page - 1) * limit;
 
   // Construir la URL base
@@ -24,6 +26,7 @@ export const fetchProducts = async (
 
     const data: { products: Product[]; total: number } = await response.json();
 
+    // esta l'ogica podr'ia estar en el mapper
     let filteredProducts = data.products;
     if (query) {
       filteredProducts = filteredProducts.filter((product: Product) =>

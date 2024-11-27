@@ -28,6 +28,7 @@ const CheckoutDetailsPage: React.FC = () => {
     console.log('Datos de Contacto:', contactData);
     console.log('Datos de Envío:', shippingData);
 
+    // usar enum
     navigate('/order-complete'); // Redirige a la página final
   };
 

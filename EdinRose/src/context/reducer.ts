@@ -23,6 +23,7 @@ export const cartReducer = (state: CartState, action: DispatchObject): CartState
       if (existingItem) {
         return {
           ...state,
+          // podr'iamos usar llaves para mejorar la lectura
           items: state.items.map((item) =>
             item.id === id
               ? { ...item, quantity: item.quantity + quantity }

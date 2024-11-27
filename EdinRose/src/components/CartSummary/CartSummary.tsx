@@ -11,6 +11,7 @@ const CartSummary: React.FC = () => {
   const total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
+    // usar enum
     navigate('/checkout'); // Redirige a la página de Checkout
   };
 

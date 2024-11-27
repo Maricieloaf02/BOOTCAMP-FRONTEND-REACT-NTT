@@ -19,11 +19,13 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 // Proveedor del contexto
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  // est'a l'ogica del storage no debe estar aqu'i
   const [state, dispatch] = useReducer(cartReducer, initialCartState, (initial) => {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? { items: JSON.parse(savedCart) } : initial;
   });
 
+  // esta l'ogica no deber'ia estar en el provider
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(state.items));
   }, [state.items]);

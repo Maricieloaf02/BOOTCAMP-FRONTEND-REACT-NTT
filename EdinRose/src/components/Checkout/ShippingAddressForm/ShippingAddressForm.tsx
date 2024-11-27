@@ -28,6 +28,7 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
   const validateField = (name: string, value: string) => {
     let error = '';
 
+    // no valores directos
     if (name === 'address' || name === 'reference') {
       if (value.trim() === '') {
         error = 'Este campo es obligatorio.';
@@ -46,6 +47,7 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
 
   const validateForm = () => {
     // Validar todos los campos del formulario
+    // usemos enums o tipos
     const isValidAddress = validateField('address', formData.address);
     const isValidDistrict = validateField('district', formData.district);
     const isValidReference = validateField('reference', formData.reference);
@@ -53,6 +55,7 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     return isValidAddress && isValidDistrict && isValidReference;
   };
 
+  // podr'ia solo recibir el name y value y no pasarle todo el evento
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     validateField(name, value); // Validar campo
