@@ -27,7 +27,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
       }
     }
 
-    if (name === 'phone' && value.length > 9) return;
+    if (name === 'phone') {
+      // Permitir solo números en el campo phone
+      if (/[^0-9]/.test(value)) {
+        return; // Si contiene algo que no es un número, no actualizamos el campo
+      }
+      // Limitar la longitud del teléfono a 9 caracteres
+      if (value.length > 9) return;
+    }
 
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
