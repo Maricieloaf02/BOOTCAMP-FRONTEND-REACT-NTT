@@ -3,14 +3,15 @@ import Navbar from '@/components/Navbar';
 import Selector, { SelectorOption } from '@/components/Selector';
 import ProductGrid from '@/components/ProductGrid';
 import Pagination from '@/components/Pagination';
-import { fetchProducts } from '@/shared/utils/productService';
-import { fetchCategories } from '@/shared/utils/categoryService';
+import { fetchProducts } from '@/service/product.service';
+import { fetchCategories } from '@/service/category.service';
 import ProductCard from '@/components/ProductCard';
 import { Product } from '@/domain/Product';
 import { Category } from '@/domain/Category';
 import styles from './ShopPage.module.css';
 
-const itemsPerPage = 10;
+const ITEMS_PER_PAGE = 10;
+const VISIBLE_PAGES_RANGE = 5;
 
 const ShopPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,13 +22,12 @@ const ShopPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  // Cargar productos
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const { products, total } = await fetchProducts(
           currentPage,
-          itemsPerPage,
+          ITEMS_PER_PAGE,
           selectedCategory,
           searchQuery
         );
@@ -44,7 +44,6 @@ const ShopPage: React.FC = () => {
     loadProducts();
   }, [currentPage, selectedCategory, searchQuery]);
 
-  // Cargar categorías
   useEffect(() => {
     const loadCategories = async () => {
       try {
@@ -60,7 +59,6 @@ const ShopPage: React.FC = () => {
     loadCategories();
   }, []);
 
-  // Mapear categorías a opciones para el Selector
   const categoryOptions: SelectorOption[] = [
     { value: '', label: 'All Categories' },
     ...categories.map((cat) => ({
@@ -108,10 +106,10 @@ const ShopPage: React.FC = () => {
           </ProductGrid>
           <Pagination
             totalItems={totalProducts}
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={ITEMS_PER_PAGE}
             currentPage={currentPage}
             onPageChange={handlePageChange}
-            visibleRange={5}
+            visibleRange={VISIBLE_PAGES_RANGE}
           />
         </>
       )}

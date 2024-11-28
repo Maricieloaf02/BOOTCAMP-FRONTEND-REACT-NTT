@@ -27,7 +27,6 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
         EdinRose
       </Link>
 
-      {/* Barra de búsqueda */}
       <div className={styles['navbar__search']}>
         <input
           type="text"
@@ -41,8 +40,6 @@ const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
 
       <div className={styles['navbar__icons']}>
         <FaUserAlt className={styles['navbar__icon']} />
-        
-        {/* Navegación al carrito */}
         <Link to="/cart" className={styles['navbar__cart']}>
           <FaShoppingCart className={styles['navbar__icon']} />
           <span className={styles['navbar__cart_count']}>{cartCount}</span> 

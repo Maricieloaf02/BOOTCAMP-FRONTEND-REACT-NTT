@@ -3,6 +3,7 @@ import Form from '@/shared/components/Form';
 import Selector, { SelectorOption } from '@/components/Selector';
 import useDistricts from '@/shared/hooks/useDistricts';
 import { ShippingAddressFormData } from '@/domain/ShippingAddress';
+import { FormField } from '@/domain/FormFields';
 import styles from './ShippingAddressForm.module.css';
 
 interface ShippingAddressFormProps {
@@ -19,33 +20,28 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     reference: '',
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({
+  const [errors, setErrors] = useState<ShippingAddressFormData>({
     address: '',
     district: '',
     reference: '',
   });
 
-  const validateField = (name: string, value: string) => {
+  const validateField = (name: FormField, value: string) => {
     let error = '';
 
-    if (name === 'address' || name === 'reference') {
-      if (value.trim() === '') {
-        error = 'Este campo es obligatorio.';
-      }
+    if (['address', 'reference'].includes(name) && value.trim() === '') {
+      error = 'Este campo es obligatorio.';
     }
 
-    if (name === 'district') {
-      if (value === '') {
-        error = 'Debe seleccionar un distrito.';
-      }
+    if (name === 'district' && value === '') {
+      error = 'Debe seleccionar un distrito.';
     }
 
     setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-    return error === ''; // Devuelve true si no hay error
+    return error === '';
   };
 
   const validateForm = () => {
-    // Validar todos los campos del formulario
     const isValidAddress = validateField('address', formData.address);
     const isValidDistrict = validateField('district', formData.district);
     const isValidReference = validateField('reference', formData.reference);
@@ -53,12 +49,16 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     return isValidAddress && isValidDistrict && isValidReference;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    validateField(name, value); // Validar campo
+  const handleChange = (name: FormField, value: string) => {
+    validateField(name, value); 
     const updatedData = { ...formData, [name]: value };
     setFormData(updatedData);
-    onChange(updatedData); // Notificar cambios al padre
+    onChange(updatedData);
+  };
+
+  const handleEventChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target as { name: FormField; value: string };
+    handleChange(name, value);
   };
 
   useImperativeHandle(ref, () => ({
@@ -76,21 +76,21 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
           name="address"
           placeholder="Street Address"
           value={formData.address}
-          onChange={handleChange}
+          onChange={handleEventChange}
         />
         {errors.address && <p className={styles['error']}>{errors.address}</p>}
       </div>
       <div className={styles['form-field']}>
         <Selector
-          options={districts.map((district) => ({
-            value: district,
-            label: district,
-          })) as SelectorOption[]}
-          onChange={(value) =>
-            handleChange({ target: { name: 'district', value } } as React.ChangeEvent<
-              HTMLSelectElement
-            >)
-          }
+          options={[
+            { value: '', label: 'Seleccione su distrito' }, // Opción por defecto
+            ...districts.map((district) => ({
+              value: district,
+              label: district,
+            })) as SelectorOption[],
+          ]}
+          onChange={(value) => handleChange('district', value)}
+          value={formData.district} // Asegurar que el valor actual se refleje
         />
         {errors.district && <p className={styles['error']}>{errors.district}</p>}
       </div>
@@ -100,7 +100,7 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
           name="reference"
           placeholder="Reference"
           value={formData.reference}
-          onChange={handleChange}
+          onChange={handleEventChange}
         />
         {errors.reference && <p className={styles['error']}>{errors.reference}</p>}
       </div>

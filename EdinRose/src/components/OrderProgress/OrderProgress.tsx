@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './OrderProgress.module.css';
 
 interface OrderProgressProps {
-  currentStep: number; // Paso actual (1, 2 o 3)
-  steps: string[]; // Nombres de los pasos
+  currentStep: number;
+  steps: string[];
 }
 
 const OrderProgress: React.FC<OrderProgressProps> = ({ currentStep, steps }) => {
@@ -11,8 +11,8 @@ const OrderProgress: React.FC<OrderProgressProps> = ({ currentStep, steps }) => 
     <div className={styles.progressContainer}>
       {steps.map((step, index) => {
         const stepNumber = index + 1;
-        const isActive = currentStep === stepNumber; // Paso activo
-        const isCompleted = currentStep > stepNumber; // Paso completado
+        const isActive = currentStep === stepNumber;
+        const isCompleted = currentStep > stepNumber;
 
         return (
           <div

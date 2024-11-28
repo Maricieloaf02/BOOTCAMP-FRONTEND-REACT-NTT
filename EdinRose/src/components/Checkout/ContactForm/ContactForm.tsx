@@ -5,58 +5,35 @@ import styles from './ContactForm.module.css';
 
 interface ContactFormProps {
   onChange: (data: ContactFormData) => void;
+  errors: { [key: string]: string }; // Recibimos los errores del formulario
 }
 
-const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
+const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: '',
     lastName: '',
     phone: '',
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({
-    firstName: '',
-    lastName: '',
-    phone: '',
-  });
-
-  // Validar tecla en tiempo real
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { name } = e.currentTarget;
-    const allowedPattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/; // Solo letras y espacios
-
-    if (name === 'firstName' || name === 'lastName') {
-      if (!allowedPattern.test(e.key)) {
-        e.preventDefault(); // Bloquear entrada si no coincide con el patrón
-      }
-    }
-
-    if (name === 'phone') {
-      if (!/^\d$/.test(e.key)) {
-        e.preventDefault(); // Bloquear entrada si no es un número
-      }
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    let error = '';
+    const target = e.target as HTMLInputElement;
+    const name = target.name;
+    const value = target.value;
 
     if (name === 'firstName' || name === 'lastName') {
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(value)) {
-        error = 'Debe ingresar un valor válido (solo letras).';
+      if (/[^a-zA-Z\s]/.test(value)) {
+        // Si hay números o caracteres especiales, no se actualiza el campo
+        return;
       }
     }
 
-    if (name === 'phone') {
-      if (!/^\d+$/.test(value)) {
-        error = 'El número de teléfono debe contener solo dígitos.';
-      }
-    }
+    if (name === 'phone' && value.length > 9) return;
 
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-    onChange(formData);
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+      onChange(updatedData);
+      return updatedData;
+    });
   };
 
   return (
@@ -68,9 +45,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
           placeholder="First name"
           value={formData.firstName}
           onChange={handleChange}
-          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres inválidos
+          className={errors.firstName ? styles.error : ''} // Aplicamos la clase de error si hay un error
         />
-        {errors.firstName && <p className={styles['error']}>{errors.firstName}</p>}
+        {errors.firstName && <p className={styles['error-message']}>{errors.firstName}</p>}
       </div>
       <div className={styles['form-field']}>
         <input
@@ -79,9 +56,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
           placeholder="Last name"
           value={formData.lastName}
           onChange={handleChange}
-          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres inválidos
+          className={errors.lastName ? styles.error : ''} // Clase de error
         />
-        {errors.lastName && <p className={styles['error']}>{errors.lastName}</p>}
+        {errors.lastName && <p className={styles['error-message']}>{errors.lastName}</p>}
       </div>
       <div className={styles['form-field']}>
         <input
@@ -90,9 +67,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange }) => {
           placeholder="Phone number"
           value={formData.phone}
           onChange={handleChange}
-          onKeyPress={handleKeyPress} // Bloquear entrada de caracteres no numéricos
+          className={errors.phone ? styles.error : ''}
+          maxLength={9} // Limita la cantidad de caracteres
         />
-        {errors.phone && <p className={styles['error']}>{errors.phone}</p>}
+        {errors.phone && <p className={styles['error-message']}>{errors.phone}</p>}
       </div>
     </Form>
   );

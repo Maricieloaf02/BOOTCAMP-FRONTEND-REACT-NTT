@@ -9,12 +9,12 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { dispatch } = useCart(); // Usamos `dispatch` para enviar acciones al reducer
+  const { dispatch } = useCart();
 
   const handleAddToCart = () => {
     dispatch({
       type: CartActions.AddToCart,
-      payload: { ...product, quantity: 1 }, // Enviamos el producto con cantidad inicial 1
+      payload: { ...product, quantity: 1 },
     });
   };
 
@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <button
         className={styles['product-card__button']}
-        onClick={handleAddToCart} // Usamos el nuevo manejador para agregar al carrito
+        onClick={handleAddToCart}
       >
         Añadir al carrito
       </button>

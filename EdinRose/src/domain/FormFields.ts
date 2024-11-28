@@ -1,0 +1,1 @@
+export type FormField = 'firstName' | 'lastName' | 'phone' | 'address' | 'district'| 'reference';

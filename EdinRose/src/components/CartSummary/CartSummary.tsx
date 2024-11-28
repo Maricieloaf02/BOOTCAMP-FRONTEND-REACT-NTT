@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/context/useCart';
-import Button from '@/shared/components/Button/Button'; // Usamos el botón genérico
+import { AppRoutes } from '@/module-routes'; 
+import Button from '@/shared/components/Button/Button';
 import styles from './CartSummary.module.css';
 
 const CartSummary: React.FC = () => {
@@ -11,7 +12,7 @@ const CartSummary: React.FC = () => {
   const total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
-    navigate('/checkout'); // Redirige a la página de Checkout
+    navigate(AppRoutes.CHECKOUT);
   };
 
   return (

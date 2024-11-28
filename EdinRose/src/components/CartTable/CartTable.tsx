@@ -4,8 +4,8 @@ import CartItem from './CartItem';
 import styles from './CartTable.module.css';
 
 const CartTable: React.FC = () => {
-  const { state } = useCart(); // Accedemos al estado global del carrito
-  const cartItems = state.items; // Los productos están en `state.items`
+  const { state } = useCart();
+  const cartItems = state.items;
 
   if (cartItems.length === 0) {
     return <p className={styles['cart-empty']}>Your cart is empty.</p>;

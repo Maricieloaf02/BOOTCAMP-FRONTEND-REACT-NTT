@@ -1,6 +1,6 @@
 import React from 'react';
 import { useError } from '@/context/ErrorContext';
-import './ErrorModal.module.css';
+import styles from './ErrorModal.module.css';
 
 const ErrorModal: React.FC = () => {
   const { hasError, errorMessage, clearError } = useError();
@@ -8,10 +8,12 @@ const ErrorModal: React.FC = () => {
   if (!hasError) return null;
 
   return (
-    <div className="error-modal">
-      <div className="error-modal__content">
+    <div className={styles['error-modal']}>
+      <div className={styles['error-modal__content']}>
         <p>{errorMessage}</p>
-        <button onClick={clearError}>Cerrar</button>
+        <button onClick={clearError} className={styles['error-modal__button']}>
+          Cerrar
+        </button>
       </div>
     </div>
   );

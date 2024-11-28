@@ -3,6 +3,7 @@ import OrderProgress from '@/components/OrderProgress/OrderProgress';
 import ContactForm from '@/components/Checkout/ContactForm';
 import ShippingAddressForm from '@/components/Checkout/ShippingAddressForm';
 import Button from '@/shared/components/Button/Button';
+import { AppRoutes } from '@/module-routes';
 import { ContactFormData } from '@/domain/ContactForm';
 import { ShippingAddressFormData } from '@/domain/ShippingAddress';
 import { useNavigate } from 'react-router-dom';
@@ -11,24 +12,56 @@ import styles from './CheckoutDetailsPage.module.css';
 const CheckoutDetailsPage: React.FC = () => {
   const [contactData, setContactData] = useState<ContactFormData | null>(null);
   const [shippingData, setShippingData] = useState<ShippingAddressFormData | null>(null);
+  const [contactErrors, setContactErrors] = useState<{ [key: string]: string }>({}); // Para los errores de ContactForm
 
   const navigate = useNavigate();
-
-  // Referencia para ShippingAddressForm
   const shippingFormRef = useRef<{ validateForm: () => boolean }>(null);
 
-  const handlePlaceOrder = () => {
-    const isShippingValid = shippingFormRef.current?.validateForm(); // Validar formulario de dirección
+  // Validar el teléfono
+  const isPhoneValid = (phone: string) => {
+    return /^\d{9}$/.test(phone); // Validar que tenga exactamente 9 dígitos
+  };
 
-    if (!contactData || !isShippingValid) {
-      alert('Por favor, completa todos los campos requeridos.');
+  const handlePlaceOrder = () => {
+    // Verificar que los datos de contacto y envío estén completos y validados
+    const isShippingValid = shippingFormRef.current?.validateForm();
+    const isContactValid =
+      contactData &&
+      contactData.firstName &&
+      contactData.lastName &&
+      isPhoneValid(contactData.phone); // Validamos solo el teléfono en ContactForm
+
+    const errors: { [key: string]: string } = {};
+
+    if (!isContactValid) {
+      if (!contactData?.firstName) {
+        errors.firstName = 'Este campo es obligatorio';
+      }
+      if (!contactData?.lastName) {
+        errors.lastName = 'Este campo es obligatorio';
+      }
+      if (!isPhoneValid(contactData?.phone || '')) {
+        errors.phone = 'El número de teléfono debe contener exactamente 9 dígitos';
+      }
+    }
+
+    if (!isShippingValid) {
+      // Aquí validamos los campos del formulario de dirección si es necesario
+      alert('Por favor, completa todos los campos de envío.');
       return;
     }
 
+    if (Object.keys(errors).length > 0) {
+      setContactErrors(errors); // Actualizamos los errores en el estado
+      alert('Por favor, completa todos los campos requeridos correctamente.');
+      return;
+    }
+
+    // Si la validación es correcta, procedemos a la siguiente página
     console.log('Datos de Contacto:', contactData);
     console.log('Datos de Envío:', shippingData);
 
-    navigate('/order-complete'); // Redirige a la página final
+    navigate(AppRoutes.ORDER_COMPLETE);
   };
 
   return (
@@ -39,10 +72,13 @@ const CheckoutDetailsPage: React.FC = () => {
       />
 
       <div className={styles['checkout-page__forms']}>
-        <ContactForm onChange={(data) => setContactData(data)} />
+        <ContactForm 
+          onChange={(data) => setContactData(data)} 
+          errors={contactErrors} // Le pasamos los errores al formulario de contacto
+        />
         <ShippingAddressForm
           ref={shippingFormRef}
-          onChange={(data) => setShippingData(data)} // Captura los datos en el estado
+          onChange={(data) => setShippingData(data)}
         />
       </div>
 

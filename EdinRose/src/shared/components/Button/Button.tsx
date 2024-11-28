@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './Button.module.css';
 
 interface ButtonProps {
-  onClick?: () => void; // Función que se ejecuta al hacer clic
-  children: React.ReactNode; // Texto o contenido del botón
-  fullWidth?: boolean; // Si el botón debe ocupar todo el ancho
+  onClick?: () => void; 
+  children: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ onClick, children, fullWidth }) => {

@@ -1,6 +1,6 @@
 import { Product } from '@/domain/Product';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL;  
+import { API_BASE_URL } from '@/config';
+import { filterProductsByQuery } from '@/shared/utils/productMapper';
 
 export const fetchProducts = async (
   page: number,
@@ -8,9 +8,8 @@ export const fetchProducts = async (
   category?: string,
   query?: string
 ): Promise<{ products: Product[]; total: number }> => {
-  const offset = (page - 1) * limit;
+  const offset = (page - 1) * limit; // Convertir página en índice del array
 
-  // Construir la URL base
   const baseUrl = category && category !== ''
     ? `${API_BASE_URL}/products/category/${category}`
     : `${API_BASE_URL}/products?limit=200&skip=0`;
@@ -24,13 +23,9 @@ export const fetchProducts = async (
 
     const data: { products: Product[]; total: number } = await response.json();
 
-    let filteredProducts = data.products;
-    if (query) {
-      filteredProducts = filteredProducts.filter((product: Product) =>
-        product.title.toLowerCase().includes(query.toLowerCase())
-      );
-    }
+    const filteredProducts = filterProductsByQuery(data.products, query);
 
+    // Paginación
     const paginatedProducts = filteredProducts.slice(offset, offset + limit);
 
     return {

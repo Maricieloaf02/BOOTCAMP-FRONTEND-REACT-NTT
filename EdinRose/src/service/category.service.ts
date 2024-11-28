@@ -1,14 +1,7 @@
 import { Category } from '@/domain/Category';
+import { mapCategory } from '@/shared/utils/categoryMapper';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-const mapCategory = (data: Category[]): Category[] => {
-  return data.map((item) => ({
-    slug: String(item.slug),
-    name: String(item.name),
-    url: String(item.url),
-  }));
-};
 
 export const fetchCategories = async (): Promise<Category[]> => {
   try {
@@ -19,7 +12,7 @@ export const fetchCategories = async (): Promise<Category[]> => {
     }
 
     const data: Category[] = await response.json();
-    return mapCategory(data); 
+    return mapCategory(data);
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error al obtener categorías:', error.message);

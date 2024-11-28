@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { AppRoutes } from './module-routes'; // Importamos el enum
 import ShopPage from '@/pages/ShopPage';
 import CartPage from '@/pages/CartPage';
 import CheckoutDetailsPage from '@/pages/CheckoutDetailsPage';
@@ -11,11 +12,11 @@ const App: React.FC = () => {
     <div>
       <ErrorModal />
       <Routes>
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutDetailsPage />} /> {/* Nueva ruta */}
-        <Route path="*" element={<Navigate to="/shop" />} />
-        <Route path="/order-complete" element={<OrderCompletePage />} />
+        <Route path={AppRoutes.SHOP} element={<ShopPage />} />
+        <Route path={AppRoutes.CART} element={<CartPage />} />
+        <Route path={AppRoutes.CHECKOUT} element={<CheckoutDetailsPage />} />
+        <Route path={AppRoutes.NOT_FOUND} element={<Navigate to={AppRoutes.SHOP} />} />
+        <Route path={AppRoutes.ORDER_COMPLETE} element={<OrderCompletePage />} />
       </Routes>
     </div>
   );

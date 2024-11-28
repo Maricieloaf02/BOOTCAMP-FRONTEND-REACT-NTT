@@ -1,40 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '@/context/useCart'; // Importa el hook del carrito
+import { useCart } from '@/context/useCart';
+import { AppRoutes } from '@/module-routes';
 import OrderProgress from '@/components/OrderProgress/OrderProgress';
 import styles from './OrderCompletePage.module.css';
 
 const OrderCompletePage: React.FC = () => {
-  const { clearCart } = useCart(); // Usa la función para limpiar el carrito
+  const { clearCart } = useCart();
   const navigate = useNavigate();
+  const [hasCleared, setHasCleared] = useState(false);
 
   useEffect(() => {
-    // Limpia el carrito al montar el componente
-    clearCart();
+    if (!hasCleared) {
+      clearCart(); 
+      setHasCleared(true);
+    }
+  }, [clearCart, hasCleared]);
 
-    // Redirige a la página principal después de 7 segundos
+  useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/shop');
-    }, 7000);
+      navigate(AppRoutes.SHOP);
+    }, 4000);
 
-    // Limpia el temporizador si el componente se desmonta
     return () => clearTimeout(timer);
-  }, []); // ✅ Vacía las dependencias para evitar ciclos infinitos
+  }, [navigate]);
 
   return (
     <div className={styles['order-complete']}>
-      {/* Progreso del pedido */}
       <OrderProgress
-        currentStep={3} // Paso actual: "Order Complete"
+        currentStep={3}
         steps={['Shopping cart', 'Checkout details', 'Order complete']}
       />
-
-      {/* Mensaje de confirmación */}
       <div className={styles['order-complete__content']}>
         <h1 className={styles['order-complete__title']}>Complete!</h1>
         <p className={styles['order-complete__subtitle']}>Thank you! 🎉</p>
         <p className={styles['order-complete__message']}>
-          Your order has been received. You will be redirected shortly.
+          Your order has been received. You will be redirected to the shop.
         </p>
       </div>
     </div>

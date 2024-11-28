@@ -1,16 +1,23 @@
+// src/context/cartReducer.ts
 import { CartActions } from '@/domain/actions';
 import { CartItem } from '@/domain/CartItem';
+import { ContactFormData } from '@/domain/ContactForm';
+import { ShippingAddressFormData } from '@/domain/ShippingAddress';
 
 export type CartState = {
   items: CartItem[];
+  orderDetails: {
+    contactData: ContactFormData | null;
+    shippingData: ShippingAddressFormData | null;
+  } | null;
 };
 
 type CartActionPayload =
   | { type: CartActions.AddToCart; payload: CartItem }
   | { type: CartActions.RemoveFromCart; payload: { id: number } }
   | { type: CartActions.UpdateQuantity; payload: { id: number; quantity: number } }
-  | { type: CartActions.ClearCart; payload?: null };
-
+  | { type: CartActions.ClearCart }
+  | { type: CartActions.SetOrderDetails; payload: CartState['orderDetails'] };
 
 export type DispatchObject = CartActionPayload;
 
@@ -24,9 +31,7 @@ export const cartReducer = (state: CartState, action: DispatchObject): CartState
         return {
           ...state,
           items: state.items.map((item) =>
-            item.id === id
-              ? { ...item, quantity: item.quantity + quantity }
-              : item
+            item.id === id ? { ...item, quantity: item.quantity + quantity } : item
           ),
         };
       }
@@ -56,7 +61,10 @@ export const cartReducer = (state: CartState, action: DispatchObject): CartState
     }
 
     case CartActions.ClearCart:
-      return { ...state, items: [] };
+      return { items: [], orderDetails: null };
+
+    case CartActions.SetOrderDetails:
+      return { ...state, orderDetails: action.payload };
 
     default:
       return state;

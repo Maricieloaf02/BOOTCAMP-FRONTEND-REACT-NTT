@@ -1,41 +1,34 @@
-import React, { createContext, ReactNode, useReducer, useEffect } from 'react';
-import { cartReducer, CartState, DispatchObject } from './reducer';
+import React, { createContext, ReactNode, useReducer } from 'react';
+import { cartReducer, CartState, DispatchObject } from './cartReducer';
 import { CartActions } from '@/domain/actions';
-
 
 const initialCartState: CartState = {
   items: [],
+  orderDetails: null,
 };
 
-// Tipo del contexto
 interface CartContextProps {
   state: CartState;
   dispatch: React.Dispatch<DispatchObject>;
-  clearCart: () => void; // Función para limpiar el carrito
+  clearCart: () => void;
+  setOrderDetails: (orderDetails: CartState['orderDetails']) => void;
 }
 
-// Crear el contexto
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-// Proveedor del contexto
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialCartState, (initial) => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? { items: JSON.parse(savedCart) } : initial;
-  });
+  const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state.items));
-  }, [state.items]);
-
-  // Función para limpiar el carrito
   const clearCart = () => {
-    dispatch({ type: CartActions.ClearCart }); // Despacha usando el enum
+    dispatch({ type: CartActions.ClearCart });
   };
-  
+
+  const setOrderDetails = (orderDetails: CartState['orderDetails']) => {
+    dispatch({ type: CartActions.SetOrderDetails, payload: orderDetails });
+  };
 
   return (
-    <CartContext.Provider value={{ state, dispatch, clearCart }}>
+    <CartContext.Provider value={{ state, dispatch, clearCart, setOrderDetails }}>
       {children}
     </CartContext.Provider>
   );
