@@ -2,6 +2,7 @@ import { Category } from '@/domain/Category';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
+// separar en otro archivo, service solo deber'ia ejecutar el fetch
 const mapCategory = (data: Category[]): Category[] => {
   return data.map((item) => ({
     slug: String(item.slug),

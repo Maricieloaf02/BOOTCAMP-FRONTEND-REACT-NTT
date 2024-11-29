@@ -14,14 +14,17 @@ interface ProductContextProps {
 const ProductContext = createContext<ProductContextProps | undefined>(undefined);
 
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
+  // por qu'e no usar useReducer? hay muchos estados
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
 
+  // el provider no debe llamar servicio
   useEffect(() => {
     const fetchAndSetProducts = async () => {
       try {
+        // crear constantes para estos n'umeros
         const { products } = await fetchProducts(1, 10); // Página inicial y límite
         setProducts(products);
         setFilteredProducts(products);
@@ -49,6 +52,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     setFilteredProducts(filtered);
   }, [search, category, products]);
 
+  // la idea del provider, es solo exponer el valor ne memoria y el despachador, los m'etodos deber'ian ser llamados a demanda no insertarlos desde el inicio
   return (
     <ProductContext.Provider
       value={{ products, filteredProducts, search, category, setSearch, setCategory }}

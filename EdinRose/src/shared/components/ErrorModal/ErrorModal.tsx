@@ -7,6 +7,7 @@ const ErrorModal: React.FC = () => {
 
   if (!hasError) return null;
 
+  // hay mezclas de estilos, en algunas hay modules y otros clases directas?
   return (
     <div className="error-modal">
       <div className="error-modal__content">

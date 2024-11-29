@@ -13,7 +13,9 @@ const OrderCompletePage: React.FC = () => {
     clearCart();
 
     // Redirige a la página principal después de 7 segundos
+    // por qu'e timeout???
     const timer = setTimeout(() => {
+      // usar enum
       navigate('/shop');
     }, 7000);
 
