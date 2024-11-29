@@ -6,14 +6,16 @@
     },
     "outDir": "./dist",
     "rootDir": "./src",
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "es2020",
+    "module": "esnext",
     "moduleResolution": "Node",
     "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
 }

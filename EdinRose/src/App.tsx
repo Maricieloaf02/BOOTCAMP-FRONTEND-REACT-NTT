@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AppRoutes } from './module-routes'; // Importamos el enum
-import ShopPage from '@/pages/ShopPage';
-import CartPage from '@/pages/CartPage';
-import CheckoutDetailsPage from '@/pages/CheckoutDetailsPage';
+import { AppRoutes } from './app/routes';
+import ShopPage from '@/app/pages/ShopPage';
+import CartPage from '@/app/pages/CartPage';
+import CheckoutDetailsPage from '@/app/pages/CheckoutDetailsPage';
 import ErrorModal from '@/shared/components/ErrorModal';
-import OrderCompletePage from './pages/OrderCompletePage';
+import OrderCompletePage from '@/app/pages/OrderCompletePage';
 
 const App: React.FC = () => {
   return (

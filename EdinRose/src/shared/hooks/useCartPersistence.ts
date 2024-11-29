@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { saveCartToStorage } from '@/shared/utils/cartStorage';
-import { CartItem } from '@/domain/CartItem';
+import { CartItem } from '@/app/domain/CartItem';
 
 /**
  * Hook personalizado para manejar la persistencia del carrito.

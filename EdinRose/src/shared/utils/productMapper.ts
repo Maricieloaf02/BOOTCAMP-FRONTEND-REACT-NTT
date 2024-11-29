@@ -1,5 +1,5 @@
 // src/shared/utils/productMapper.ts
-import { Product } from '@/domain/Product';
+import { Product } from '@/app/domain/Product';
 
 export const filterProductsByQuery = (products: Product[], query?: string): Product[] => {
   if (!query) return products;

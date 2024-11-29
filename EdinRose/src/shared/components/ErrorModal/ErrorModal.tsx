@@ -1,5 +1,5 @@
 import React from 'react';
-import { useError } from '@/context/ErrorContext';
+import { useError } from '@/app/context/ErrorContext';
 import styles from './ErrorModal.module.css';
 
 const ErrorModal: React.FC = () => {

@@ -15,7 +15,7 @@ export default defineConfig({
   },
   css: {
     modules: {
-      generateScopedName: '[local]', // Usa solo el nombre de la clase definida
+      generateScopedName: '[local]',
     },
   },
 });
