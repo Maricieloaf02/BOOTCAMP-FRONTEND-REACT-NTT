@@ -1,6 +1,7 @@
 import { Product } from '@/app/domain/Product';
-import { API_BASE_URL } from '@/config';
 import { filterProductsByQuery } from '@/shared/utils/productMapper';
+
+const API_BASE_URL = "https://dummyjson.com";
 
 export const fetchProducts = async (
   page: number,

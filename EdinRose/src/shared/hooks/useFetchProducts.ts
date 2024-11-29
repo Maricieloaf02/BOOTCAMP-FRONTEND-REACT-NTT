@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Product } from '@/app/domain/Product';
-import { fetchProducts } from '@/shared/utils/productService';
+import { fetchProducts } from '@/app/service/product.service';
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
