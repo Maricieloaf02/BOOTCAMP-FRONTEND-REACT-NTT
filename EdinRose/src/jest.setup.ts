@@ -1,7 +1,6 @@
-Object.defineProperty(global, 'import.meta', {
-  value: {
-    env: {
-      VITE_API_URL: 'https://dummyjson.com',
-    },
-  },
-});
+import fetchMock from 'jest-fetch-mock';
+import "@testing-library/jest-dom";
+
+
+// Habilitar los mocks de fetch
+fetchMock.enableMocks();

@@ -27,5 +27,5 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*", "./jest.setup.ts", "../front/EdinRose/src/global.d.ts"]
+  "include": ["src/**/*", "./jest.setup.ts"]
 }

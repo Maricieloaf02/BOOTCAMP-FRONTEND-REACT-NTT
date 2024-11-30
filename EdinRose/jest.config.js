@@ -18,12 +18,12 @@ export default {
     // Habilitar el reporte de cobertura
     collectCoverage: true,
     collectCoverageFrom: [
-      "src/**/*.{ts,tsx}", // Qué archivos incluir
-      "!src/**/*.d.ts",    // Excluir definiciones de TypeScript
-      "!src/**/index.ts",  // Excluir archivos de exportación simples
-      "!src/**/__test__/**", // Excluir archivos de prueba
+      "src/**/*.ts", // Incluye todos los archivos TypeScript dentro de src/
+      "!src/**/*.test.ts", // Excluye los archivos de prueba
+      "!src/**/*.mock.ts", // Excluye mocks
     ],
     coverageDirectory: "coverage", // Carpeta donde se almacenará el reporte
     coverageReporters: ["html", "text-summary"], // Formatos de reportenpm test -- --coverage
-
+    verbose: true, // Muestra detalles de las pruebas
+    silent: false, // Permite que se muestren los console.log
 };

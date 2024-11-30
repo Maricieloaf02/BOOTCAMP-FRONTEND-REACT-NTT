@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "jest --watchAll --collectCoverageFrom='src/**/*.{ts,tsx}'",
+    "coverage": "jest --coverage",
+    "test": "jest --coverage",
     "test:file": "jest --watchAll --collectCoverageFrom='src/**/*.{ts,tsx}'",
     "test:trace": "node --trace-deprecation ./node_modules/jest/bin/jest.js"
   },
@@ -33,6 +34,7 @@
     "globals": "^15.11.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "jest-transform-stub": "^2.0.0",
     "node-polyfill-webpack-plugin": "^4.0.0",
     "ts-jest": "^29.2.5",
