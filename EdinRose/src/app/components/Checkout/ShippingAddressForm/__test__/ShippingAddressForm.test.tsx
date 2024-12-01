@@ -3,7 +3,7 @@
  */
 
 import { render, screen, fireEvent, act } from '@testing-library/react';
-import ShippingAddressForm from '../ShippingAddressForm';
+import ShippingAddressForm from '@/app/components/Checkout/ShippingAddressForm';
 import useDistricts from '@/shared/hooks/useDistricts';
 import { waitFor } from '@testing-library/react';
 // import styles from '../ShippingAddressForm.module.css';
