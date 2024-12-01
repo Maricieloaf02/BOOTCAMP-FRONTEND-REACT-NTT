@@ -1,10 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-
 import { render, screen, fireEvent } from '@testing-library/react';
 import ContactForm from '@/app/components/Checkout/ContactForm';
-// import { ContactFormData } from '@/app/domain/ContactForm';
 
 describe('ContactForm', () => {
   let mockOnChange: jest.Mock;

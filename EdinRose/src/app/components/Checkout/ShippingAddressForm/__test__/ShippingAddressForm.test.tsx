@@ -6,7 +6,6 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import ShippingAddressForm from '@/app/components/Checkout/ShippingAddressForm';
 import useDistricts from '@/shared/hooks/useDistricts';
 import { waitFor } from '@testing-library/react';
-// import styles from '../ShippingAddressForm.module.css';
 
 jest.mock('@/shared/hooks/useDistricts', () => ({
   __esModule: true,
@@ -47,10 +46,8 @@ describe('ShippingAddressForm', () => {
   });
 
   it('debería manejar validación y mostrar errores', async () => {
-    // Renderizamos el componente
     render(<ShippingAddressForm onChange={jest.fn()} />);
   
-    // Obtenemos el input del address
     const addressInput = screen.getByPlaceholderText('Street Address');
   
     // Simulamos el cambio y la pérdida de foco en el input
