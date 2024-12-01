@@ -26,16 +26,20 @@ const Pagination: React.FC<PaginationProps> = ({
   }, [currentPage, visibleRange]);
 
   const handleNextRange = () => {
+    console.log('rangeStart:', rangeStart, 'visibleRange:', visibleRange, 'totalPages:', totalPages); // Registro de valores
     const newRangeStart = Math.min(rangeStart + visibleRange, totalPages - visibleRange + 1);
     setRangeStart(newRangeStart);
     onPageChange(newRangeStart);
   };
+  
 
   const handlePrevRange = () => {
+    console.log('rangeStart:', rangeStart, 'visibleRange:', visibleRange, 'totalPages:', totalPages); // Registro de valores
     const newRangeStart = Math.max(rangeStart - visibleRange, 1);
     setRangeStart(newRangeStart);
     onPageChange(newRangeStart);
   };
+  
 
   const handlePageClick = (page: number) => {
     onPageChange(page);
@@ -52,10 +56,11 @@ const Pagination: React.FC<PaginationProps> = ({
         className={styles['pagination__button']}
         onClick={handlePrevRange}
         disabled={rangeStart === 1}
+        aria-label="Previous"
       >
         <FaArrowLeft className={styles['pagination__icon']} />
       </button>
-
+  
       {visiblePages.map((page) => (
         <button
           key={page}
@@ -67,16 +72,18 @@ const Pagination: React.FC<PaginationProps> = ({
           {page}
         </button>
       ))}
-
+  
       <button
         className={styles['pagination__button']}
         onClick={handleNextRange}
         disabled={rangeStart + visibleRange > totalPages}
+        aria-label="Next"
       >
         <FaArrowRight className={styles['pagination__icon']} />
       </button>
     </div>
   );
+  
 };
 
 export default Pagination;
