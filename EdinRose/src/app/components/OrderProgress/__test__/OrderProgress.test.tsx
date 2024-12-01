@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import OrderProgress from '../OrderProgress';
+import OrderProgress from '@/app/components/OrderProgress';
 
 describe('OrderProgress Component', () => {
   const steps = ['Step 1', 'Step 2', 'Step 3'];

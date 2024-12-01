@@ -1,4 +1,3 @@
-// src/context/cartReducer.ts
 import { CartActions } from '@/app/domain/actions';
 import { CartItem } from '@/app/domain/CartItem';
 import { ContactFormData } from '@/app/domain/ContactForm';
