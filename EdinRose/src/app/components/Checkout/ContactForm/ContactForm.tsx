@@ -18,30 +18,26 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const name = target.name;
-    const value = target.value;
-
+    let value = target.value;
+  
     if (name === 'firstName' || name === 'lastName') {
-      if (/[^a-zA-Z\s]/.test(value)) {
-        // Si hay números o caracteres especiales, no se actualiza el campo
-        return;
-      }
+      value = value.replace(/[^a-zA-Z\s]/g, ''); // Filtra caracteres no válidos
     }
-
+  
     if (name === 'phone') {
-      // Permitir solo números en el campo phone
-      if (/[^0-9]/.test(value)) {
-        return; // Si contiene algo que no es un número, no actualizamos el campo
+      value = value.replace(/[^0-9]/g, ''); // Solo números
+      if (value.length > 9) {
+        value = value.slice(0, 9); // Limita a 9 caracteres
       }
-      // Limitar la longitud del teléfono a 9 caracteres
-      if (value.length > 9) return;
     }
-
+  
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
       onChange(updatedData);
       return updatedData;
     });
   };
+  
 
   return (
     <Form title="Contact Information">

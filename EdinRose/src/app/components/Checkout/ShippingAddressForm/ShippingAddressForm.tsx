@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
-import Form from '@/shared/components/Form';
+import Form from '@/shared/components/Form';  
 import Selector, { SelectorOption } from '@/app/components/Selector';
 import useDistricts from '@/shared/hooks/useDistricts';
 import { ShippingAddressFormData } from '@/app/domain/ShippingAddress';
@@ -10,7 +10,10 @@ interface ShippingAddressFormProps {
   onChange: (data: ShippingAddressFormData) => void;
 }
 
-const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) => {
+const ShippingAddressForm = forwardRef<
+  { validateForm: () => boolean }, // Exponemos este tipo en el ref
+  ShippingAddressFormProps
+>((props, ref) => {
   const { onChange } = props;
   const { districts, loading, error } = useDistricts('/districts.json');
 
@@ -28,18 +31,24 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
 
   const validateField = (name: FormField, value: string) => {
     let error = '';
-
+  
     if (['address', 'reference'].includes(name) && value.trim() === '') {
       error = 'Este campo es obligatorio.';
     }
-
+  
     if (name === 'district' && value === '') {
       error = 'Debe seleccionar un distrito.';
     }
-
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-    return error === '';
+  
+    setErrors((prevErrors) => {
+      const updatedErrors = { ...prevErrors, [name]: error };
+      console.log('Updated Errors:', updatedErrors); // Depuración
+      return updatedErrors;
+    });
+  
+    return error === ''; // Retorna si el campo es válido o no
   };
+  
 
   const validateForm = () => {
     const isValidAddress = validateField('address', formData.address);
@@ -49,8 +58,12 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     return isValidAddress && isValidDistrict && isValidReference;
   };
 
+  useImperativeHandle(ref, () => ({
+    validateForm,
+  }));
+
   const handleChange = (name: FormField, value: string) => {
-    validateField(name, value); 
+    validateField(name, value);
     const updatedData = { ...formData, [name]: value };
     setFormData(updatedData);
     onChange(updatedData);
@@ -60,10 +73,6 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     const { name, value } = e.target as { name: FormField; value: string };
     handleChange(name, value);
   };
-
-  useImperativeHandle(ref, () => ({
-    validateForm,
-  }));
 
   if (loading) return <p>Cargando distritos...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -77,8 +86,10 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
           placeholder="Street Address"
           value={formData.address}
           onChange={handleEventChange}
+          onBlur={(e) => validateField(e.target.name as FormField, e.target.value)} // Validación al perder el foco
+          className={errors.address ? styles.error : ''} // Clase de error
         />
-        {errors.address && <p className={styles['error']}>{errors.address}</p>}
+        {errors.address && <p className={styles.error}>{errors.address}</p>}
       </div>
       <div className={styles['form-field']}>
         <Selector
@@ -107,5 +118,7 @@ const ShippingAddressForm = forwardRef((props: ShippingAddressFormProps, ref) =>
     </Form>
   );
 });
+
+ShippingAddressForm.displayName = 'ShippingAddressForm';
 
 export default ShippingAddressForm;
