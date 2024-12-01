@@ -5,12 +5,38 @@
   justify-items: center; /* Centra los productos horizontalmente */
   align-items: start; /* Ajusta los productos verticalmente */
   margin: 0px 28px;
+  background-color: var(--color-bg-light); /* Fondo del grid */
 }
 
 .product-grid__empty {
   grid-column: 1 / -1; /* Hace que el mensaje ocupe todo el ancho */
   text-align: center;
-  color: #6c757d;
+  color: var(--color-text-secondary); /* Texto con color de subtítulos */
   font-size: 1.2rem;
   padding: 16px;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: var(--color-bg-dark); /* Color global del fondo */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text-primary); /* Texto principal */
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-primary); /* Usa el color principal */
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--color-border); /* Bordes consistentes */
 }

@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 import { fetchCategories } from '../category.service';
-import { categoriesResponseMock } from '@/proxy/__mocks__/categories';
+import { categoriesResponseMock } from '@/app/__mocks__/categories';
 import { mapCategory } from '@/shared/utils/categoryMapper';
 
 jest.mock('@/shared/utils/categoryMapper', () => ({

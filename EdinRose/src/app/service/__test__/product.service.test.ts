@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 import { fetchProducts } from '../product.service';
-import { productsResponseMock } from '@/proxy/__mocks__/products';
+import { productsResponseMock } from '@/app/__mocks__/products';
 import { filterProductsByQuery } from '@/shared/utils/productMapper';
 
 jest.mock('@/shared/utils/productMapper', () => ({
