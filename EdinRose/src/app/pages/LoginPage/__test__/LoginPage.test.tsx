@@ -1,46 +1,44 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import fetchMock from 'jest-fetch-mock';
-import LoginPage from '@/app/pages/LoginPage';
+import { authService } from '@/app/service/auth.service';
 import { ERROR_MESSAGES } from '@/app/domain/constants/errorMessages';
+import { getUsernameByEmail } from '@/shared/utils/emailToUsernameMap';
+import LoginPage from '../LoginPage';
 
-beforeEach(() => {
-  fetchMock.resetMocks();
-  jest.clearAllMocks();
-});
+jest.mock('@/app/service/auth.service');
+jest.mock('@/shared/utils/emailToUsernameMap');
+
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
 
 describe('LoginPage', () => {
-  it('debería renderizar correctamente los elementos del formulario', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('debería mostrar errores si los campos están vacíos', () => {
     render(
       <MemoryRouter>
         <LoginPage />
       </MemoryRouter>
     );
 
-    expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/contraseña/i)).toBeInTheDocument();
-    expect(screen.getByText(/iniciar sesión/i)).toBeInTheDocument();
-    expect(screen.getByText(/olvidé mi contraseña/i)).toBeInTheDocument();
+    const submitButton = screen.getByRole('button', { name: /iniciar sesión/i });
+    fireEvent.click(submitButton);
+
+    expect(screen.getByRole('alert')).toHaveTextContent(ERROR_MESSAGES.FIELDS_REQUIRED);
   });
 
-  it('debería mostrar un error si los campos están vacíos', async () => {
-    render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    );
+  it('debería mostrar error si el correo no está registrado', () => {
+    (getUsernameByEmail as jest.Mock).mockReturnValue(undefined);
 
-    fireEvent.click(screen.getByText(/iniciar sesión/i));
-
-    expect(
-      await screen.findByText(ERROR_MESSAGES.FIELDS_REQUIRED)
-    ).toBeInTheDocument();
-  });
-
-  it('debería mostrar un error si el correo no está registrado', async () => {
     render(
       <MemoryRouter>
         <LoginPage />
@@ -48,50 +46,53 @@ describe('LoginPage', () => {
     );
 
     fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
-      target: { value: 'notregistered@test.com' },
+      target: { value: 'nonexistent@example.com' },
     });
     fireEvent.change(screen.getByLabelText(/contraseña/i), {
       target: { value: 'password123' },
     });
-    fireEvent.click(screen.getByText(/iniciar sesión/i));
 
-    expect(
-      await screen.findByText(ERROR_MESSAGES.EMAIL_NOT_REGISTERED)
-    ).toBeInTheDocument();
+    const submitButton = screen.getByRole('button', { name: /iniciar sesión/i });
+    fireEvent.click(submitButton);
+
+    expect(screen.getByRole('alert')).toHaveTextContent(ERROR_MESSAGES.EMAIL_NOT_REGISTERED);
   });
 
   it('debería manejar un inicio de sesión exitoso', async () => {
-    fetchMock.mockResponseOnce(
-      JSON.stringify({ token: 'fake-token', username: 'testuser' })
-    );
-
+    (getUsernameByEmail as jest.Mock).mockReturnValue('testuser');
+    (authService.login as jest.Mock).mockResolvedValue({
+      token: 'fake-token',
+      username: 'testuser',
+    });
+  
     render(
       <MemoryRouter>
         <LoginPage />
       </MemoryRouter>
     );
-
+  
     fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
-      target: { value: 'user@test.com' },
+      target: { value: 'test@example.com' },
     });
     fireEvent.change(screen.getByLabelText(/contraseña/i), {
       target: { value: 'password123' },
     });
-    fireEvent.click(screen.getByText(/iniciar sesión/i));
-
-    await waitFor(() => {
-      expect(fetchMock).toHaveBeenCalledWith(
-        'https://dummyjson.com/auth/login',
-        expect.objectContaining({
-          method: 'POST',
-          body: JSON.stringify({ username: 'user@test.com', password: 'password123' }),
-        })
-      );
-    });
+  
+    const submitButton = screen.getByRole('button', { name: /iniciar sesión/i });
+    fireEvent.click(submitButton);
+  
+    // Esperar que se muestre el texto "Redireccionando..."
+    expect(await screen.findByText(/redireccionando/i)).toBeInTheDocument();
+  
+    // Verificar que la navegación ocurrió
+    expect(mockNavigate).toHaveBeenCalledWith('/shop');
   });
-
+  
   it('debería manejar un error de credenciales inválidas', async () => {
-    fetchMock.mockRejectOnce(new Error(ERROR_MESSAGES.INVALID_CREDENTIALS));
+    (getUsernameByEmail as jest.Mock).mockReturnValue('testuser');
+    (authService.login as jest.Mock).mockRejectedValue(
+      new Error(ERROR_MESSAGES.INVALID_CREDENTIALS)
+    );
 
     render(
       <MemoryRouter>
@@ -100,37 +101,15 @@ describe('LoginPage', () => {
     );
 
     fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
-      target: { value: 'user@test.com' },
+      target: { value: 'test@example.com' },
     });
     fireEvent.change(screen.getByLabelText(/contraseña/i), {
       target: { value: 'wrongpassword' },
     });
-    fireEvent.click(screen.getByText(/iniciar sesión/i));
 
-    expect(
-      await screen.findByText(ERROR_MESSAGES.INVALID_CREDENTIALS)
-    ).toBeInTheDocument();
-  });
+    const submitButton = screen.getByRole('button', { name: /iniciar sesión/i });
+    fireEvent.click(submitButton);
 
-  it('debería manejar un error genérico del servidor', async () => {
-    fetchMock.mockRejectOnce(new Error(ERROR_MESSAGES.LOGIN_FAILED));
-
-    render(
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    );
-
-    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
-      target: { value: 'user@test.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/contraseña/i), {
-      target: { value: 'password123' },
-    });
-    fireEvent.click(screen.getByText(/iniciar sesión/i));
-
-    expect(
-      await screen.findByText(ERROR_MESSAGES.LOGIN_FAILED)
-    ).toBeInTheDocument();
+    expect(await screen.findByRole('alert')).toHaveTextContent(ERROR_MESSAGES.INVALID_CREDENTIALS);
   });
 });

@@ -1,5 +1,3 @@
-// src/shared/utils/cartStorage.ts
-
 const CART_KEY = 'cart';
 
 export const saveCartToStorage = (items: unknown) => {
