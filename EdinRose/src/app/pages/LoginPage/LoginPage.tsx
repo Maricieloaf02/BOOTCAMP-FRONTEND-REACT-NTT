@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authService } from "@/app/service/auth.service";
+import { authService, AuthError } from "@/app/service/auth.service";
 import { AppRoutes } from "@/app/routes";
 import { ERROR_MESSAGES } from "@/app/domain/constants/errorMessages";
 import ForgotPasswordModal from "@/app/components/ForgotPasswordModal/ForgotPasswordModal";
@@ -24,6 +24,7 @@ const LoginPage: React.FC = () => {
     }
 
     try {
+      setIsLoading(true);
       const username = await authService.validateEmail(email);
 
       if (!username) {
@@ -31,66 +32,69 @@ const LoginPage: React.FC = () => {
         return;
       }
 
-      setIsLoading(true);
-      const { token } = await authService.login({
-        username,
-        password,
-      });
+      try {
+        const { token } = await authService.login({
+          username,
+          password,
+        });
 
-      localStorage.setItem("accessToken", token);
-      localStorage.setItem("username", username);
-
-      navigate(AppRoutes.SHOP);
-    } catch (err) {
+        localStorage.setItem("accessToken", token);
+        localStorage.setItem("username", username);
+        navigate(AppRoutes.SHOP);
+      } catch (loginError) {
+        if (loginError instanceof AuthError && loginError.code === 400) {
+          setError(ERROR_MESSAGES.INVALID_CREDENTIALS);
+        } else {
+          setError("Ocurrió un error inesperado. Intente nuevamente.");
+        }
+      }
+    } catch {
+      setError("Error al validar el correo electrónico. Intente nuevamente.");
+    } finally {
       setIsLoading(false);
-      setError((err as Error).message || ERROR_MESSAGES.LOGIN_FAILED);
     }
   };
 
   return (
     <div className="login-page">
       <h1>Iniciar Sesión</h1>
-      {isLoading ? (
-        <p>Redireccionando...</p>
-      ) : (
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label htmlFor="email">Correo Electrónico</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Ingrese su correo electrónico"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ingrese su contraseña"
-              disabled={isLoading}
-            />
-          </div>
-          {error && <p role="alert" className="error-message">{error}</p>}
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Validando..." : "Iniciar Sesión"}
-          </button>
-          <p>
-            <a
-              href="#"
-              onClick={() => setShowForgotPasswordModal(true)}
-              aria-label="Olvidé mi contraseña"
-            >
-              Olvidé mi contraseña
-            </a>
-          </p>
-        </form>
-      )}
+      <form onSubmit={handleLogin}>
+        <div className="form-group">
+          <label htmlFor="email">Correo Electrónico</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ingrese su correo electrónico"
+            disabled={isLoading}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Ingrese su contraseña"
+            disabled={isLoading}
+          />
+        </div>
+        {error && <p role="alert" className="error-message">{error}</p>}
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Validando..." : "Iniciar Sesión"}
+        </button>
+        <p>
+          <a
+            href="#"
+            onClick={() => setShowForgotPasswordModal(true)}
+            aria-label="Olvidé mi contraseña"
+          >
+            Olvidé mi contraseña
+          </a>
+        </p>
+      </form>
       {showForgotPasswordModal && (
         <ForgotPasswordModal onClose={() => setShowForgotPasswordModal(false)} />
       )}
