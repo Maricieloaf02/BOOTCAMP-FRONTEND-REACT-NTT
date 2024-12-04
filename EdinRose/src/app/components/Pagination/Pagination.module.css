@@ -30,3 +30,15 @@
   background-color: var(--color-secondary);
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .pagination__button {
+    flex: 1;
+    text-align: center;
+  }
+}
