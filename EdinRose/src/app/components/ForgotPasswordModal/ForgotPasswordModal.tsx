@@ -25,7 +25,6 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({ onClose }) =>
       return;
     }
 
-    // Simulamos el envío de un correo (puedes reemplazar esto con un fetch)
     setSuccessMessage('Se envió la información al correo ingresado.');
     setEmail('');
   };

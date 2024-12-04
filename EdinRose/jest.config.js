@@ -5,7 +5,7 @@ export default {
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleNameMapper: {
-    '\\.(css|less|sass|scss)$': 'identity-obj-proxy', // ✅ Mapea archivos CSS
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/src/jest.setup.ts'],

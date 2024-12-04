@@ -9,8 +9,5 @@ global.TextDecoder = global.TextDecoder || class {
       throw new Error("TextDecoder is not implemented.");
     }
   };
-  /* eslint-enable @typescript-eslint/no-unused-vars */
-  
-
-// Habilitar fetchMock
+ 
 fetchMock.enableMocks();
