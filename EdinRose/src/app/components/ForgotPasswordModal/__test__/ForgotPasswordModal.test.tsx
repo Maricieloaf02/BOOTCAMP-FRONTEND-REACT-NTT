@@ -1,48 +1,60 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import LoginPage from '@/app/pages/LoginPage';
+import ForgotPasswordModal from '../ForgotPasswordModal';
+import { getUsernameByEmail } from '@/shared/utils/emailToUsernameMap';
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
+jest.mock('@/shared/utils/emailToUsernameMap', () => ({
+  getUsernameByEmail: jest.fn(),
+}));
 
-describe('LoginPage', () => {
-    it('debería manejar un inicio de sesión exitoso', async () => {
-        // Mock de respuesta para la solicitud de inicio de sesión
-        fetchMock.mockResponseOnce(
-          JSON.stringify({ token: 'fake-token', username: 'testuser' })
-        );
-      
-        render(
-          <MemoryRouter>
-            <LoginPage />
-          </MemoryRouter>
-        );
-        
-        fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
-          target: { value: 'user@test.com' },
-        });
-        fireEvent.change(screen.getByLabelText(/contraseña/i), {
-          target: { value: 'password123' },
-        });
-      
-        // Buscar el botón de envío por su rol y nombre
-        const submitButton = screen.getByRole('button', { name: /iniciar sesión/i });
-        fireEvent.click(submitButton);
-      
-        // Verificar que el redireccionamiento ocurre
-        expect(await screen.findByText(/redireccionando/i)).toBeInTheDocument();
-      
-        // Verificar que el mock de fetch se llamó con los datos esperados
-        expect(fetchMock).toHaveBeenCalledWith(
-          'https://dummyjson.com/auth/login',
-          expect.objectContaining({
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: 'user@test.com', password: 'password123' }),
-          })
-        );
-      });
-      
-      
+describe('ForgotPasswordModal', () => {
+  const mockOnClose = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('debería mostrar un error si el campo está vacío', () => {
+    render(<ForgotPasswordModal onClose={mockOnClose} />);
+
+    fireEvent.click(screen.getByText(/enviar/i));
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Por favor ingrese un correo.');
+  });
+
+  it('debería mostrar un error si el formato del correo es inválido', () => {
+    render(<ForgotPasswordModal onClose={mockOnClose} />);
+
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'correo-invalido' },
+    });
+    fireEvent.click(screen.getByText(/enviar/i));
+
+    expect(screen.getByRole('alert')).toHaveTextContent('El formato del correo no es válido.');
+  });
+
+  it('debería mostrar un error si el correo no está registrado', () => {
+    (getUsernameByEmail as jest.Mock).mockReturnValue(undefined);
+
+    render(<ForgotPasswordModal onClose={mockOnClose} />);
+
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'nonexistent@example.com' },
+    });
+    fireEvent.click(screen.getByText(/enviar/i));
+
+    expect(screen.getByRole('alert')).toHaveTextContent('El correo no está registrado.');
+  });
+
+  it('debería mostrar un mensaje de éxito si el correo es válido y registrado', () => {
+    (getUsernameByEmail as jest.Mock).mockReturnValue('validuser');
+
+    render(<ForgotPasswordModal onClose={mockOnClose} />);
+
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'valid@example.com' },
+    });
+    fireEvent.click(screen.getByText(/enviar/i));
+
+    expect(screen.getByText(/se envió la información al correo ingresado./i)).toBeInTheDocument();
+  });
 });

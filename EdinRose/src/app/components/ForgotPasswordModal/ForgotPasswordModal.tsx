@@ -1,37 +1,28 @@
-import React, { useState } from 'react';
-import './ForgotPasswordModal.module.css';
+import React, { useState } from "react";
+import { useEmailValidation } from "@/shared/hooks/useEmailValidation";
+import "./ForgotPasswordModal.module.css";
 
 interface ForgotPasswordModalProps {
   onClose: () => void;
 }
 
 const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({ onClose }) => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { validateEmail, isValidating, validationError } = useEmailValidation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccessMessage('');
+    setSuccessMessage("");
 
-    if (!email) {
-      setError('Por favor ingrese un correo.');
+    const isValidEmail = await validateEmail(email);
+    if (!isValidEmail) {
       return;
     }
 
-    if (!validateEmail(email)) {
-      setError('El formato del correo no es válido.');
-      return;
-    }
-
-    setSuccessMessage('Se envió la información al correo ingresado.');
-    setEmail('');
-  };
-
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    setSuccessMessage("Se envió la información al correo ingresado.");
+    setEmail("");
   };
 
   return (
@@ -45,10 +36,14 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({ onClose }) =>
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ingrese su correo electrónico"
+            disabled={isValidating}
           />
-          {error && <p className="error-message">{error}</p>}
+          {validationError && <p className="error-message">{validationError}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
-          <button type="submit">Enviar</button>
+          <button type="submit" disabled={isValidating}>
+            {isValidating ? "Validando..." : "Enviar"}
+          </button>
           <button type="button" onClick={onClose}>
             Cerrar
           </button>

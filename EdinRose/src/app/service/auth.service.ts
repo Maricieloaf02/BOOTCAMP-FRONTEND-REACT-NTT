@@ -18,4 +18,16 @@ export const authService = {
 
     return response.json();
   },
+
+  validateEmail: async (email: string): Promise<string | null> => {
+    const response = await fetch(`https://dummyjson.com/users`);
+    if (!response.ok) {
+      throw new Error('Error al validar el correo electrónico.');
+    }
+
+    const data = await response.json();
+    const user = data.users.find((user: { email: string }) => user.email === email);
+
+    return user ? user.username : null;
+  },
 };
