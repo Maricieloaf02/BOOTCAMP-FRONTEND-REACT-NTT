@@ -91,6 +91,41 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.navbar__welcome {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  margin-right: 16px;
+  white-space: nowrap; }
+
+.navbar__logout {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #581c1c;
+  background-color: #be9d9d; 
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar__logout:hover {
+  background-color: #c0392b;
+  transform: scale(1.05); 
+}
+
+@media (max-width: 768px) {
+  .navbar__welcome {
+    margin-bottom: 8px;
+  }
+
+  .navbar__logout {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
