@@ -45,11 +45,11 @@ const LoginPage: React.FC = () => {
         if (loginError instanceof AuthError && loginError.code === 400) {
           setError(ERROR_MESSAGES.INVALID_CREDENTIALS);
         } else {
-          setError("Ocurrió un error inesperado. Intente nuevamente.");
+          setError("An unexpected error occurred. Please try again.");
         }
       }
     } catch {
-      setError("Error al validar el correo electrónico. Intente nuevamente.");
+      setError("Error validating email. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -57,41 +57,41 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-page">
-      <h1>Iniciar Sesión</h1>
+      <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label htmlFor="email">Correo Electrónico</label>
+          <label htmlFor="email">Email Address</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Ingrese su correo electrónico"
+            placeholder="Enter your email address"
             disabled={isLoading}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Ingrese su contraseña"
+            placeholder="Enter your password"
             disabled={isLoading}
           />
         </div>
         {error && <p role="alert" className="error-message">{error}</p>}
         <button type="submit" disabled={isLoading}>
-          {isLoading ? "Validando..." : "Iniciar Sesión"}
+          {isLoading ? "Validating..." : "Login"}
         </button>
         <p>
           <a
             href="#"
             onClick={() => setShowForgotPasswordModal(true)}
-            aria-label="Olvidé mi contraseña"
+            aria-label="Forgot my password"
           >
-            Olvidé mi contraseña
+            Forgot my password
           </a>
         </p>
       </form>

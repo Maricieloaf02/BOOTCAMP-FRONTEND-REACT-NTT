@@ -2,6 +2,7 @@ import React from 'react';
 import { CartItem as CartItemType } from '@/app/domain/CartItem'; 
 import { useCart } from '@/app/context/useCart';
 import { CartActions } from '@/app/domain/actions';
+import { FaTrashAlt, FaPlusCircle, FaMinusCircle } from 'react-icons/fa'; // Iconos
 import styles from './CartTable.module.css';
 
 interface CartItemProps {
@@ -46,16 +47,20 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
       <td>{product.title}</td>
       <td>
         <div className={styles['cart-item__quantity']}>
-          <button onClick={handleDecrease}>-</button>
+          <button onClick={handleDecrease} className={styles['cart-item__quantity-btn']}>
+            <FaMinusCircle />
+          </button>
           <span>{product.quantity}</span>
-          <button onClick={handleIncrease}>+</button>
+          <button onClick={handleIncrease} className={styles['cart-item__quantity-btn']}>
+            <FaPlusCircle />
+          </button>
         </div>
       </td>
       <td>${product.price.toFixed(2)}</td>
       <td>${(product.price * product.quantity).toFixed(2)}</td>
       <td>
         <button onClick={handleRemove} className={styles['cart-item__remove']}>
-          X
+          <FaTrashAlt />
         </button>
       </td>
     </tr>

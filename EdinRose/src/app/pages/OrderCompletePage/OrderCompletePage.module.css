@@ -1,30 +1,101 @@
 .order-complete {
-    text-align: center;
-    padding: 24px;
-    max-width: 600px;
-    margin: 0 auto;
+  text-align: center;
+  padding: 2rem;
+  max-width: 40rem; /* 600px */
+  margin: 0 auto;
+  background-color: var(--color-bg-light); /* Fondo claro usando la variable */
+  border-radius: var(--border-radius, 8px); /* Bordes redondeados usando la variable global */
+  box-shadow: 0 4px 12px var(--color-border); /* Sombra suave */
+  font-family: var(--font-primary, 'Poppins', sans-serif);
+}
+
+.order-complete__content {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-bg-dark); /* Fondo oscuro */
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+.order-complete__title {
+  font-size: 2rem; /* 32px */
+  font-weight: bold;
+  color: var(--color-text-primary); /* Blanco suave para el título */
+  margin-bottom: 1.5rem;
+}
+
+.order-complete__subtitle {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  color: var(--color-success); /* Verde fuerte para el éxito */
+  margin-bottom: 1.2rem;
+}
+
+.order-complete__message {
+  font-size: 1.125rem; /* 18px */
+  color: var(--color-text-secondary); /* Gris claro para el mensaje */
+  line-height: 1.6; /* Mejor espaciado */
+  margin-bottom: 1.5rem;
+}
+
+/* Botón de completar pedido, con el diseño interactivo */
+.order-complete__button {
+  padding: 1rem 2rem;
+  background-color: var(--color-primary); /* Coral suave */
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-complete__button:hover {
+  background-color: var(--color-hover); /* Hover en el botón */
+}
+
+/* Media Queries para hacer la página responsive */
+@media (max-width: 768px) {
+  .order-complete {
+    padding: 1.5rem;
   }
-  
-  .order-complete__content {
-    margin-top: 32px;
-  }
-  
+
   .order-complete__title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 16px;
+    font-size: 1.75rem; /* Tamaño más pequeño para pantallas pequeñas */
   }
-  
+
   .order-complete__subtitle {
-    font-size: 24px;
-    font-weight: bold;
-    color: #28a745; /* Verde */
-    margin-bottom: 8px;
+    font-size: 1.25rem;
   }
-  
+
   .order-complete__message {
-    font-size: 18px;
-    color: #555;
+    font-size: 1rem; /* Reducimos el tamaño del mensaje */
   }
-  
+
+  .order-complete__content {
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+
+  .order-complete__button {
+    width: 100%; /* Hacemos el botón 100% ancho en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .order-complete {
+    padding: 1rem;
+  }
+
+  .order-complete__title {
+    font-size: 1.5rem; /* Reducimos aún más el tamaño */
+  }
+
+  .order-complete__subtitle {
+    font-size: 1.125rem;
+  }
+
+  .order-complete__message {
+    font-size: 0.875rem; /* Aún más pequeño para móviles pequeños */
+  }
+}

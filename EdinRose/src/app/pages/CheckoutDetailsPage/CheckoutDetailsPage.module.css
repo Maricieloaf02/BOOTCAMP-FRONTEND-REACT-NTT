@@ -1,12 +1,120 @@
-.checkout-page {
-    padding: 24px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .checkout-page__forms {
-    display: flex;
+.progressContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-progress-background);
+  z-index: 1;
+}
+
+.completed:not(:last-child)::after {
+  background-color: var(--color-progress-completed);
+}
+
+.circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--color-progress-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  z-index: 2;
+  position: relative;
+}
+
+.completed .circle {
+  background-color: var(--color-progress-completed);
+}
+
+.active .circle {
+  background-color: var(--color-progress-active);
+}
+
+.label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-progress-text);
+}
+
+.active .label {
+  color: var(--color-progress-text-active);
+}
+
+.completed .label {
+  color: var(--color-progress-text-completed);
+}
+
+@media (max-width: 768px) {
+  .progressContainer {
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
-  
+
+  .step {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+  }
+
+  .step:not(:last-child)::after {
+    position: static;
+    width: auto;
+    height: 2px;
+    flex: 1;
+    background-color: var(--color-progress-background);
+  }
+
+  .circle {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .progressContainer {
+    gap: 1rem;
+  }
+
+  .step {
+    gap: 0.3rem;
+  }
+
+  .circle {
+    width: 1.2rem;
+    height: 1.2rem;
+    font-size: 0.7rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+  }
+}

@@ -3,12 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-  background-color: #f9f9f9; 
+  height: 100vh;
+  background-color: var(--color-bg-light); /* Fondo gris oscuro */
 }
 
 form {
-  background-color: #ffffff;
+  background-color: var(--color-bg-dark); /* Fondo gris oscuro para el formulario */
   padding: 20px 30px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -19,14 +19,14 @@ form {
 
 h1 {
   font-size: 2rem;
-  color: #ff699c;
+  color: var(--color-primary); /* Coral suave como color principal */
   margin-bottom: 1.5rem;
 }
 
 form label {
   display: block;
   font-size: 1rem;
-  color: #555555;
+  color: var(--color-text-secondary); /* Gris claro para subtítulos */
   text-align: left;
   margin-bottom: 0.5rem;
 }
@@ -35,9 +35,11 @@ form input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border); /* Gris medio para los bordes */
   border-radius: 4px;
   margin-bottom: 1rem;
+  background-color: #333; /* Gris oscuro para el fondo de los inputs */
+  color: var(--color-text-primary); /* Blanco suave para texto dentro de inputs */
 }
 
 form button[type='submit'] {
@@ -46,35 +48,36 @@ form button[type='submit'] {
   font-size: 1rem;
   font-weight: bold;
   color: #ffffff;
-  background-color: #007bff;
+  background-color: var(--color-secondary); /* Verde menta para el botón */
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 form button[type='submit']:hover {
-  background-color: #0056b3;
+  background-color: var(--color-hover); /* Naranja oscuro para el hover */
 }
 
 a {
   display: inline-block;
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #6c63ff;
+  color: var(--color-accent); /* Rosa púrpura para el enlace */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #4b4aed;
+  color: var(--color-active); /* Azul brillante para el hover del enlace */
 }
 
 .error-message {
-  color: #d9534f;
+  color: var(--color-error); /* Rojo vibrante para los errores */
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
 
+/* Responsividad */
 @media (max-width: 600px) {
   form {
     padding: 15px 20px;

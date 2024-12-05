@@ -95,13 +95,14 @@
   font-size: 1rem;
   color: var(--color-text-primary);
   margin-right: 16px;
-  white-space: nowrap; }
+  white-space: nowrap;
+}
 
 .navbar__logout {
   padding: 8px 12px;
   font-size: 0.9rem;
-  color: #581c1c;
-  background-color: #be9d9d; 
+  color: var(--color-logout-text); 
+  background-color: var(--color-logout-bg);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -109,9 +110,11 @@
 }
 
 .navbar__logout:hover {
-  background-color: #c0392b;
+  background-color: var(--color-logout-bg-hover);
+  color: var(--color-logout-text-hover);
   transform: scale(1.05); 
 }
+
 
 @media (max-width: 768px) {
   .navbar__welcome {
@@ -123,8 +126,6 @@
     text-align: center;
   }
 }
-
-
 
 @media (max-width: 768px) {
   .navbar {
