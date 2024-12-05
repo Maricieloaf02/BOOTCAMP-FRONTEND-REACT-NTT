@@ -5,7 +5,7 @@ import styles from './ContactForm.module.css';
 
 interface ContactFormProps {
   onChange: (data: ContactFormData) => void;
-  errors: { [key: string]: string }; // Recibimos los errores del formulario
+  errors: { [key: string]: string };
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
@@ -33,11 +33,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
   
     setFormData((prevData) => {
       const updatedData = { ...prevData, [name]: value };
-      onChange(updatedData);
+      onChange(updatedData); // Llamamos a onChange solo después de actualizar el estado
       return updatedData;
     });
   };
-  
 
   return (
     <Form title="Contact Information">
@@ -48,7 +47,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
           placeholder="First name"
           value={formData.firstName}
           onChange={handleChange}
-          className={errors.firstName ? styles.error : ''} // Aplicamos la clase de error si hay un error
+          className={errors.firstName ? styles.error : ''}
         />
         {errors.firstName && <p className={styles['error-message']}>{errors.firstName}</p>}
       </div>
@@ -59,7 +58,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
           placeholder="Last name"
           value={formData.lastName}
           onChange={handleChange}
-          className={errors.lastName ? styles.error : ''} // Clase de error
+          className={errors.lastName ? styles.error : ''}
         />
         {errors.lastName && <p className={styles['error-message']}>{errors.lastName}</p>}
       </div>
@@ -71,7 +70,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onChange, errors }) => {
           value={formData.phone}
           onChange={handleChange}
           className={errors.phone ? styles.error : ''}
-          maxLength={9} // Limita la cantidad de caracteres
+          maxLength={9}
         />
         {errors.phone && <p className={styles['error-message']}>{errors.phone}</p>}
       </div>

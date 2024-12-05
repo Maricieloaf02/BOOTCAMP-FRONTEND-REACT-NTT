@@ -42,7 +42,6 @@ const ShippingAddressForm = forwardRef<
   
     setErrors((prevErrors) => {
       const updatedErrors = { ...prevErrors, [name]: error };
-      console.log('Updated Errors:', updatedErrors); // Depuración
       return updatedErrors;
     });
   
