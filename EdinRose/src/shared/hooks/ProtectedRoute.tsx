@@ -1,3 +1,4 @@
+// test?
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { AppRoutes } from '@/app/routes';

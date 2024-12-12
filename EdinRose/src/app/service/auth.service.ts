@@ -33,6 +33,7 @@ export const authService = {
     return response.json();
   },
 
+  // esto no es correcto, no deber'ia validarse de esta manera
   validateEmail: async (email: string): Promise<string | null> => {
     const response = await fetch("https://dummyjson.com/users");
     if (!response.ok) {
