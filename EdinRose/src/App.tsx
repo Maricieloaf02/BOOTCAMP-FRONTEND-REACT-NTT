@@ -1,3 +1,4 @@
+// test de rutas?
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppRoutes } from './app/routes';
