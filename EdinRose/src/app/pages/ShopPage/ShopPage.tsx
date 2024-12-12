@@ -15,6 +15,7 @@ const VISIBLE_PAGES_RANGE = 5;
 
 const ShopPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  // el paginado tiene que ser un hook seg'un los requerimientos
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);

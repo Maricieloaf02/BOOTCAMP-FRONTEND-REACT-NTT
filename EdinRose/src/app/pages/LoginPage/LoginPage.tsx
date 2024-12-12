@@ -14,6 +14,7 @@ const LoginPage: React.FC = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const navigate = useNavigate();
 
+  // el login solo debe recibir el usuario y password no correo
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -38,6 +39,7 @@ const LoginPage: React.FC = () => {
           password,
         });
 
+        // el access token se guarda como undefined en el storage
         localStorage.setItem("accessToken", token);
         localStorage.setItem("username", username);
         navigate(AppRoutes.SHOP);
