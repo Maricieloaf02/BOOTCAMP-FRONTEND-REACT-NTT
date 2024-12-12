@@ -1,3 +1,4 @@
+// test?
 import { useState, useEffect } from 'react';
 import { Product } from '@/app/domain/Product';
 import { fetchProducts } from '@/app/service/product.service';

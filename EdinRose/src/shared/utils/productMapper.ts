@@ -1,3 +1,4 @@
+// test?
 // src/shared/utils/productMapper.ts
 import { Product } from '@/app/domain/Product';
 

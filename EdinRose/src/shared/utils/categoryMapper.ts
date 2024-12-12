@@ -1,3 +1,4 @@
+// test?
 import { Category } from '@/app/domain/Category';
 
 export const mapCategory = (data: Category[]): Category[] => {
